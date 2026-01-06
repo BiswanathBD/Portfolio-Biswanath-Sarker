@@ -67,27 +67,101 @@ const About = () => {
           className="relative flex justify-center group order-2 md:order-1"
           variants={imageVariants}
         >
+          {/* Outer Glow */}
           <motion.div
-            className="absolute -inset-1 bg-gradient-to-r from-primary to-secondary rounded-full blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"
+            className="absolute -inset-6 bg-gradient-to-br from-primary/15 via-secondary/15 to-primary/15 rounded-3xl blur-xl opacity-50 group-hover:opacity-70 transition-all duration-700"
             animate={{
-              rotate: 360,
+              scale: [1, 1.05, 1],
             }}
             transition={{
-              duration: 25,
+              duration: 4,
               repeat: Infinity,
-              ease: "linear",
+              ease: "easeInOut",
             }}
           />
+
+          {/* Main Image Container */}
           <motion.div
-            className="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-surface-dark shadow-2xl"
-            whileHover={{ scale: 1.05, rotate: 2 }}
-            transition={{ duration: 0.3 }}
+            className="relative w-3/4"
+            whileHover={{
+              scale: 1.02,
+              y: -5,
+            }}
+            transition={{ duration: 0.4 }}
           >
-            <img
-              alt="Biswanath Sarker"
-              className="h-full w-full object-cover"
-              src="https://i.ibb.co.com/ym449tPb/20240122-111131-1.jpg"
-            />
+            {/* Image Container */}
+            <div className="relative w-full border border-primary/50 p-1 bg-transparent rounded-2xl overflow-hidden">
+              {/* Profile Image */}
+              <img
+                alt="Biswanath Sarker"
+                className="w-full h-full object-cover rounded-xl"
+                src="https://i.ibb.co.com/ym449tPb/20240122-111131-1.jpg"
+              />
+
+              {/* Subtle Overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-primary/5" />
+            </div>
+
+            {/* Corner Accent Elements */}
+            <div className="absolute -top-3 -left-3 w-8 h-8 border-l-3 border-t-3 border-primary rounded-tl-lg opacity-80" />
+            <div className="absolute -top-3 -right-3 w-8 h-8 border-r-3 border-t-3 border-secondary rounded-tr-lg opacity-80" />
+            <div className="absolute -bottom-3 -left-3 w-8 h-8 border-l-3 border-b-3 border-primary rounded-bl-lg opacity-80" />
+            <div className="absolute -bottom-3 -right-3 w-8 h-8 border-r-3 border-b-3 border-secondary rounded-br-lg opacity-80" />
+
+            {/* Side Accent Lines */}
+            <div className="absolute top-8 -left-1 w-6 h-0.5 bg-gradient-to-r from-primary to-transparent opacity-60" />
+            <div className="absolute top-16 -left-1 w-4 h-0.5 bg-gradient-to-r from-secondary to-transparent opacity-60" />
+            <div className="absolute bottom-8 -right-1 w-6 h-0.5 bg-gradient-to-l from-primary to-transparent opacity-60" />
+            <div className="absolute bottom-16 -right-1 w-4 h-0.5 bg-gradient-to-l from-secondary to-transparent opacity-60" />
+
+            {/* Top and Bottom Accent Lines */}
+            <div className="absolute -top-1 left-8 h-6 w-0.5 bg-gradient-to-b from-primary to-transparent opacity-60" />
+            <div className="absolute -top-1 left-16 h-4 w-0.5 bg-gradient-to-b from-secondary to-transparent opacity-60" />
+            <div className="absolute -bottom-1 right-8 h-6 w-0.5 bg-gradient-to-t from-primary to-transparent opacity-60" />
+            <div className="absolute -bottom-1 right-16 h-4 w-0.5 bg-gradient-to-t from-secondary to-transparent opacity-60" />
+          </motion.div>
+
+          {/* Floating Tech Icons - Simplified */}
+          <motion.div
+            className="absolute top-6 right-6 w-10 h-10 bg-primary/10 backdrop-blur-sm rounded-xl flex items-center justify-center border border-primary/20 shadow-lg"
+            animate={{
+              y: [0, -8, 0],
+            }}
+            transition={{
+              duration: 3,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          >
+            <i className="fas fa-code text-primary text-sm"></i>
+          </motion.div>
+
+          <motion.div
+            className="absolute bottom-6 left-6 w-10 h-10 bg-secondary/10 backdrop-blur-sm rounded-xl flex items-center justify-center border border-secondary/20 shadow-lg"
+            animate={{
+              y: [0, 8, 0],
+            }}
+            transition={{
+              duration: 3.5,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          >
+            <i className="fas fa-laptop-code text-secondary text-sm"></i>
+          </motion.div>
+
+          <motion.div
+            className="absolute top-1/2 -right-6 w-10 h-10 bg-primary/10 backdrop-blur-sm rounded-xl flex items-center justify-center border border-primary/20 shadow-lg"
+            animate={{
+              x: [0, 8, 0],
+            }}
+            transition={{
+              duration: 4,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          >
+            <i className="fas fa-rocket text-primary text-sm"></i>
           </motion.div>
         </motion.div>
 
@@ -99,6 +173,21 @@ const About = () => {
             className="font-display font-bold text-2xl md:text-3xl text-secondary"
             variants={itemVariants}
           >
+            <motion.span
+              className="inline-block mr-2"
+              animate={{
+                rotate: [0, 10, -10, 0],
+                scale: [1, 1.1, 1],
+              }}
+              transition={{
+                duration: 3,
+                repeat: Infinity,
+                repeatDelay: 2,
+                ease: "easeInOut",
+              }}
+            >
+              🚀
+            </motion.span>
             I'm Biswanath Sarker
           </motion.h3>
           <motion.div
@@ -144,12 +233,12 @@ const About = () => {
               {
                 icon: "psychology",
                 text: "Problem Solving & Innovation",
-                color: "purple-400",
+                color: "secondary",
               },
             ].map((item, index) => (
               <motion.div
                 key={index}
-                className={`group flex items-center p-4 rounded-xl border border-gray-800 bg-surface-dark hover:border-${item.color}/50 transition-all cursor-default shadow-sm hover:shadow-md hover:shadow-${item.color}/10`}
+                className={`group flex items-center p-4 rounded-xl border border-gray-800 bg-surface-dark hover:border-${item.color}/50 transition-all cursor-default shadow-sm`}
                 variants={itemVariants}
                 whileHover={{ x: 10, scale: 1.02 }}
                 transition={{ duration: 0.2 }}

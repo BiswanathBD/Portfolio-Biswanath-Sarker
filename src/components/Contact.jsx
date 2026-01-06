@@ -166,6 +166,21 @@ const Contact = () => {
           className="font-display font-bold text-4xl md:text-5xl text-white mb-4"
           variants={itemVariants}
         >
+          <motion.span
+            className="inline-block mr-3"
+            animate={{
+              rotate: [0, 15, -15, 0],
+              scale: [1, 1.1, 1],
+            }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              repeatDelay: 2,
+              ease: "easeInOut",
+            }}
+          >
+            📧
+          </motion.span>
           Get In Touch
         </motion.h2>
         <motion.div
@@ -390,7 +405,7 @@ const Contact = () => {
             <motion.button
               type="submit"
               disabled={isSubmitting}
-              className="group w-full relative overflow-hidden bg-gradient-to-r from-primary to-secondary text-white py-4 px-8 rounded-2xl font-semibold shadow-lg hover:shadow-primary/40 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="group w-full relative overflow-hidden bg-gradient-to-r from-primary to-secondary text-white py-4 px-8 rounded-2xl font-semibold shadow-lg transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
               variants={itemVariants}
               whileHover={{ y: -2, scale: 1.02 }}
               whileTap={{ scale: 0.98 }}

@@ -138,7 +138,7 @@ const Footer = () => {
               className="text-gray-400 text-sm leading-relaxed max-w-xs mx-auto md:mx-0"
               variants={itemVariants}
             >
-              MREN Stack Developer crafting modern web experiences with passion
+              MERN Stack Developer crafting modern web experiences with passion
               and precision.
             </motion.p>
           </motion.div>
@@ -230,29 +230,6 @@ const Footer = () => {
           </motion.p>
         </motion.div>
       </div>
-
-      {/* Scroll to Top Button */}
-      <motion.button
-        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-        className="absolute bottom-8 right-8 w-12 h-12 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center text-white shadow-lg hover:shadow-primary/30 transition-all duration-300"
-        title="Scroll to Top"
-        initial={{ opacity: 0, scale: 0 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        whileHover={{ scale: 1.1, y: -3 }}
-        whileTap={{ scale: 0.9 }}
-        transition={{ duration: 0.3 }}
-        viewport={{ once: true }}
-      >
-        <motion.i
-          className="fas fa-arrow-up text-sm"
-          animate={{ y: [0, -2, 0] }}
-          transition={{
-            duration: 2,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-      </motion.button>
     </motion.footer>
   );
 };

@@ -50,7 +50,7 @@ const Skills = () => {
         {
           name: "CSS3",
           icon: "fab fa-css3-alt",
-          color: "text-blue-500",
+          color: "text-primary",
           level: 90,
         },
         {
@@ -62,7 +62,7 @@ const Skills = () => {
         {
           name: "React",
           icon: "fab fa-react",
-          color: "text-blue-400",
+          color: "text-secondary",
           level: 85,
         },
         {
@@ -137,7 +137,7 @@ const Skills = () => {
         {
           name: "Framer Motion",
           icon: "fas fa-magic",
-          color: "text-purple-400",
+          color: "text-secondary",
           level: 72,
         },
         {
@@ -190,6 +190,19 @@ const Skills = () => {
           className="font-display font-bold text-4xl md:text-5xl text-white mb-4"
           variants={itemVariants}
         >
+          <motion.span
+            className="inline-block mr-3"
+            animate={{
+              rotate: [0, 360],
+            }}
+            transition={{
+              duration: 4,
+              repeat: Infinity,
+              ease: "linear",
+            }}
+          >
+            ⚡
+          </motion.span>
           Skills & Technologies
         </motion.h2>
         <motion.div
@@ -213,7 +226,7 @@ const Skills = () => {
         {skillCategories.map((category, categoryIndex) => (
           <motion.div
             key={category.title}
-            className="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all duration-300 hover:border-primary/30 group"
+            className="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6 shadow-xl transition-all duration-300 hover:border-primary/30 group"
             variants={cardVariants}
             whileHover={{ y: -10, scale: 1.02 }}
             transition={{ duration: 0.3 }}
@@ -282,11 +295,15 @@ const Skills = () => {
         {[
           { number: "15+", label: "Technologies", color: "text-primary" },
           { number: "30+", label: "Projects", color: "text-secondary" },
-          { number: "6+", label: "Months Experience", color: "text-purple-400" },
+          {
+            number: "6+",
+            label: "Months Experience",
+            color: "text-secondary",
+          },
           {
             number: "100%",
             label: "Client Satisfaction",
-            color: "text-green-400",
+            color: "text-primary",
           },
         ].map((stat, index) => (
           <motion.div

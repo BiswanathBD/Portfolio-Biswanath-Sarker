@@ -10,6 +10,7 @@ import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import CustomCursor from "./components/CustomCursor";
 import SmoothScroll from "./components/SmoothScroll";
+import ScrollToTop from "./components/ScrollToTop";
 
 function App() {
   const shouldReduceMotion = useReducedMotion();
@@ -56,6 +57,7 @@ function App() {
         <Contact />
       </main>
       <Footer />
+      <ScrollToTop />
     </motion.div>
   );
 }

@@ -74,7 +74,6 @@ const CustomCursor = () => {
         style={{
           background:
             "radial-gradient(circle, rgba(168, 85, 247, 0.1) 0%, transparent 70%)",
-          boxShadow: "0 0 20px rgba(168, 85, 247, 0.3)",
         }}
       />
     </>

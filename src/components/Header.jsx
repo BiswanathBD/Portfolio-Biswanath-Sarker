@@ -155,7 +155,7 @@ const Header = () => {
 
         {/* Mobile menu button */}
         <motion.button
-          className="md:hidden text-white bg-white/5 backdrop-blur-md border border-white/10 rounded-full p-2 shadow-lg"
+          className="md:hidden text-white bg-white/5 backdrop-blur-md border border-white/10 rounded-full p-2 flex justify-center items-center shadow-lg"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}

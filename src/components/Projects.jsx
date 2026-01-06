@@ -237,6 +237,21 @@ const Projects = () => {
           className="font-display font-bold text-4xl md:text-5xl text-white mb-4"
           variants={itemVariants}
         >
+          <motion.span
+            className="inline-block mr-3"
+            animate={{
+              scale: [1, 1.2, 1],
+              rotate: [0, 5, -5, 0],
+            }}
+            transition={{
+              duration: 2.5,
+              repeat: Infinity,
+              repeatDelay: 1,
+              ease: "easeInOut",
+            }}
+          >
+            🎯
+          </motion.span>
           Featured Projects
         </motion.h2>
         <motion.div
@@ -285,7 +300,7 @@ const Projects = () => {
         {filteredProjects.map((project, index) => (
           <motion.div
             key={project.id}
-            className="group relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border border-white/20 rounded-3xl overflow-hidden shadow-2xl hover:shadow-primary/20 transition-all duration-700 hover:border-primary/40"
+            className="group relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border border-white/20 rounded-3xl overflow-hidden shadow-2xl transition-all duration-700 hover:border-primary/40"
             variants={cardVariants}
             whileHover={{ y: -15, scale: 1.02 }}
             transition={{ duration: 0.3 }}
@@ -323,7 +338,7 @@ const Projects = () => {
                   href={project.liveUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-12 h-12 bg-white/10 backdrop-blur-md rounded-2xl flex items-center justify-center text-white hover:bg-primary hover:scale-110 transition-all duration-300 shadow-lg hover:shadow-primary/30"
+                  className="w-12 h-12 bg-white/10 backdrop-blur-md rounded-2xl flex items-center justify-center text-white hover:bg-primary hover:scale-110 transition-all duration-300 shadow-lg"
                   title="Live Demo"
                   whileHover={{ rotate: 360 }}
                   transition={{ duration: 0.3 }}
@@ -334,7 +349,7 @@ const Projects = () => {
                   href={project.githubUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-12 h-12 bg-white/10 backdrop-blur-md rounded-2xl flex items-center justify-center text-white hover:bg-secondary hover:scale-110 transition-all duration-300 shadow-lg hover:shadow-secondary/30"
+                  className="w-12 h-12 bg-white/10 backdrop-blur-md rounded-2xl flex items-center justify-center text-white hover:bg-secondary hover:scale-110 transition-all duration-300 shadow-lg"
                   title="View Code"
                   whileHover={{ rotate: -360 }}
                   transition={{ duration: 0.3 }}
@@ -413,7 +428,7 @@ const Projects = () => {
               <div className="flex space-x-4">
                 <motion.button
                   onClick={() => openProjectDetail(project)}
-                  className="flex-1 relative overflow-hidden bg-gradient-to-r from-purple-600 to-blue-600 text-white text-center py-3 px-6 rounded-2xl font-semibold text-sm shadow-lg hover:shadow-purple-500/40 transition-all duration-300"
+                  className="flex-1 relative overflow-hidden bg-gradient-to-r from-purple-600 to-blue-600 text-white text-center py-3 px-6 rounded-2xl font-semibold text-sm shadow-lg transition-all duration-300"
                   whileHover={{ y: -2, scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
@@ -435,7 +450,7 @@ const Projects = () => {
                   href={project.liveUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex-1 relative overflow-hidden bg-gradient-to-r from-primary to-secondary text-white text-center py-3 px-6 rounded-2xl font-semibold text-sm shadow-lg hover:shadow-primary/40 transition-all duration-300"
+                  className="flex-1 relative overflow-hidden bg-gradient-to-r from-primary to-secondary text-white text-center py-3 px-6 rounded-2xl font-semibold text-sm shadow-lg transition-all duration-300"
                   whileHover={{ y: -2, scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >

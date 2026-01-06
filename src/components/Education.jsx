@@ -39,15 +39,15 @@ const Education = () => {
 
   const educationData = [
     {
-      degree: "6-Month Programming Course",
+      degree: "Complete Web Development Course",
       field: "Full Stack Web Development",
       institution: "Programming Hero",
-      location: "Bangladesh",
+      location: "Dhaka, Bangladesh",
       duration: "2025",
       description:
         "Completed an intensive 6-month programming course focusing on modern web development technologies including React, Node.js, MongoDB, and Express.js (MERN Stack).",
       icon: "fas fa-code",
-      color: "from-green-500 to-blue-600",
+      color: "from-primary to-secondary",
       achievements: [
         "Mastered MERN Stack Development",
         "Built multiple full-stack projects",
@@ -64,7 +64,7 @@ const Education = () => {
       description:
         "Completed Bachelor of Arts degree with specialization in Bengali Literature, developing strong analytical, communication, and critical thinking skills.",
       icon: "fas fa-graduation-cap",
-      color: "from-blue-500 to-purple-600",
+      color: "from-secondary to-primary",
       achievements: [
         "Strong foundation in Bengali Literature and Language",
         "Developed excellent communication skills",
@@ -85,7 +85,7 @@ const Education = () => {
     >
       {/* Background Elements */}
       <motion.div
-        className="absolute top-10 left-10 w-80 h-80 bg-blue-500/10 rounded-full blur-[100px] pointer-events-none -z-10"
+        className="absolute top-10 left-10 w-80 h-80 bg-primary/10 rounded-full blur-[100px] pointer-events-none -z-10"
         animate={{
           scale: [1, 1.2, 1],
           opacity: [0.1, 0.2, 0.1],
@@ -97,7 +97,7 @@ const Education = () => {
         }}
       />
       <motion.div
-        className="absolute bottom-10 right-10 w-96 h-96 bg-purple-500/10 rounded-full blur-[120px] pointer-events-none -z-10"
+        className="absolute bottom-10 right-10 w-96 h-96 bg-secondary/10 rounded-full blur-[120px] pointer-events-none -z-10"
         animate={{
           scale: [1.2, 1, 1.2],
           opacity: [0.1, 0.2, 0.1],
@@ -114,10 +114,25 @@ const Education = () => {
           className="font-display font-bold text-4xl md:text-5xl text-white mb-4"
           variants={itemVariants}
         >
+          <motion.span
+            className="inline-block mr-3"
+            animate={{
+              rotate: [0, 10, -10, 0],
+              scale: [1, 1.1, 1],
+            }}
+            transition={{
+              duration: 3,
+     repeat: Infinity,
+              repeatDelay: 2,
+              ease: "easeInOut",
+            }}
+          >
+            🎓
+          </motion.span>
           Education
         </motion.h2>
         <motion.div
-          className="h-1 w-20 bg-gradient-to-r from-blue-500 to-purple-600 mx-auto rounded-full"
+          className="h-1 w-20 bg-gradient-to-r from-primary to-secondary mx-auto rounded-full"
           initial={{ width: 0 }}
           whileInView={{ width: 80 }}
           transition={{ duration: 0.8, delay: 0.5 }}
@@ -135,20 +150,20 @@ const Education = () => {
         {educationData.map((edu, index) => (
           <motion.div
             key={index}
-            className="relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border border-white/20 rounded-3xl p-8 shadow-2xl hover:shadow-blue-500/20 transition-all duration-700 hover:border-blue-500/40 mb-8"
+            className="relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border border-white/20 rounded-3xl p-8 shadow-2xl transition-all duration-700 hover:border-primary/40 mb-8"
             variants={cardVariants}
             whileHover={{ y: -10, scale: 1.02 }}
             transition={{ duration: 0.3 }}
           >
             {/* Animated Background Gradient */}
             <motion.div
-              className="absolute inset-0 bg-gradient-to-br from-blue-500/5 via-transparent to-purple-500/5 opacity-0 hover:opacity-100 transition-opacity duration-500 rounded-3xl"
+              className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5 opacity-0 hover:opacity-100 transition-opacity duration-500 rounded-3xl"
               initial={false}
             />
 
             {/* Glowing Border Effect */}
             <motion.div
-              className="absolute inset-0 rounded-3xl bg-gradient-to-r from-blue-500/20 to-purple-600/20 opacity-0 hover:opacity-100 transition-opacity duration-500 blur-sm -z-10"
+              className="absolute inset-0 rounded-3xl bg-gradient-to-r from-primary/20 to-secondary/20 opacity-0 hover:opacity-100 transition-opacity duration-500 blur-sm -z-10"
               initial={false}
             />
 
@@ -172,7 +187,7 @@ const Education = () => {
                       {edu.degree}
                     </motion.h3>
                     <motion.p
-                      className="text-blue-400 font-semibold text-lg mb-1"
+                      className="text-primary font-semibold text-lg mb-1"
                       variants={itemVariants}
                     >
                       {edu.field}
@@ -197,7 +212,7 @@ const Education = () => {
                   variants={itemVariants}
                   whileHover={{ scale: 1.05 }}
                 >
-                  <i className="fas fa-calendar-alt text-blue-400"></i>
+                  <i className="fas fa-calendar-alt text-primary"></i>
                   <span className="text-gray-300 font-medium text-sm">
                     {edu.duration}
                   </span>
@@ -225,13 +240,13 @@ const Education = () => {
                   {edu.achievements.map((achievement, achIndex) => (
                     <motion.div
                       key={achIndex}
-                      className="flex items-center space-x-3 p-3 rounded-xl bg-white/5 border border-white/10 hover:border-blue-400/30 transition-all duration-300"
+                      className="flex items-center space-x-3 p-3 rounded-xl bg-white/5 border border-white/10 hover:border-primary/30 transition-all duration-300"
                       variants={itemVariants}
                       whileHover={{ x: 5, scale: 1.02 }}
                       transition={{ duration: 0.2 }}
                     >
                       <motion.div
-                        className="w-2 h-2 rounded-full bg-gradient-to-r from-blue-400 to-purple-500"
+                        className="w-2 h-2 rounded-full bg-gradient-to-r from-primary to-secondary"
                         animate={{
                           scale: [1, 1.2, 1],
                         }}
@@ -251,11 +266,11 @@ const Education = () => {
 
               {/* Decorative Elements */}
               <motion.div
-                className="absolute top-4 right-4 w-20 h-20 bg-gradient-to-br from-blue-500/10 to-purple-600/10 rounded-full opacity-0 hover:opacity-100 transition-opacity duration-500"
+                className="absolute top-4 right-4 w-20 h-20 bg-gradient-to-br from-primary/10 to-secondary/10 rounded-full opacity-0 hover:opacity-100 transition-opacity duration-500"
                 initial={false}
               />
               <motion.div
-                className="absolute bottom-4 left-4 w-16 h-16 bg-gradient-to-tr from-purple-500/10 to-blue-500/10 rounded-full opacity-0 hover:opacity-100 transition-opacity duration-500"
+                className="absolute bottom-4 left-4 w-16 h-16 bg-gradient-to-tr from-secondary/10 to-primary/10 rounded-full opacity-0 hover:opacity-100 transition-opacity duration-500"
                 initial={false}
               />
             </div>
@@ -275,7 +290,7 @@ const Education = () => {
           variants={itemVariants}
         >
           <motion.div
-            className="w-12 h-12 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center mr-4"
+            className="w-12 h-12 rounded-full bg-gradient-to-r from-primary to-secondary flex items-center justify-center mr-4"
             animate={{
               rotate: [0, 360],
             }}

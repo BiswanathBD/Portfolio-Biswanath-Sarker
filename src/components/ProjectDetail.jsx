@@ -224,7 +224,7 @@ const ProjectDetail = ({ project, isOpen, onClose }) => {
                   href={project.liveUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex-1 bg-gradient-to-r from-primary to-secondary text-white text-center py-4 px-6 rounded-2xl font-semibold shadow-lg hover:shadow-primary/40 transition-all duration-300"
+                  className="flex-1 bg-gradient-to-r from-primary to-secondary text-white text-center py-4 px-6 rounded-2xl font-semibold shadow-lg transition-all duration-300"
                   whileHover={{ y: -2, scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >

@@ -53,10 +53,25 @@ const Hero = () => {
           variants={itemVariants}
         >
           <motion.h1
-            className="font-display font-bold text-5xl md:text-7xl tracking-tight text-white leading-tight"
+            className="font-display text-2xl md:text-4xl tracking-tight text-primary font-bold"
             variants={itemVariants}
           >
-            Hi, I'm Biswanath
+            <motion.span
+              className="inline-block text-4xl md:text-5xl"
+              style={{ transformOrigin: "70% 70%" }}
+              animate={{
+                rotate: [0, 20, -10, 20, -5, 15, 0],
+              }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                repeatDelay: 1.5,
+                ease: "easeInOut",
+              }}
+            >👋🏼
+            </motion.span>{" "}
+            Hi, I'm <br />
+            <span className="text-5xl md:text-7xl text-white">Biswanath</span>
           </motion.h1>
 
           <motion.h2
@@ -64,7 +79,7 @@ const Hero = () => {
             variants={itemVariants}
           >
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary">
-              Full Stack Web Developer
+              MERN Stack Web Developer
             </span>
           </motion.h2>
 
@@ -81,7 +96,7 @@ const Hero = () => {
             variants={itemVariants}
           >
             <motion.a
-              className="group relative px-8 py-3 rounded-full bg-gradient-to-r from-primary to-secondary text-white font-medium shadow-lg shadow-purple-500/30 hover:shadow-purple-500/50 transition-all hover:-translate-y-0.5 overflow-hidden"
+              className="group relative px-8 py-3 rounded-full bg-gradient-to-r from-primary to-secondary text-white font-medium shadow-lg transition-all hover:-translate-y-0.5 overflow-hidden"
               href="#"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
