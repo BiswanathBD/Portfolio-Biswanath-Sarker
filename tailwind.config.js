@@ -5,10 +5,10 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: "#a855f7", // Purple-500
-        secondary: "#ec4899", // Pink-500
-        "background-light": "#f8fafc", // Slate-50
-        "background-dark": "#0f0518", // Deep Purple/Black
+        primary: "#a855f7",
+        secondary: "#ec4899",
+        "background-light": "#f8fafc",
+        "background-dark": "#0f0518",
         "surface-dark": "#1e102f",
         "surface-light": "#ffffff",
       },

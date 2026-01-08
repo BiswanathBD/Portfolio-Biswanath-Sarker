@@ -202,108 +202,129 @@ const Contact = () => {
         {/* Contact Information */}
         <motion.div className="space-y-8" variants={cardVariants}>
           <motion.div
-            className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border border-white/20 rounded-3xl p-8 shadow-2xl"
+            className="group relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border border-white/20 rounded-3xl p-8 shadow-2xl overflow-hidden"
             whileHover={{ y: -5, scale: 1.02 }}
             transition={{ duration: 0.3 }}
           >
-            <motion.h3
-              className="font-display font-bold text-2xl text-white mb-6"
-              variants={itemVariants}
-            >
-              Let's Connect
-            </motion.h3>
-            <motion.p
-              className="text-gray-300 mb-8 leading-relaxed"
-              variants={itemVariants}
-            >
-              I'm always open to discussing new opportunities, creative
-              projects, or just having a friendly chat about technology and
-              development.
-            </motion.p>
-
-            <motion.div className="space-y-6" variants={containerVariants}>
-              {contactInfo.map((info, index) => (
-                <motion.a
-                  key={index}
-                  href={info.link}
-                  className="group flex items-center space-x-4 p-4 rounded-2xl bg-white/5 border border-white/10 hover:border-primary/30 hover:bg-white/10 transition-all duration-300"
-                  variants={itemVariants}
-                  whileHover={{ x: 10, scale: 1.02 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <motion.div
-                    className={`w-12 h-12 rounded-2xl bg-gray-800/50 border border-gray-700 flex items-center justify-center ${info.color} group-hover:scale-110 transition-transform duration-300`}
-                    whileHover={{ rotate: 360 }}
-                    transition={{ duration: 0.5 }}
-                  >
-                    <i className={`${info.icon} text-lg`}></i>
-                  </motion.div>
-                  <div>
-                    <p className="text-gray-400 text-sm font-medium">
-                      {info.label}
-                    </p>
-                    <p className="text-white font-semibold group-hover:text-primary transition-colors duration-300">
-                      {info.value}
-                    </p>
-                  </div>
-                </motion.a>
-              ))}
-            </motion.div>
-
-            {/* Social Links */}
+            {/* Animated Background Gradient */}
             <motion.div
-              className="mt-8 pt-8 border-t border-white/10"
-              variants={itemVariants}
-            >
-              <p className="text-gray-400 text-sm mb-4">
-                Follow me on social media
-              </p>
-              <motion.div
-                className="flex space-x-4"
-                variants={containerVariants}
+              className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl"
+              initial={false}
+            />
+
+            {/* Glowing Border Effect */}
+            <motion.div
+              className="absolute inset-0 rounded-3xl bg-gradient-to-r from-primary/20 to-secondary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm -z-10"
+              initial={false}
+            />
+
+            <div className="relative z-10">
+              <motion.h3
+                className="font-display font-bold text-2xl text-white mb-6"
+                variants={itemVariants}
               >
-                {[
-                  {
-                    href: "https://github.com/BiswanathBD",
-                    icon: "fab fa-github",
-                    color: "hover:bg-gray-700",
-                  },
-                  {
-                    href: "https://www.linkedin.com/in/biswanath-sarker-bd/",
-                    icon: "fab fa-linkedin-in",
-                    color: "hover:bg-blue-500",
-                  },
-                  {
-                    href: "https://web.facebook.com/Biswanath.Sarker.BD",
-                    icon: "fab fa-facebook-f",
-                    color: "hover:bg-blue-600",
-                  },
-                  {
-                    href: "https://x.com/Biswanath08BD",
-                    icon: "fab fa-twitter",
-                    color: "hover:bg-blue-400",
-                  },
-                  {
-                    href: "https://www.instagram.com/biswanath.sarker.bd/",
-                    icon: "fab fa-instagram",
-                    color: "hover:bg-pink-500",
-                  },
-                ].map((social, index) => (
+                Let's Connect
+              </motion.h3>
+              <motion.p
+                className="text-gray-300 mb-8 leading-relaxed"
+                variants={itemVariants}
+              >
+                I'm always open to discussing new opportunities, creative
+                projects, or just having a friendly chat about technology and
+                development.
+              </motion.p>
+
+              <motion.div className="space-y-6" variants={containerVariants}>
+                {contactInfo.map((info, index) => (
                   <motion.a
                     key={index}
-                    href={social.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={`w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-white ${social.color} hover:border-primary/30 transition-all duration-300`}
+                    href={info.link}
+                    className="group flex items-center space-x-4 p-4 rounded-2xl bg-white/5 border border-white/10 hover:border-primary/30 hover:bg-white/10 transition-all duration-300"
                     variants={itemVariants}
-                    whileHover={{ scale: 1.1, rotate: 5 }}
-                    whileTap={{ scale: 0.9 }}
+                    whileHover={{ x: 10, scale: 1.02 }}
+                    transition={{ duration: 0.2 }}
                   >
-                    <i className={`${social.icon} text-lg`}></i>
+                    <motion.div
+                      className={`w-12 h-12 rounded-2xl bg-gray-800/50 border border-gray-700 flex items-center justify-center ${info.color} group-hover:scale-110 transition-transform duration-300`}
+                      whileHover={{ rotate: 360 }}
+                      transition={{ duration: 0.5 }}
+                    >
+                      <i className={`${info.icon} text-lg`}></i>
+                    </motion.div>
+                    <div>
+                      <p className="text-gray-400 text-sm font-medium">
+                        {info.label}
+                      </p>
+                      <p className="text-white font-semibold group-hover:text-primary transition-colors duration-300">
+                        {info.value}
+                      </p>
+                    </div>
                   </motion.a>
                 ))}
               </motion.div>
-            </motion.div>
+
+              {/* Social Links */}
+              <motion.div
+                className="mt-8 pt-8 border-t border-white/10"
+                variants={itemVariants}
+              >
+                <p className="text-gray-400 text-sm mb-4">
+                  Follow me on social media
+                </p>
+                <motion.div
+                  className="flex space-x-4"
+                  variants={containerVariants}
+                >
+                  {[
+                    {
+                      href: "https://github.com/BiswanathBD",
+                      icon: "fab fa-github",
+                      color: "hover:bg-gray-700",
+                    },
+                    {
+                      href: "https://www.linkedin.com/in/biswanath-sarker-bd/",
+                      icon: "fab fa-linkedin-in",
+                      color: "hover:bg-blue-500",
+                    },
+                    {
+                      href: "https://web.facebook.com/Biswanath.Sarker.BD",
+                      icon: "fab fa-facebook-f",
+                      color: "hover:bg-blue-600",
+                    },
+                    {
+                      href: "https://x.com/Biswanath08BD",
+                      icon: "fab fa-twitter",
+                      color: "hover:bg-blue-400",
+                    },
+                    {
+                      href: "https://www.instagram.com/biswanath.sarker.bd/",
+                      icon: "fab fa-instagram",
+                      color: "hover:bg-pink-500",
+                    },
+                  ].map((social, index) => (
+                    <motion.a
+                      key={index}
+                      href={social.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-white ${social.color} hover:border-primary/30 transition-all duration-300`}
+                      variants={itemVariants}
+                      whileHover={{ scale: 1.1, rotate: 5 }}
+                      whileTap={{ scale: 0.9 }}
+                    >
+                      <i className={`${social.icon} text-lg`}></i>
+                    </motion.a>
+                  ))}
+                </motion.div>
+              </motion.div>
+            </div>
+
+            {/* Decorative Elements */}
+            <motion.div
+              className="absolute bottom-0 right-0 w-32 h-32 bg-gradient-to-tl from-secondary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-tl-full"
+              initial={false}
+            />
+            <motion.div className="absolute top-1/2 left-0 w-1 h-16 bg-gradient-to-b from-primary to-secondary opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-r-full" />
           </motion.div>
         </motion.div>
 

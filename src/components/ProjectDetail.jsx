@@ -66,7 +66,7 @@ const ProjectDetail = ({ project, isOpen, onClose }) => {
 
           {/* Modal Content */}
           <motion.div
-            className="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto bg-gradient-to-br from-gray-900/95 to-gray-800/95 backdrop-blur-xl border border-white/20 rounded-3xl shadow-2xl"
+            className="relative w-full max-w-4xl max-h-[90vh] bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border border-white/20 rounded-3xl shadow-2xl overflow-hidden"
             variants={modalVariants}
             initial="hidden"
             animate="visible"
@@ -74,7 +74,7 @@ const ProjectDetail = ({ project, isOpen, onClose }) => {
           >
             {/* Close Button */}
             <motion.button
-              className="absolute top-6 right-6 w-10 h-10 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-gray-300 hover:text-white hover:bg-white/20 transition-all duration-300 z-10"
+              className="absolute top-6 right-6 w-10 h-10 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-gray-300 hover:text-white hover:bg-primary/20 hover:border-primary/40 transition-all duration-300 z-10"
               onClick={onClose}
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
@@ -82,7 +82,8 @@ const ProjectDetail = ({ project, isOpen, onClose }) => {
               <i className="fas fa-times"></i>
             </motion.button>
 
-            <div className="p-8">
+            {/* Scrollable Content */}
+            <div className="max-h-[90vh] overflow-y-auto modal-scroll p-8">
               {/* Header */}
               <motion.div className="mb-8" variants={itemVariants}>
                 <motion.h2
@@ -148,7 +149,7 @@ const ProjectDetail = ({ project, isOpen, onClose }) => {
               {project.features && (
                 <motion.div className="mb-8" variants={itemVariants}>
                   <h3 className="text-white font-bold text-xl mb-4 flex items-center">
-                    <i className="fas fa-star text-yellow-400 mr-3"></i>
+                    <i className="fas fa-star text-primary mr-3"></i>
                     Key Features
                   </h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -171,14 +172,14 @@ const ProjectDetail = ({ project, isOpen, onClose }) => {
               {project.challenges && (
                 <motion.div className="mb-8" variants={itemVariants}>
                   <h3 className="text-white font-bold text-xl mb-4 flex items-center">
-                    <i className="fas fa-mountain text-orange-400 mr-3"></i>
+                    <i className="fas fa-mountain text-secondary mr-3"></i>
                     Challenges Faced
                   </h3>
                   <div className="space-y-3">
                     {project.challenges.map((challenge, index) => (
                       <motion.div
                         key={index}
-                        className="p-4 rounded-xl bg-orange-500/10 border border-orange-500/20"
+                        className="p-4 rounded-xl bg-primary/10 border border-primary/20"
                         whileHover={{ scale: 1.02 }}
                         transition={{ duration: 0.2 }}
                       >
@@ -195,14 +196,14 @@ const ProjectDetail = ({ project, isOpen, onClose }) => {
               {project.improvements && (
                 <motion.div className="mb-8" variants={itemVariants}>
                   <h3 className="text-white font-bold text-xl mb-4 flex items-center">
-                    <i className="fas fa-lightbulb text-green-400 mr-3"></i>
+                    <i className="fas fa-lightbulb text-secondary mr-3"></i>
                     Future Improvements
                   </h3>
                   <div className="space-y-3">
                     {project.improvements.map((improvement, index) => (
                       <motion.div
                         key={index}
-                        className="p-4 rounded-xl bg-green-500/10 border border-green-500/20"
+                        className="p-4 rounded-xl bg-secondary/10 border border-secondary/20"
                         whileHover={{ scale: 1.02 }}
                         transition={{ duration: 0.2 }}
                       >
@@ -235,7 +236,7 @@ const ProjectDetail = ({ project, isOpen, onClose }) => {
                   href={project.githubUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex-1 bg-white/10 text-gray-300 text-center py-4 px-6 rounded-2xl font-semibold border border-white/20 backdrop-blur-sm hover:bg-white/20 hover:text-white transition-all duration-300"
+                  className="flex-1 bg-black/10 text-gray-300 text-center py-4 px-6 rounded-2xl font-semibold border border-white/10 backdrop-blur-sm hover:bg-primary/20 hover:text-white hover:border-primary/40 transition-all duration-300"
                   whileHover={{ y: -2, scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >

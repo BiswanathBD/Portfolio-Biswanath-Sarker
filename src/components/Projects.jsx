@@ -27,9 +27,8 @@ const Projects = () => {
   };
 
   const itemVariants = {
-    hidden: { y: 30, opacity: 0 },
+    hidden: { opacity: 0 },
     visible: {
-      y: 0,
       opacity: 1,
       transition: {
         duration: 0.8,
@@ -381,7 +380,7 @@ const Projects = () => {
             </div>
 
             {/* Project Content */}
-            <div className="relative p-8 z-10">
+            <div className="relative p-8 z-10 grid ">
               {/* Title with Gradient Underline */}
               <div className="relative mb-4">
                 <motion.h3
@@ -413,9 +412,9 @@ const Projects = () => {
                 {project.technologies.map((tech, techIndex) => (
                   <motion.span
                     key={techIndex}
-                    className="relative px-3 py-1.5 bg-gradient-to-r from-gray-800/80 to-gray-700/80 text-gray-200 text-xs font-medium rounded-full border border-gray-600/50 backdrop-blur-sm hover:border-primary/50 hover:text-white transition-all duration-300 cursor-default"
+                    className="relative px-3 py-1.5 bg-gradient-to-tl from-primary/20 to-secondary/0 text-gray-200 text-xs font-medium rounded-full border border-white/10 backdrop-blur-sm hover:border-primary/50 hover:text-white hover:to-secondary/20 transition-all duration-300 cursor-default"
                     variants={itemVariants}
-                    whileHover={{ scale: 1.1, y: -2 }}
+                    whileHover={{ y: -1 }}
                     transition={{ duration: 0.2 }}
                   >
                     <div className="absolute inset-0 bg-gradient-to-r from-primary/10 to-secondary/10 rounded-full opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
@@ -424,19 +423,18 @@ const Projects = () => {
                 ))}
               </motion.div>
 
-              {/* Enhanced Action Buttons */}
+              {/* Action Buttons */}
               <div className="flex space-x-4">
                 <motion.button
                   onClick={() => openProjectDetail(project)}
-                  className="flex-1 relative overflow-hidden bg-gradient-to-r from-purple-600 to-blue-600 text-white text-center py-3 px-6 rounded-2xl font-semibold text-sm shadow-lg transition-all duration-300"
+                  className="flex-1 relative overflow-hidden bg-gradient-to-r from-primary/10 to-secondary/10 hover:from-primary/50 hover:to-secondary/50 backdrop-blur-sm text-white text-center py-3 px-6 rounded-2xl font-semibold text-sm shadow-lg transition-all duration-300 border border-primary/30"
                   whileHover={{ y: -2, scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
                   <span className="relative z-10 flex items-center justify-center gap-2">
                     View Details
                     <motion.i
-                      className="fas fa-info-circle text-xs"
-                      animate={{ rotate: [0, 360] }}
+                      className="fas fa-info-circle text-sm animate-pulse"
                       transition={{
                         duration: 3,
                         repeat: Infinity,
@@ -444,8 +442,8 @@ const Projects = () => {
                       }}
                     />
                   </span>
-                  <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
                 </motion.button>
+
                 <motion.a
                   href={project.liveUrl}
                   target="_blank"

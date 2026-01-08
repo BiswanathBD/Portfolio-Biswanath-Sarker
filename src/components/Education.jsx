@@ -206,141 +206,159 @@ const Education = () => {
               <motion.div
                 className="ml-28 w-full max-w-2xl"
                 whileHover={{
-                  scale: 1.01,
-                  y: -3,
+                  y: -15,
+                  scale: 1.02,
                 }}
                 transition={{ duration: 0.3 }}
               >
-                <div className="relative group">
+                <div className="group relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border border-white/20 rounded-3xl overflow-hidden shadow-2xl transition-all duration-700 hover:border-primary/40">
+                  {/* Animated Background Gradient */}
+                  <motion.div
+                    className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                    initial={false}
+                  />
+
+                  {/* Glowing Border Effect */}
+                  <motion.div
+                    className="absolute inset-0 rounded-3xl bg-gradient-to-r from-primary/20 to-secondary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm -z-10"
+                    initial={false}
+                  />
+
                   {/* Main Card */}
-                  <div className="relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border border-white/20 rounded-3xl overflow-hidden shadow-2xl transition-all hover:border-primary/40 duration-500 p-6">
+                  <div className="relative p-8 z-10">
                     {/* Card Header */}
-                    <div className="relative z-10">
-                      <div className="flex items-start gap-6 mb-6">
+                    <div className="flex items-start gap-6 mb-6">
+                      <motion.div
+                        className="relative"
+                        whileHover={{ rotate: 360, scale: 1.1 }}
+                        transition={{ duration: 0.6 }}
+                      >
+                        <div className="w-12 h-12 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-xl flex items-center justify-center border border-primary/30 backdrop-blur-sm">
+                          <i className={`${edu.icon} text-primary text-lg`}></i>
+                        </div>
                         <motion.div
-                          className="relative"
-                          whileHover={{ rotate: 360, scale: 1.1 }}
-                          transition={{ duration: 0.6 }}
+                          className="absolute inset-0 bg-gradient-to-br from-primary/10 to-secondary/10 rounded-2xl"
+                          animate={{
+                            scale: [1, 1.2, 1],
+                            opacity: [0, 0.5, 0],
+                          }}
+                          transition={{
+                            duration: 2,
+                            repeat: Infinity,
+                            ease: "easeInOut",
+                          }}
+                        />
+                      </motion.div>
+
+                      <div className="flex-1">
+                        <motion.h3
+                          className="text-white font-bold text-xl md:text-2xl mb-2 leading-tight group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-primary group-hover:to-secondary transition-all duration-300"
+                          initial={{ opacity: 0, y: 20 }}
+                          whileInView={{ opacity: 1, y: 0 }}
+                          transition={{ delay: index * 0.3 + 0.6 }}
                         >
-                          <div className="w-12 h-12 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-xl flex items-center justify-center border border-primary/30 backdrop-blur-sm">
-                            <i
-                              className={`${edu.icon} text-primary text-lg`}
-                            ></i>
-                          </div>
-                          <motion.div
-                            className="absolute inset-0 bg-gradient-to-br from-primary/10 to-secondary/10 rounded-2xl"
-                            animate={{
-                              scale: [1, 1.2, 1],
-                              opacity: [0, 0.5, 0],
-                            }}
-                            transition={{
-                              duration: 2,
-                              repeat: Infinity,
-                              ease: "easeInOut",
-                            }}
-                          />
-                        </motion.div>
-
-                        <div className="flex-1">
-                          <motion.h3
-                            className="text-white font-bold text-xl md:text-2xl mb-2 leading-tight"
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ delay: index * 0.3 + 0.6 }}
-                          >
-                            {edu.degree}
-                          </motion.h3>
-                          <motion.p
-                            className="text-primary font-semibold text-base mb-2 flex items-center gap-2"
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ delay: index * 0.3 + 0.7 }}
-                          >
-                            <span className="w-2 h-2 bg-primary rounded-full animate-pulse"></span>
-                            {edu.field}
-                          </motion.p>
-                        </div>
+                          {edu.degree}
+                        </motion.h3>
+                        <motion.p
+                          className="text-primary font-semibold text-base mb-2 flex items-center gap-2"
+                          initial={{ opacity: 0, y: 20 }}
+                          whileInView={{ opacity: 1, y: 0 }}
+                          transition={{ delay: index * 0.3 + 0.7 }}
+                        >
+                          <span className="w-2 h-2 bg-primary rounded-full animate-pulse"></span>
+                          {edu.field}
+                        </motion.p>
                       </div>
-
-                      {/* Institution Info with Icons */}
-                      <motion.div
-                        className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4"
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ delay: index * 0.3 + 0.8 }}
-                      >
-                        <div className="flex items-center gap-2 bg-white/5 backdrop-blur-sm rounded-lg p-2 border border-white/10 hover:border-primary/30 transition-all duration-300">
-                          <div className="w-6 h-6 bg-primary/20 rounded-md flex items-center justify-center">
-                            <i className="fas fa-university text-primary text-xs"></i>
-                          </div>
-                          <span className="text-gray-300 text-xs font-medium">
-                            {edu.institution}
-                          </span>
-                        </div>
-                        <div className="flex items-center gap-2 bg-white/5 backdrop-blur-sm rounded-lg p-2 border border-white/10 hover:border-secondary/30 transition-all duration-300">
-                          <div className="w-6 h-6 bg-secondary/20 rounded-md flex items-center justify-center">
-                            <i className="fas fa-map-marker-alt text-secondary text-xs"></i>
-                          </div>
-                          <span className="text-gray-300 text-xs font-medium">
-                            {edu.location}
-                          </span>
-                        </div>
-                      </motion.div>
-
-                      {/* Description */}
-                      <motion.p
-                        className="text-gray-300 leading-relaxed mb-6 text-sm"
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ delay: index * 0.3 + 0.9 }}
-                      >
-                        {edu.description}
-                      </motion.p>
-
-                      {/* Key Learning Areas */}
-                      <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ delay: index * 0.3 + 1.0 }}
-                      >
-                        <h4 className="text-white font-bold text-base mb-3 flex items-center gap-2">
-                          <div className="w-6 h-6 bg-gradient-to-r from-primary to-secondary rounded-md flex items-center justify-center">
-                            <span className="text-white text-xs">📚</span>
-                          </div>
-                          Key Learning Areas
-                        </h4>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                          {edu.achievements.map((achievement, achIndex) => (
-                            <motion.div
-                              key={achIndex}
-                              className="group flex items-center gap-2 p-3 rounded-lg bg-gradient-to-r from-white/5 to-white/10 border border-white/10 hover:border-primary/30 hover:from-primary/5 hover:to-secondary/5 transition-all duration-300 cursor-default"
-                              initial={{ opacity: 0 }}
-                              whileInView={{ opacity: 1 }}
-                              transition={{
-                                delay: index * 0.3 + 1.1 + achIndex * 0.1,
-                                duration: 0.5,
-                              }}
-                              whileHover={{ scale: 1.01, x: 3 }}
-                            >
-                              <motion.div
-                                className="w-2 h-2 bg-gradient-to-r from-primary to-secondary rounded-full"
-                                animate={{
-                                  scale: [1, 1.2, 1],
-                                }}
-                                transition={{
-                                  duration: 2,
-                                  repeat: Infinity,
-                                  delay: achIndex * 0.3,
-                                }}
-                              />
-                              <span className="text-gray-200 text-xs font-medium group-hover:text-white transition-colors duration-300">
-                                {achievement}
-                              </span>
-                            </motion.div>
-                          ))}
-                        </div>
-                      </motion.div>
                     </div>
+
+                    {/* Institution Info with Icons */}
+                    <motion.div
+                      className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4"
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      transition={{ delay: index * 0.3 + 0.8 }}
+                    >
+                      <div className="flex items-center gap-2 bg-white/5 backdrop-blur-sm rounded-lg p-2 border border-white/10 hover:border-primary/30 transition-all duration-300">
+                        <div className="w-6 h-6 bg-primary/20 rounded-md flex items-center justify-center">
+                          <i className="fas fa-university text-primary text-xs"></i>
+                        </div>
+                        <span className="text-gray-300 text-xs font-medium">
+                          {edu.institution}
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-2 bg-white/5 backdrop-blur-sm rounded-lg p-2 border border-white/10 hover:border-secondary/30 transition-all duration-300">
+                        <div className="w-6 h-6 bg-secondary/20 rounded-md flex items-center justify-center">
+                          <i className="fas fa-map-marker-alt text-secondary text-xs"></i>
+                        </div>
+                        <span className="text-gray-300 text-xs font-medium">
+                          {edu.location}
+                        </span>
+                      </div>
+                    </motion.div>
+
+                    {/* Description */}
+                    <motion.p
+                      className="text-gray-300 leading-relaxed mb-6 text-sm group-hover:text-gray-200 transition-colors duration-300"
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      transition={{ delay: index * 0.3 + 0.9 }}
+                    >
+                      {edu.description}
+                    </motion.p>
+
+                    {/* Key Learning Areas */}
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      transition={{ delay: index * 0.3 + 1.0 }}
+                    >
+                      <h4 className="text-white font-bold text-base mb-3 flex items-center gap-2">
+                        <div className="w-6 h-6 bg-gradient-to-r from-primary to-secondary rounded-md flex items-center justify-center">
+                          <span className="text-white text-xs">📚</span>
+                        </div>
+                        Key Learning Areas
+                      </h4>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                        {edu.achievements.map((achievement, achIndex) => (
+                          <motion.div
+                            key={achIndex}
+                            className="group flex items-center gap-2 p-3 rounded-lg bg-gradient-to-r from-white/5 to-white/10 border border-white/10 hover:border-primary/30 hover:from-primary/5 hover:to-secondary/5 transition-all duration-300 cursor-default"
+                            initial={{ opacity: 0 }}
+                            whileInView={{ opacity: 1 }}
+                            transition={{
+                              delay: index * 0.3 + 1.1 + achIndex * 0.1,
+                              duration: 0.5,
+                            }}
+                            whileHover={{ scale: 1.01, x: 3 }}
+                          >
+                            <motion.div
+                              className="w-2 h-2 bg-gradient-to-r from-primary to-secondary rounded-full"
+                              animate={{
+                                scale: [1, 1.2, 1],
+                              }}
+                              transition={{
+                                duration: 2,
+                                repeat: Infinity,
+                                delay: achIndex * 0.3,
+                              }}
+                            />
+                            <span className="text-gray-200 text-xs font-medium group-hover:text-white transition-colors duration-300">
+                              {achievement}
+                            </span>
+                          </motion.div>
+                        ))}
+                      </div>
+                    </motion.div>
+
+                    {/* Decorative Elements */}
+                    <motion.div
+                      className="absolute bottom-0 right-0 w-32 h-32 bg-gradient-to-tl from-secondary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-tl-full"
+                      initial={false}
+                    />
+                    <motion.div
+                      className="absolute top-1/2 left-0 w-1 h-16 bg-gradient-to-b from-primary to-secondary opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-r-full"
+                      initial={false}
+                    />
                   </div>
                 </div>
               </motion.div>
@@ -351,23 +369,47 @@ const Education = () => {
 
       {/* Continuous Learning Section */}
       <motion.div className="mt-20 max-w-4xl mx-auto" variants={cardVariants}>
-        <div className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border border-white/20 rounded-3xl overflow-hidden shadow-2xl transition-all hover:border-primary/40 duration-500 p-8 text-center">
-          <motion.h3
-            className="text-white font-bold text-2xl mb-4"
-            variants={itemVariants}
-          >
-            Continuous Learning Journey
-          </motion.h3>
-          <motion.p
-            className="text-gray-300 leading-relaxed"
-            variants={itemVariants}
-          >
-            My educational journey combines the analytical thinking and
-            communication skills from my Bengali Literature background with
-            intensive technical training from Programming Hero. This unique
-            blend allows me to create user- centered solutions with attention to
-            detail and deep technical proficiency.
-          </motion.p>
+        <div className="group relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border border-white/20 rounded-3xl overflow-hidden shadow-2xl transition-all duration-700 hover:border-primary/40">
+          {/* Animated Background Gradient */}
+          <motion.div
+            className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+            initial={false}
+          />
+
+          {/* Glowing Border Effect */}
+          <motion.div
+            className="absolute inset-0 rounded-3xl bg-gradient-to-r from-primary/20 to-secondary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm -z-10"
+            initial={false}
+          />
+
+          <div className="relative p-8 text-center z-10">
+            <motion.h3
+              className="text-white font-bold text-2xl mb-4 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-primary group-hover:to-secondary transition-all duration-300"
+              variants={itemVariants}
+            >
+              Continuous Learning Journey
+            </motion.h3>
+            <motion.p
+              className="text-gray-300 leading-relaxed group-hover:text-gray-200 transition-colors duration-300"
+              variants={itemVariants}
+            >
+              My educational journey combines the analytical thinking and
+              communication skills from my Bengali Literature background with
+              intensive technical training from Programming Hero. This unique
+              blend allows me to create user-centered solutions with attention
+              to detail and deep technical proficiency.
+            </motion.p>
+
+            {/* Decorative Elements */}
+            <motion.div
+              className="absolute bottom-0 right-0 w-32 h-32 bg-gradient-to-tl from-secondary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-tl-full"
+              initial={false}
+            />
+            <motion.div
+              className="absolute top-1/2 left-0 w-1 h-16 bg-gradient-to-b from-primary to-secondary opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-r-full"
+              initial={false}
+            />
+          </div>
         </div>
       </motion.div>
     </motion.section>

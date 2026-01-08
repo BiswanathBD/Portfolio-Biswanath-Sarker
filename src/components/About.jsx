@@ -238,21 +238,41 @@ const About = () => {
             ].map((item, index) => (
               <motion.div
                 key={index}
-                className={`group flex items-center p-4 rounded-xl border border-gray-800 bg-surface-dark hover:border-${item.color}/50 transition-all cursor-default shadow-sm`}
+                className={`group relative flex items-center p-4 rounded-xl border border-gray-800 bg-surface-dark hover:border-${item.color}/50 transition-all cursor-default shadow-sm overflow-hidden`}
                 variants={itemVariants}
                 whileHover={{ x: 10, scale: 1.02 }}
                 transition={{ duration: 0.2 }}
               >
+                {/* Animated Background Gradient */}
                 <motion.div
-                  className={`p-2 rounded-lg bg-${item.color}/10 text-${item.color} group-hover:bg-${item.color} group-hover:text-white transition-colors`}
-                  whileHover={{ rotate: 360 }}
-                  transition={{ duration: 0.5 }}
-                >
-                  <span className="material-icons">{item.icon}</span>
-                </motion.div>
-                <span className="ml-4 font-medium text-gray-200">
-                  {item.text}
-                </span>
+                  className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl"
+                  initial={false}
+                />
+
+                {/* Glowing Border Effect */}
+                <motion.div
+                  className="absolute inset-0 rounded-xl bg-gradient-to-r from-primary/20 to-secondary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm -z-10"
+                  initial={false}
+                />
+
+                <div className="relative z-10 flex items-center w-full">
+                  <motion.div
+                    className={`p-2 rounded-lg bg-${item.color}/10 text-${item.color} group-hover:bg-${item.color} group-hover:text-white transition-colors`}
+                    whileHover={{ rotate: 360 }}
+                    transition={{ duration: 0.5 }}
+                  >
+                    <span className="material-icons">{item.icon}</span>
+                  </motion.div>
+                  <span className="ml-4 font-medium text-gray-200">
+                    {item.text}
+                  </span>
+                </div>
+
+                {/* Decorative Elements */}
+                <motion.div
+                  className="absolute bottom-0 right-0 w-12 h-12 bg-gradient-to-tl from-secondary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-tl-full"
+                  initial={false}
+                />
               </motion.div>
             ))}
           </motion.div>

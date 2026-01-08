@@ -226,63 +226,87 @@ const Skills = () => {
         {skillCategories.map((category, categoryIndex) => (
           <motion.div
             key={category.title}
-            className="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6 shadow-xl transition-all duration-300 hover:border-primary/30 group"
+            className="relative group bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6 shadow-xl transition-all duration-300 hover:border-primary/30 overflow-hidden"
             variants={cardVariants}
             whileHover={{ y: -10, scale: 1.02 }}
             transition={{ duration: 0.3 }}
           >
-            <motion.h3
-              className="font-display font-bold text-lg text-white mb-6 group-hover:text-primary transition-colors"
-              variants={itemVariants}
-            >
-              {category.title}
-            </motion.h3>
+            {/* Animated Background Gradient */}
+            <motion.div
+              className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl"
+              initial={false}
+            />
 
-            <div className="space-y-4">
-              {category.skills.map((skill, skillIndex) => (
-                <motion.div
-                  key={skill.name}
-                  className="skill-item"
-                  variants={itemVariants}
-                  custom={skillIndex}
-                  whileHover={{ x: 5 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <div className="flex items-center justify-between mb-2">
-                    <div className="flex items-center gap-3">
-                      <motion.div
-                        className={`w-8 h-8 rounded-full bg-gray-800 border border-gray-700 flex items-center justify-center ${skill.color} hover:scale-110 transition-transform`}
-                        whileHover={{ rotate: 360 }}
-                        transition={{ duration: 0.5 }}
-                      >
-                        <i className={`${skill.icon} text-sm`}></i>
-                      </motion.div>
-                      <span className="text-gray-200 font-medium">
-                        {skill.name}
+            {/* Glowing Border Effect */}
+            <motion.div
+              className="absolute inset-0 rounded-2xl bg-gradient-to-r from-primary/20 to-secondary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm -z-10"
+              initial={false}
+            />
+
+            <div className="relative z-10">
+              <motion.h3
+                className="font-display font-bold text-lg text-white mb-6 group-hover:text-primary transition-colors"
+                variants={itemVariants}
+              >
+                {category.title}
+              </motion.h3>
+
+              <div className="space-y-4">
+                {category.skills.map((skill, skillIndex) => (
+                  <motion.div
+                    key={skill.name}
+                    className="skill-item"
+                    variants={itemVariants}
+                    custom={skillIndex}
+                    whileHover={{ x: 5 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <div className="flex items-center justify-between mb-2">
+                      <div className="flex items-center gap-3">
+                        <motion.div
+                          className={`w-8 h-8 rounded-full bg-gray-800 border border-gray-700 flex items-center justify-center ${skill.color} hover:scale-110 transition-transform`}
+                          whileHover={{ rotate: 360 }}
+                          transition={{ duration: 0.5 }}
+                        >
+                          <i className={`${skill.icon} text-sm`}></i>
+                        </motion.div>
+                        <span className="text-gray-200 font-medium">
+                          {skill.name}
+                        </span>
+                      </div>
+                      <span className="text-gray-400 text-sm font-mono">
+                        {skill.level}%
                       </span>
                     </div>
-                    <span className="text-gray-400 text-sm font-mono">
-                      {skill.level}%
-                    </span>
-                  </div>
 
-                  {/* Progress Bar */}
-                  <div className="w-full bg-gray-800 rounded-full h-1.5 overflow-hidden">
-                    <motion.div
-                      className="h-full bg-gradient-to-r from-primary to-secondary rounded-full"
-                      initial={{ width: 0 }}
-                      whileInView={{ width: `${skill.level}%` }}
-                      transition={{
-                        duration: 1.5,
-                        delay: categoryIndex * 0.2 + skillIndex * 0.1,
-                        ease: "easeOut",
-                      }}
-                      viewport={{ once: true }}
-                    />
-                  </div>
-                </motion.div>
-              ))}
+                    {/* Progress Bar */}
+                    <div className="w-full bg-gray-800 rounded-full h-1.5 overflow-hidden">
+                      <motion.div
+                        className="h-full bg-gradient-to-r from-primary to-secondary rounded-full"
+                        initial={{ width: 0 }}
+                        whileInView={{ width: `${skill.level}%` }}
+                        transition={{
+                          duration: 1.5,
+                          delay: categoryIndex * 0.2 + skillIndex * 0.1,
+                          ease: "easeOut",
+                        }}
+                        viewport={{ once: true }}
+                      />
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
             </div>
+
+            {/* Decorative Elements */}
+            <motion.div
+              className="absolute bottom-0 right-0 w-20 h-20 bg-gradient-to-tl from-secondary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-tl-full"
+              initial={false}
+            />
+            <motion.div
+              className="absolute top-1/2 left-0 w-1 h-10 bg-gradient-to-b from-primary to-secondary opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-r-full"
+              initial={false}
+            />
           </motion.div>
         ))}
       </motion.div>
