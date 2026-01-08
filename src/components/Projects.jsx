@@ -92,6 +92,7 @@ const Projects = () => {
       ],
       liveUrl: "https://aidex-by-biswanath.netlify.app/",
       githubUrl: "https://github.com/BiswanathBD/AidEx-Frontend",
+      serverUrl: "https://github.com/BiswanathBD/AidEx-Backend",
       category: "Full Stack",
     },
     {
@@ -135,6 +136,7 @@ const Projects = () => {
       ],
       liveUrl: "https://wecare-biswanath.netlify.app/",
       githubUrl: "https://github.com/BiswanathBD/weCare-Client-Site",
+      serverUrl: "https://github.com/BiswanathBD/weCare-Server-Site",
       category: "Full Stack",
     },
     {
@@ -177,6 +179,7 @@ const Projects = () => {
       ],
       liveUrl: "https://smart-deals-by-biswanath.netlify.app/",
       githubUrl: "https://github.com/BiswanathBD/Smart-Deals",
+      serverUrl: "https://github.com/BiswanathBD/Smart-Deals-Server",
       category: "Full Stack",
     },
   ];
@@ -299,9 +302,9 @@ const Projects = () => {
         {filteredProjects.map((project, index) => (
           <motion.div
             key={project.id}
-            className="group relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border border-white/20 rounded-3xl overflow-hidden shadow-2xl transition-all duration-700 hover:border-primary/40"
+            className="group relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border border-white/20 rounded-3xl overflow-hidden shadow-2xl transition-all duration-700 hover:border-primary/40 flex flex-col min-h-[600px]"
             variants={cardVariants}
-            whileHover={{ y: -15, scale: 1.02 }}
+            whileHover={{ scale: 1.01 }}
             transition={{ duration: 0.3 }}
           >
             {/* Animated Background Gradient */}
@@ -349,12 +352,25 @@ const Projects = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-12 h-12 bg-white/10 backdrop-blur-md rounded-2xl flex items-center justify-center text-white hover:bg-secondary hover:scale-110 transition-all duration-300 shadow-lg"
-                  title="View Code"
+                  title="Frontend Code"
                   whileHover={{ rotate: -360 }}
                   transition={{ duration: 0.3 }}
                 >
                   <i className="fab fa-github text-sm"></i>
                 </motion.a>
+                {project.serverUrl && (
+                  <motion.a
+                    href={project.serverUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-12 h-12 bg-white/10 backdrop-blur-md rounded-2xl flex items-center justify-center text-white hover:bg-gradient-to-r hover:from-primary hover:to-secondary hover:scale-110 transition-all duration-300 shadow-lg"
+                    title="Backend Code"
+                    whileHover={{ rotate: 360 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <i className="fas fa-server text-sm"></i>
+                  </motion.a>
+                )}
               </motion.div>
 
               {/* Modern Category Badge */}
@@ -380,61 +396,65 @@ const Projects = () => {
             </div>
 
             {/* Project Content */}
-            <div className="relative p-8 z-10 grid ">
-              {/* Title with Gradient Underline */}
-              <div className="relative mb-4">
-                <motion.h3
-                  className="font-display font-bold text-2xl text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-primary group-hover:to-secondary transition-all duration-300"
-                  whileHover={{ scale: 1.02 }}
+            <div className="relative p-8 z-10 flex flex-col grow">
+              {/* Content Area */}
+              <div className="flex-1">
+                {/* Title with Gradient Underline */}
+                <div className="relative mb-4">
+                  <motion.h3
+                    className="font-display font-bold text-2xl text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-primary group-hover:to-secondary transition-all duration-300"
+                    whileHover={{ scale: 1.02 }}
+                  >
+                    {project.title}
+                  </motion.h3>
+                  <motion.div
+                    className="absolute -bottom-1 left-0 h-0.5 bg-gradient-to-r from-primary to-secondary"
+                    initial={{ width: 0 }}
+                    whileHover={{ width: "100%" }}
+                    transition={{ duration: 0.5, ease: "easeOut" }}
+                  />
+                </div>
+
+                <motion.p
+                  className="text-gray-300 text-sm leading-relaxed mb-6 group-hover:text-gray-200 transition-colors duration-300"
+                  variants={itemVariants}
                 >
-                  {project.title}
-                </motion.h3>
+                  {project.description}
+                </motion.p>
+
+                {/* Modern Technology Pills */}
                 <motion.div
-                  className="absolute -bottom-1 left-0 h-0.5 bg-gradient-to-r from-primary to-secondary"
-                  initial={{ width: 0 }}
-                  whileHover={{ width: "100%" }}
-                  transition={{ duration: 0.5, ease: "easeOut" }}
-                />
+                  className="flex flex-wrap gap-2 mb-6"
+                  variants={containerVariants}
+                >
+                  {project.technologies.map((tech, techIndex) => (
+                    <motion.span
+                      key={techIndex}
+                      className="relative px-3 py-1.5 bg-gradient-to-tl from-primary/20 to-secondary/0 text-gray-200 text-xs font-medium rounded-full border border-white/10 backdrop-blur-sm hover:border-primary/50 hover:text-white hover:to-secondary/20 transition-all duration-300 cursor-default"
+                      variants={itemVariants}
+                      whileHover={{ y: -1 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <div className="absolute inset-0 bg-gradient-to-r from-primary/10 to-secondary/10 rounded-full opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
+                      <span className="relative">{tech}</span>
+                    </motion.span>
+                  ))}
+                </motion.div>
               </div>
 
-              <motion.p
-                className="text-gray-300 text-sm leading-relaxed mb-6 group-hover:text-gray-200 transition-colors duration-300"
-                variants={itemVariants}
-              >
-                {project.description}
-              </motion.p>
-
-              {/* Modern Technology Pills */}
-              <motion.div
-                className="flex flex-wrap gap-2 mb-6"
-                variants={containerVariants}
-              >
-                {project.technologies.map((tech, techIndex) => (
-                  <motion.span
-                    key={techIndex}
-                    className="relative px-3 py-1.5 bg-gradient-to-tl from-primary/20 to-secondary/0 text-gray-200 text-xs font-medium rounded-full border border-white/10 backdrop-blur-sm hover:border-primary/50 hover:text-white hover:to-secondary/20 transition-all duration-300 cursor-default"
-                    variants={itemVariants}
-                    whileHover={{ y: -1 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <div className="absolute inset-0 bg-gradient-to-r from-primary/10 to-secondary/10 rounded-full opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
-                    <span className="relative">{tech}</span>
-                  </motion.span>
-                ))}
-              </motion.div>
-
               {/* Action Buttons */}
-              <div className="flex space-x-4">
+              <div className="flex space-x-4 mt-auto">
                 <motion.button
                   onClick={() => openProjectDetail(project)}
-                  className="flex-1 relative overflow-hidden bg-gradient-to-r from-primary/10 to-secondary/10 hover:from-primary/50 hover:to-secondary/50 backdrop-blur-sm text-white text-center py-3 px-6 rounded-2xl font-semibold text-sm shadow-lg transition-all duration-300 border border-primary/30"
+                  className="flex-1 relative overflow-hidden bg-gradient-to-r from-primary/50 to-secondary/50 backdrop-blur-sm text-white text-center py-3 px-6 rounded-lg font-semibold text-sm shadow-lg transition-all duration-300 border border-primary/30"
                   whileHover={{ y: -2, scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
                   <span className="relative z-10 flex items-center justify-center gap-2">
                     View Details
                     <motion.i
-                      className="fas fa-info-circle text-sm animate-pulse"
+                      className="fas fa-info-circle text-xs"
+                      animate={{ rotate: [0, 360] }}
                       transition={{
                         duration: 3,
                         repeat: Infinity,
@@ -442,13 +462,14 @@ const Projects = () => {
                       }}
                     />
                   </span>
+                  <div className="absolute inset-0 bg-gradient-to-r from-primary to-secondary opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
                 </motion.button>
 
                 <motion.a
                   href={project.liveUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex-1 relative overflow-hidden bg-gradient-to-r from-primary to-secondary text-white text-center py-3 px-6 rounded-2xl font-semibold text-sm shadow-lg transition-all duration-300"
+                  className="flex-1 relative overflow-hidden bg-gradient-to-r from-primary to-secondary text-white text-center py-3 px-6 rounded-lg font-semibold text-sm shadow-lg transition-all duration-300"
                   whileHover={{ y: -2, scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >

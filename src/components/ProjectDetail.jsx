@@ -1,8 +1,40 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { useEffect } from "react";
 
 const ProjectDetail = ({ project, isOpen, onClose }) => {
   if (!project) return null;
+
+  // Prevent background scrolling when modal is open
+  useEffect(() => {
+    if (isOpen) {
+      // Disable body scroll
+      document.body.style.overflow = "hidden";
+      document.documentElement.style.overflow = "hidden";
+
+      // Add escape key listener
+      const handleEscape = (e) => {
+        if (e.key === "Escape") {
+          onClose();
+        }
+      };
+
+      document.addEventListener("keydown", handleEscape);
+
+      return () => {
+        document.removeEventListener("keydown", handleEscape);
+      };
+    } else {
+      // Re-enable body scroll
+      document.body.style.overflow = "unset";
+      document.documentElement.style.overflow = "unset";
+    }
+
+    // Cleanup on unmount
+    return () => {
+      document.body.style.overflow = "unset";
+      document.documentElement.style.overflow = "unset";
+    };
+  }, [isOpen, onClose]);
 
   const modalVariants = {
     hidden: {
@@ -57,6 +89,7 @@ const ProjectDetail = ({ project, isOpen, onClose }) => {
           initial="hidden"
           animate="visible"
           exit="exit"
+          onWheel={(e) => e.stopPropagation()} // Prevent wheel events from bubbling
         >
           {/* Backdrop */}
           <motion.div
@@ -71,6 +104,8 @@ const ProjectDetail = ({ project, isOpen, onClose }) => {
             initial="hidden"
             animate="visible"
             exit="exit"
+            onWheel={(e) => e.stopPropagation()} // Prevent wheel events from bubbling
+            onClick={(e) => e.stopPropagation()} // Prevent clicks from closing modal
           >
             {/* Close Button */}
             <motion.button
@@ -83,7 +118,24 @@ const ProjectDetail = ({ project, isOpen, onClose }) => {
             </motion.button>
 
             {/* Scrollable Content */}
-            <div className="max-h-[90vh] overflow-y-auto modal-scroll p-8">
+            <div
+              className="max-h-[90vh] overflow-y-auto modal-scroll p-8"
+              onWheel={(e) => {
+                // Allow scrolling within the modal content
+                e.stopPropagation();
+
+                // Check if we're at the top or bottom and prevent further propagation
+                const target = e.currentTarget;
+                const { scrollTop, scrollHeight, clientHeight } = target;
+
+                if (
+                  (e.deltaY < 0 && scrollTop === 0) ||
+                  (e.deltaY > 0 && scrollTop + clientHeight >= scrollHeight)
+                ) {
+                  e.preventDefault();
+                }
+              }}
+            >
               {/* Header */}
               <motion.div className="mb-8" variants={itemVariants}>
                 <motion.h2
@@ -225,7 +277,7 @@ const ProjectDetail = ({ project, isOpen, onClose }) => {
                   href={project.liveUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex-1 bg-gradient-to-r from-primary to-secondary text-white text-center py-4 px-6 rounded-2xl font-semibold shadow-lg transition-all duration-300"
+                  className="flex-1 bg-gradient-to-r from-primary to-secondary text-white text-center py-3 px-6 rounded-lg font-semibold shadow-lg transition-all duration-300"
                   whileHover={{ y: -2, scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
@@ -236,13 +288,26 @@ const ProjectDetail = ({ project, isOpen, onClose }) => {
                   href={project.githubUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex-1 bg-black/10 text-gray-300 text-center py-4 px-6 rounded-2xl font-semibold border border-white/10 backdrop-blur-sm hover:bg-primary/20 hover:text-white hover:border-primary/40 transition-all duration-300"
+                  className="flex-1 bg-black/10 text-gray-300 text-center py-3 px-6 rounded-lg font-semibold border border-white/10 backdrop-blur-sm hover:bg-primary/20 hover:text-white hover:border-primary/40 transition-all duration-300"
                   whileHover={{ y: -2, scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
                   <i className="fab fa-github mr-2"></i>
-                  View Source Code
+                  Frontend Code
                 </motion.a>
+                {project.serverUrl && (
+                  <motion.a
+                    href={project.serverUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 bg-white/10 text-gray-300 text-center py-3 px-6 rounded-lg font-semibold border border-white/20 backdrop-blur-sm hover:bg-secondary/20 hover:text-white hover:border-secondary/40 transition-all duration-300"
+                    whileHover={{ y: -2, scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    <i className="fas fa-server mr-2"></i>
+                    Backend Code
+                  </motion.a>
+                )}
               </motion.div>
             </div>
           </motion.div>

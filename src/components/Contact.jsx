@@ -365,7 +365,6 @@ const Contact = () => {
                   required
                   className="w-full px-4 py-3 bg-white/5 border border-white/20 rounded-2xl text-white placeholder-gray-400 focus:outline-none focus:border-primary focus:bg-white/10 transition-all duration-300"
                   placeholder="Enter your full name"
-                  whileFocus={{ scale: 1.02 }}
                   transition={{ duration: 0.2 }}
                 />
                 <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-primary/10 to-secondary/10 opacity-0 group-focus-within:opacity-100 transition-opacity duration-300 -z-10"></div>
@@ -390,7 +389,6 @@ const Contact = () => {
                   required
                   className="w-full px-4 py-3 bg-white/5 border border-white/20 rounded-2xl text-white placeholder-gray-400 focus:outline-none focus:border-primary focus:bg-white/10 transition-all duration-300"
                   placeholder="Enter your email address"
-                  whileFocus={{ scale: 1.02 }}
                   transition={{ duration: 0.2 }}
                 />
                 <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-primary/10 to-secondary/10 opacity-0 group-focus-within:opacity-100 transition-opacity duration-300 -z-10"></div>
@@ -415,7 +413,6 @@ const Contact = () => {
                   rows="5"
                   className="w-full px-4 py-3 bg-white/5 border border-white/20 rounded-2xl text-white placeholder-gray-400 focus:outline-none focus:border-primary focus:bg-white/10 transition-all duration-300 resize-none"
                   placeholder="Tell me about your project or just say hello..."
-                  whileFocus={{ scale: 1.02 }}
                   transition={{ duration: 0.2 }}
                 />
                 <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-primary/10 to-secondary/10 opacity-0 group-focus-within:opacity-100 transition-opacity duration-300 -z-10"></div>
