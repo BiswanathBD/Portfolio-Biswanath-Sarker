@@ -68,12 +68,27 @@ const Header = () => {
   };
 
   const navItems = [
-    { name: "Home", href: "#", active: true },
-    { name: "About", href: "#about", active: false },
-    { name: "Education", href: "#education", active: false },
-    { name: "Skills", href: "#skills", active: false },
-    { name: "Projects", href: "#projects", active: false },
-    { name: "Contact", href: "#contact", active: false },
+    { name: "Home", href: "#", active: true, icon: "fas fa-home" },
+    { name: "About", href: "#about", active: false, icon: "fas fa-user" },
+    {
+      name: "Education",
+      href: "#education",
+      active: false,
+      icon: "fas fa-graduation-cap",
+    },
+    { name: "Skills", href: "#skills", active: false, icon: "fas fa-code" },
+    {
+      name: "Projects",
+      href: "#projects",
+      active: false,
+      icon: "fas fa-folder-open",
+    },
+    {
+      name: "Contact",
+      href: "#contact",
+      active: false,
+      icon: "fas fa-envelope",
+    },
   ];
 
   return (
@@ -132,7 +147,7 @@ const Header = () => {
           {navItems.map((item, index) => (
             <motion.a
               key={item.name}
-              className={`transition-colors ${
+              className={`flex items-center gap-2 transition-colors ${
                 item.active
                   ? "text-primary hover:text-secondary"
                   : "text-gray-300 hover:text-primary"
@@ -148,7 +163,12 @@ const Header = () => {
                 ease: "easeOut",
               }}
             >
-              {item.name}
+              <motion.i
+                className={`${item.icon} text-xs`}
+                whileHover={{ rotate: [0, -10, 10, 0] }}
+                transition={{ duration: 0.5 }}
+              />
+              <span>{item.name}</span>
             </motion.a>
           ))}
         </motion.nav>
@@ -186,7 +206,7 @@ const Header = () => {
                   {navItems.map((item, index) => (
                     <motion.a
                       key={item.name}
-                      className={`transition-colors py-2 ${
+                      className={`flex items-center gap-3 transition-colors py-2 ${
                         item.active
                           ? "text-primary hover:text-secondary"
                           : "text-gray-300 hover:text-primary"
@@ -200,7 +220,17 @@ const Header = () => {
                       whileHover={{ x: 10, scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                     >
-                      {item.name}
+                      <motion.div
+                        className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center"
+                        whileHover={{
+                          backgroundColor: "rgba(249, 115, 22, 0.1)",
+                          borderColor: "rgba(249, 115, 22, 0.3)",
+                        }}
+                        transition={{ duration: 0.3 }}
+                      >
+                        <i className={`${item.icon} text-xs`} />
+                      </motion.div>
+                      <span>{item.name}</span>
                     </motion.a>
                   ))}
                 </div>

@@ -150,7 +150,7 @@ const ProfileShowcase = () => {
         transition={{ duration: 80, repeat: Infinity, ease: "linear" }}
       >
         <motion.div
-          className="absolute w-7 h-7 -top-2 left-1/2 -ml-5 -mt-5 bg-white/10 backdrop-blur-md border border-white/20 rounded-full shadow-lg flex items-center justify-center pointer-events-auto"
+          className="absolute w-7 h-7 top-2 left-1/2 -ml-5 -mt-5 bg-white/10 backdrop-blur-md border border-white/20 rounded-full shadow-lg flex items-center justify-center pointer-events-auto"
           animate={{ rotate: -360 }}
           transition={{ duration: 80, repeat: Infinity, ease: "linear" }}
           whileHover={{ scale: 1.2, zIndex: 50 }}
@@ -168,7 +168,7 @@ const ProfileShowcase = () => {
         </motion.div>
 
         <motion.div
-          className="absolute w-7 h-7 -bottom-2 left-1/2 -ml-5 -mb-5 bg-white/10 backdrop-blur-md border border-white/20 rounded-full shadow-lg flex items-center justify-center pointer-events-auto"
+          className="absolute w-7 h-7 bottom-2 left-1/2 -ml-5 -mb-5 bg-white/10 backdrop-blur-md border border-white/20 rounded-full shadow-lg flex items-center justify-center pointer-events-auto"
           animate={{ rotate: -360 }}
           transition={{ duration: 80, repeat: Infinity, ease: "linear" }}
           whileHover={{ scale: 1.2, zIndex: 50 }}

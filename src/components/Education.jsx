@@ -13,6 +13,18 @@ const Education = () => {
   };
 
   const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        duration: 0.6,
+        ease: "easeOut",
+      },
+    },
+  };
+
+  const cardVariants = {
     hidden: { y: 30, opacity: 0 },
     visible: {
       y: 0,
@@ -24,53 +36,38 @@ const Education = () => {
     },
   };
 
-  const cardVariants = {
-    hidden: { x: -50, opacity: 0, scale: 0.9 },
-    visible: {
-      x: 0,
-      opacity: 1,
-      scale: 1,
-      transition: {
-        duration: 0.8,
-        ease: "easeOut",
-      },
-    },
-  };
-
   const educationData = [
     {
+      year: "2025 - 2026",
       degree: "Complete Web Development Course",
       field: "Full Stack Web Development",
       institution: "Programming Hero",
       location: "Dhaka, Bangladesh",
-      duration: "2025",
       description:
         "Completed an intensive 6-month programming course focusing on modern web development technologies including React, Node.js, MongoDB, and Express.js (MERN Stack).",
-      icon: "fas fa-code",
-      color: "from-primary to-secondary",
       achievements: [
         "Mastered MERN Stack Development",
         "Built multiple full-stack projects",
         "Learned modern JavaScript frameworks",
         "Gained hands-on industry experience",
       ],
+      icon: "fas fa-code",
     },
     {
+      year: "2013 - 2018",
       degree: "Bachelor of Arts (BA)",
       field: "Bengali Literature",
       institution: "Govt. B.L. College, Khulna",
       location: "Khulna, Bangladesh",
-      duration: "2013 - 2018",
       description:
         "Completed Bachelor of Arts degree with specialization in Bengali Literature, developing strong analytical, communication, and critical thinking skills.",
-      icon: "fas fa-graduation-cap",
-      color: "from-secondary to-primary",
       achievements: [
         "Strong foundation in Bengali Literature and Language",
         "Developed excellent communication skills",
         "Enhanced analytical and critical thinking abilities",
         "Cultural and literary research experience",
       ],
+      icon: "fas fa-graduation-cap",
     },
   ];
 
@@ -96,20 +93,9 @@ const Education = () => {
           ease: "easeInOut",
         }}
       />
-      <motion.div
-        className="absolute bottom-10 right-10 w-96 h-96 bg-secondary/10 rounded-full blur-[120px] pointer-events-none -z-10"
-        animate={{
-          scale: [1.2, 1, 1.2],
-          opacity: [0.1, 0.2, 0.1],
-        }}
-        transition={{
-          duration: 10,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-      />
 
-      <motion.div className="text-center mb-16" variants={itemVariants}>
+      {/* Header Section */}
+      <motion.div className="text-center mb-20" variants={itemVariants}>
         <motion.h2
           className="font-display font-bold text-4xl md:text-5xl text-white mb-4"
           variants={itemVariants}
@@ -122,7 +108,7 @@ const Education = () => {
             }}
             transition={{
               duration: 3,
-     repeat: Infinity,
+              repeat: Infinity,
               repeatDelay: 2,
               ease: "easeInOut",
             }}
@@ -132,9 +118,9 @@ const Education = () => {
           Education
         </motion.h2>
         <motion.div
-          className="h-1 w-20 bg-gradient-to-r from-primary to-secondary mx-auto rounded-full"
+          className="h-1 w-24 bg-gradient-to-r from-primary to-secondary mx-auto rounded-full"
           initial={{ width: 0 }}
-          whileInView={{ width: 80 }}
+          whileInView={{ width: 96 }}
           transition={{ duration: 0.8, delay: 0.5 }}
         />
         <motion.p
@@ -146,178 +132,243 @@ const Education = () => {
         </motion.p>
       </motion.div>
 
-      <motion.div className="max-w-4xl mx-auto" variants={containerVariants}>
-        {educationData.map((edu, index) => (
+      {/* Timeline Container */}
+      <div className="relative max-w-4xl mx-auto flex justify-center">
+        <div className="relative w-full max-w-3xl">
+          {/* Vertical Timeline Line - Left Side */}
           <motion.div
-            key={index}
-            className="relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border border-white/20 rounded-3xl p-8 shadow-2xl transition-all duration-700 hover:border-primary/40 mb-8"
-            variants={cardVariants}
-            whileHover={{ y: -10, scale: 1.02 }}
-            transition={{ duration: 0.3 }}
-          >
-            {/* Animated Background Gradient */}
+            className="absolute left-20 top-0 w-1 bg-gradient-to-b from-primary via-secondary to-primary h-full rounded-full"
+            initial={{ height: 0 }}
+            whileInView={{ height: "100%" }}
+            transition={{ duration: 1.5, delay: 0.5 }}
+          />
+
+          {/* Timeline Items */}
+          {educationData.map((edu, index) => (
             <motion.div
-              className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5 opacity-0 hover:opacity-100 transition-opacity duration-500 rounded-3xl"
-              initial={false}
-            />
-
-            {/* Glowing Border Effect */}
-            <motion.div
-              className="absolute inset-0 rounded-3xl bg-gradient-to-r from-primary/20 to-secondary/20 opacity-0 hover:opacity-100 transition-opacity duration-500 blur-sm -z-10"
-              initial={false}
-            />
-
-            <div className="relative z-10">
-              {/* Header Section */}
-              <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-6">
-                <div className="flex items-start space-x-4 mb-4 md:mb-0">
-                  <motion.div
-                    className={`w-16 h-16 rounded-2xl bg-gradient-to-r ${edu.color} flex items-center justify-center text-white shadow-lg`}
-                    whileHover={{ scale: 1.1, rotate: 5 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <i className={`${edu.icon} text-2xl`}></i>
-                  </motion.div>
-
-                  <div className="flex-1">
-                    <motion.h3
-                      className="font-display font-bold text-2xl md:text-3xl text-white mb-2"
-                      variants={itemVariants}
-                    >
-                      {edu.degree}
-                    </motion.h3>
-                    <motion.p
-                      className="text-primary font-semibold text-lg mb-1"
-                      variants={itemVariants}
-                    >
-                      {edu.field}
-                    </motion.p>
-                    <motion.p
-                      className="text-gray-300 font-medium"
-                      variants={itemVariants}
-                    >
-                      {edu.institution}
-                    </motion.p>
-                    <motion.p
-                      className="text-gray-400 text-sm"
-                      variants={itemVariants}
-                    >
-                      {edu.location}
-                    </motion.p>
-                  </div>
-                </div>
-
-                <motion.div
-                  className="flex items-center space-x-2 bg-white/5 backdrop-blur-sm border border-white/10 rounded-full px-4 py-2"
-                  variants={itemVariants}
-                  whileHover={{ scale: 1.05 }}
-                >
-                  <i className="fas fa-calendar-alt text-primary"></i>
-                  <span className="text-gray-300 font-medium text-sm">
-                    {edu.duration}
-                  </span>
-                </motion.div>
-              </div>
-
-              {/* Description */}
-              <motion.p
-                className="text-gray-300 leading-relaxed mb-6"
-                variants={itemVariants}
+              key={index}
+              className="relative flex items-start mb-20 last:mb-0"
+              initial={{ opacity: 0, x: 100 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{
+                duration: 0.8,
+                delay: index * 0.3,
+                ease: "easeOut",
+              }}
+              viewport={{ once: true, amount: 0.3 }}
+            >
+              {/* Timeline Dot */}
+              <motion.div
+                className="absolute left-[76px] top-8 w-6 h-6 bg-gradient-to-r from-primary to-secondary rounded-full border-4 border-gray-900 z-10 shadow-lg"
+                initial={{ scale: 0, rotate: -180 }}
+                whileInView={{ scale: 1, rotate: 0 }}
+                transition={{
+                  duration: 0.6,
+                  delay: index * 0.3 + 0.2,
+                  type: "spring",
+                  stiffness: 200,
+                }}
+                whileHover={{
+                  scale: 1.3,
+                  boxShadow: "0 0 20px rgba(249, 115, 22, 0.6)",
+                }}
               >
-                {edu.description}
-              </motion.p>
-
-              {/* Achievements */}
-              <motion.div variants={itemVariants}>
-                <h4 className="text-white font-semibold mb-4 flex items-center">
-                  <i className="fas fa-star text-yellow-400 mr-2"></i>
-                  Key Learning Areas
-                </h4>
                 <motion.div
-                  className="grid grid-cols-1 md:grid-cols-2 gap-3"
-                  variants={containerVariants}
-                >
-                  {edu.achievements.map((achievement, achIndex) => (
-                    <motion.div
-                      key={achIndex}
-                      className="flex items-center space-x-3 p-3 rounded-xl bg-white/5 border border-white/10 hover:border-primary/30 transition-all duration-300"
-                      variants={itemVariants}
-                      whileHover={{ x: 5, scale: 1.02 }}
-                      transition={{ duration: 0.2 }}
-                    >
-                      <motion.div
-                        className="w-2 h-2 rounded-full bg-gradient-to-r from-primary to-secondary"
-                        animate={{
-                          scale: [1, 1.2, 1],
-                        }}
-                        transition={{
-                          duration: 2,
-                          repeat: Infinity,
-                          delay: achIndex * 0.2,
-                        }}
-                      />
-                      <span className="text-gray-200 text-sm">
-                        {achievement}
-                      </span>
-                    </motion.div>
-                  ))}
-                </motion.div>
+                  className="absolute inset-1 bg-gradient-to-r from-primary to-secondary rounded-full"
+                  animate={{
+                    scale: [1, 1.2, 1],
+                    opacity: [0.7, 1, 0.7],
+                  }}
+                  transition={{
+                    duration: 2,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                />
               </motion.div>
 
-              {/* Decorative Elements */}
+              {/* Year Badge - Left Side of Timeline */}
               <motion.div
-                className="absolute top-4 right-4 w-20 h-20 bg-gradient-to-br from-primary/10 to-secondary/10 rounded-full opacity-0 hover:opacity-100 transition-opacity duration-500"
-                initial={false}
-              />
-              <motion.div
-                className="absolute bottom-4 left-4 w-16 h-16 bg-gradient-to-tr from-secondary/10 to-primary/10 rounded-full opacity-0 hover:opacity-100 transition-opacity duration-500"
-                initial={false}
-              />
-            </div>
-          </motion.div>
-        ))}
-      </motion.div>
+                className="absolute -left-6 top-7 bg-gradient-to-r from-primary to-secondary text-white px-3 py-1.5 rounded-full text-xs font-bold shadow-lg z-10"
+                initial={{ opacity: 0, scale: 0 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{
+                  duration: 0.5,
+                  delay: index * 0.3 + 0.4,
+                  type: "spring",
+                }}
+                whileHover={{ scale: 1.1 }}
+              >
+                {edu.year}
+              </motion.div>
 
-      {/* Additional Info Section */}
-      <motion.div
-        className="mt-12 text-center bg-gradient-to-r from-white/5 w-fit mx-auto to-white/10 backdrop-blur-md border border-white/10 rounded-2xl p-8"
-        variants={cardVariants}
-        whileHover={{ y: -5, scale: 1.02 }}
-        transition={{ duration: 0.3 }}
-      >
-        <motion.div
-          className="flex items-center justify-center mb-4"
-          variants={itemVariants}
-        >
-          <motion.div
-            className="w-12 h-12 rounded-full bg-gradient-to-r from-primary to-secondary flex items-center justify-center mr-4"
-            animate={{
-              rotate: [0, 360],
-            }}
-            transition={{
-              duration: 10,
-              repeat: Infinity,
-              ease: "linear",
-            }}
+              {/* Education Card */}
+              <motion.div
+                className="ml-28 w-full max-w-2xl"
+                whileHover={{
+                  scale: 1.01,
+                  y: -3,
+                }}
+                transition={{ duration: 0.3 }}
+              >
+                <div className="relative group">
+                  {/* Main Card */}
+                  <div className="relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border border-white/20 rounded-3xl overflow-hidden shadow-2xl transition-all hover:border-primary/40 duration-500 p-6">
+                    {/* Card Header */}
+                    <div className="relative z-10">
+                      <div className="flex items-start gap-6 mb-6">
+                        <motion.div
+                          className="relative"
+                          whileHover={{ rotate: 360, scale: 1.1 }}
+                          transition={{ duration: 0.6 }}
+                        >
+                          <div className="w-12 h-12 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-xl flex items-center justify-center border border-primary/30 backdrop-blur-sm">
+                            <i
+                              className={`${edu.icon} text-primary text-lg`}
+                            ></i>
+                          </div>
+                          <motion.div
+                            className="absolute inset-0 bg-gradient-to-br from-primary/10 to-secondary/10 rounded-2xl"
+                            animate={{
+                              scale: [1, 1.2, 1],
+                              opacity: [0, 0.5, 0],
+                            }}
+                            transition={{
+                              duration: 2,
+                              repeat: Infinity,
+                              ease: "easeInOut",
+                            }}
+                          />
+                        </motion.div>
+
+                        <div className="flex-1">
+                          <motion.h3
+                            className="text-white font-bold text-xl md:text-2xl mb-2 leading-tight"
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ delay: index * 0.3 + 0.6 }}
+                          >
+                            {edu.degree}
+                          </motion.h3>
+                          <motion.p
+                            className="text-primary font-semibold text-base mb-2 flex items-center gap-2"
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ delay: index * 0.3 + 0.7 }}
+                          >
+                            <span className="w-2 h-2 bg-primary rounded-full animate-pulse"></span>
+                            {edu.field}
+                          </motion.p>
+                        </div>
+                      </div>
+
+                      {/* Institution Info with Icons */}
+                      <motion.div
+                        className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4"
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ delay: index * 0.3 + 0.8 }}
+                      >
+                        <div className="flex items-center gap-2 bg-white/5 backdrop-blur-sm rounded-lg p-2 border border-white/10 hover:border-primary/30 transition-all duration-300">
+                          <div className="w-6 h-6 bg-primary/20 rounded-md flex items-center justify-center">
+                            <i className="fas fa-university text-primary text-xs"></i>
+                          </div>
+                          <span className="text-gray-300 text-xs font-medium">
+                            {edu.institution}
+                          </span>
+                        </div>
+                        <div className="flex items-center gap-2 bg-white/5 backdrop-blur-sm rounded-lg p-2 border border-white/10 hover:border-secondary/30 transition-all duration-300">
+                          <div className="w-6 h-6 bg-secondary/20 rounded-md flex items-center justify-center">
+                            <i className="fas fa-map-marker-alt text-secondary text-xs"></i>
+                          </div>
+                          <span className="text-gray-300 text-xs font-medium">
+                            {edu.location}
+                          </span>
+                        </div>
+                      </motion.div>
+
+                      {/* Description */}
+                      <motion.p
+                        className="text-gray-300 leading-relaxed mb-6 text-sm"
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ delay: index * 0.3 + 0.9 }}
+                      >
+                        {edu.description}
+                      </motion.p>
+
+                      {/* Key Learning Areas */}
+                      <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ delay: index * 0.3 + 1.0 }}
+                      >
+                        <h4 className="text-white font-bold text-base mb-3 flex items-center gap-2">
+                          <div className="w-6 h-6 bg-gradient-to-r from-primary to-secondary rounded-md flex items-center justify-center">
+                            <span className="text-white text-xs">📚</span>
+                          </div>
+                          Key Learning Areas
+                        </h4>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                          {edu.achievements.map((achievement, achIndex) => (
+                            <motion.div
+                              key={achIndex}
+                              className="group flex items-center gap-2 p-3 rounded-lg bg-gradient-to-r from-white/5 to-white/10 border border-white/10 hover:border-primary/30 hover:from-primary/5 hover:to-secondary/5 transition-all duration-300 cursor-default"
+                              initial={{ opacity: 0 }}
+                              whileInView={{ opacity: 1 }}
+                              transition={{
+                                delay: index * 0.3 + 1.1 + achIndex * 0.1,
+                                duration: 0.5,
+                              }}
+                              whileHover={{ scale: 1.01, x: 3 }}
+                            >
+                              <motion.div
+                                className="w-2 h-2 bg-gradient-to-r from-primary to-secondary rounded-full"
+                                animate={{
+                                  scale: [1, 1.2, 1],
+                                }}
+                                transition={{
+                                  duration: 2,
+                                  repeat: Infinity,
+                                  delay: achIndex * 0.3,
+                                }}
+                              />
+                              <span className="text-gray-200 text-xs font-medium group-hover:text-white transition-colors duration-300">
+                                {achievement}
+                              </span>
+                            </motion.div>
+                          ))}
+                        </div>
+                      </motion.div>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+
+      {/* Continuous Learning Section */}
+      <motion.div className="mt-20 max-w-4xl mx-auto" variants={cardVariants}>
+        <div className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border border-white/20 rounded-3xl overflow-hidden shadow-2xl transition-all hover:border-primary/40 duration-500 p-8 text-center">
+          <motion.h3
+            className="text-white font-bold text-2xl mb-4"
+            variants={itemVariants}
           >
-            <i className="fas fa-book text-white"></i>
-          </motion.div>
-          <h3 className="text-white font-bold text-xl">
             Continuous Learning Journey
-          </h3>
-        </motion.div>
-        <motion.p
-          className="text-gray-300 max-w-4xl mx-auto"
-          variants={itemVariants}
-        >
-          My educational journey combines the analytical thinking and
-          communication skills from my Bengali Literature background with
-          intensive technical training from Programming Hero. This unique blend
-          of liberal arts foundation and modern programming expertise allows me
-          to create user-centered solutions with attention to detail, clear
-          communication, and deep technical proficiency in full-stack
-          development.
-        </motion.p>
+          </motion.h3>
+          <motion.p
+            className="text-gray-300 leading-relaxed"
+            variants={itemVariants}
+          >
+            My educational journey combines the analytical thinking and
+            communication skills from my Bengali Literature background with
+            intensive technical training from Programming Hero. This unique
+            blend allows me to create user- centered solutions with attention to
+            detail and deep technical proficiency.
+          </motion.p>
+        </div>
       </motion.div>
     </motion.section>
   );

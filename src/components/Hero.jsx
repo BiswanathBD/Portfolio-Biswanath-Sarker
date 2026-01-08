@@ -68,7 +68,8 @@ const Hero = () => {
                 repeatDelay: 1.5,
                 ease: "easeInOut",
               }}
-            >👋🏼
+            >
+              👋🏼
             </motion.span>{" "}
             Hi, I'm <br />
             <span className="text-5xl md:text-7xl text-white">Biswanath</span>

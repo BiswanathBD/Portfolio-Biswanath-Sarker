@@ -48,13 +48,28 @@ const About = () => {
     >
       <motion.div className="text-center mb-16" variants={itemVariants}>
         <motion.h2
-          className="font-display font-bold text-4xl md:text-5xl text-white"
+          className="font-display font-bold text-4xl md:text-5xl text-white mb-4"
           variants={itemVariants}
         >
+          <motion.span
+            className="inline-block mr-3"
+            animate={{
+              rotate: [0, 10, -10, 0],
+              scale: [1, 1.1, 1],
+            }}
+            transition={{
+              duration: 3,
+              repeat: Infinity,
+              repeatDelay: 2,
+              ease: "easeInOut",
+            }}
+          >
+            👨🏻‍💻
+          </motion.span>
           About Me
         </motion.h2>
         <motion.div
-          className="h-1 w-20 bg-gradient-to-r from-primary to-secondary mx-auto mt-4 rounded-full"
+          className="h-1 w-20 bg-gradient-to-r from-primary to-secondary mx-auto rounded-full"
           variants={itemVariants}
           initial={{ width: 0 }}
           whileInView={{ width: 80 }}
@@ -173,21 +188,6 @@ const About = () => {
             className="font-display font-bold text-2xl md:text-3xl text-secondary"
             variants={itemVariants}
           >
-            <motion.span
-              className="inline-block mr-2"
-              animate={{
-                rotate: [0, 10, -10, 0],
-                scale: [1, 1.1, 1],
-              }}
-              transition={{
-                duration: 3,
-                repeat: Infinity,
-                repeatDelay: 2,
-                ease: "easeInOut",
-              }}
-            >
-              🚀
-            </motion.span>
             I'm Biswanath Sarker
           </motion.h3>
           <motion.div
