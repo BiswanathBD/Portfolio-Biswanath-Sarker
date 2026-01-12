@@ -1,6 +1,37 @@
+import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+// Register ScrollTrigger plugin
+gsap.registerPlugin(ScrollTrigger);
 
 const Skills = () => {
+  const skillsRef = useRef();
+  const titleRef = useRef();
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // Title animation controlled by scroll
+      gsap.fromTo(
+        titleRef.current,
+        { y: 50, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          ease: "none",
+          scrollTrigger: {
+            trigger: titleRef.current,
+            start: "top 90%",
+            end: "top 60%",
+            scrub: 1,
+          },
+        }
+      );
+    }, skillsRef);
+
+    return () => ctx.revert();
+  }, []);
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -152,6 +183,7 @@ const Skills = () => {
 
   return (
     <motion.section
+      ref={skillsRef}
       className="py-20 container mx-auto px-4 md:px-8 lg:px-16 xl:px-24 relative"
       id="skills"
       variants={containerVariants}
@@ -160,64 +192,39 @@ const Skills = () => {
       viewport={{ once: true, amount: 0.2 }}
     >
       {/* Background Elements */}
-      <motion.div
-        className="absolute top-10 right-10 w-72 h-72 bg-secondary/10 rounded-full blur-[100px] pointer-events-none -z-10"
-        animate={{
-          scale: [1, 1.2, 1],
-          opacity: [0.1, 0.2, 0.1],
-        }}
-        transition={{
-          duration: 8,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-      />
-      <motion.div
-        className="absolute bottom-10 left-10 w-96 h-96 bg-primary/10 rounded-full blur-[120px] pointer-events-none -z-10"
-        animate={{
-          scale: [1.2, 1, 1.2],
-          opacity: [0.1, 0.2, 0.1],
-        }}
-        transition={{
-          duration: 10,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-      />
+      <div className="absolute top-10 right-10 w-72 h-72 bg-secondary/10 rounded-full blur-[100px] pointer-events-none -z-10" />
+      <div className="absolute bottom-10 left-10 w-96 h-96 bg-primary/10 rounded-full blur-[120px] pointer-events-none -z-10" />
 
-      <motion.div className="text-center mb-16" variants={itemVariants}>
-        <motion.h2
-          className="font-display font-bold text-4xl md:text-5xl text-white mb-4"
-          variants={itemVariants}
-        >
+      {/* Header Section */}
+      <div ref={titleRef} className="text-center mb-20">
+        <h2 className="font-display font-bold text-4xl md:text-5xl text-white mb-4">
           <motion.span
             className="inline-block mr-3"
             animate={{
-              rotate: [0, 360],
+              rotate: [0, 10, -10, 0],
+              scale: [1, 1.1, 1],
             }}
             transition={{
-              duration: 4,
+              duration: 3,
               repeat: Infinity,
-              ease: "linear",
+              repeatDelay: 2,
+              ease: "easeInOut",
             }}
           >
             ⚡
           </motion.span>
           Skills & Technologies
-        </motion.h2>
+        </h2>
         <motion.div
           className="h-1 w-24 bg-gradient-to-r from-primary to-secondary mx-auto rounded-full"
           initial={{ width: 0 }}
           whileInView={{ width: 96 }}
           transition={{ duration: 0.8, delay: 0.5 }}
         />
-        <motion.p
-          className="text-gray-400 mt-6 max-w-2xl mx-auto"
-          variants={itemVariants}
-        >
+        <p className="text-gray-400 mt-6 max-w-2xl mx-auto">
           Here are the technologies and tools I work with to bring ideas to life
-        </motion.p>
-      </motion.div>
+        </p>
+      </div>
 
       <motion.div
         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"

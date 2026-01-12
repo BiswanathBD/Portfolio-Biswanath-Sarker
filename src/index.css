@@ -48,6 +48,20 @@ body {
   }
 }
 
+/* Wave animation for emojis */
+@keyframes wave {
+  0%,
+  100% {
+    transform: rotate(0deg) scale(1);
+  }
+  25% {
+    transform: rotate(10deg) scale(1.1);
+  }
+  75% {
+    transform: rotate(-10deg) scale(1.1);
+  }
+}
+
 /* Custom Scrollbar Styles */
 .scrollbar-thin {
   scrollbar-width: thin;

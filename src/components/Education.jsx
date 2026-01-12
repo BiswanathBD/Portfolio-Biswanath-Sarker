@@ -1,40 +1,206 @@
+import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+// Register ScrollTrigger plugin
+gsap.registerPlugin(ScrollTrigger);
 
 const Education = () => {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        delayChildren: 0.3,
-        staggerChildren: 0.2,
-      },
-    },
-  };
+  const educationRef = useRef();
+  const titleRef = useRef();
+  const timelineRef = useRef();
+  const cardsRef = useRef([]);
+  const dotsRef = useRef([]);
+  const yearsRef = useRef([]);
+  const continuousRef = useRef();
 
-  const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        duration: 0.6,
-        ease: "easeOut",
-      },
-    },
-  };
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // Title animation controlled by scroll
+      gsap.fromTo(
+        titleRef.current,
+        { y: 50, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          ease: "none",
+          scrollTrigger: {
+            trigger: titleRef.current,
+            start: "top 90%",
+            end: "top 60%",
+            scrub: 1, // Animation follows scroll position
+          },
+        }
+      );
 
-  const cardVariants = {
-    hidden: { y: 30, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        duration: 0.8,
-        ease: "easeOut",
-      },
-    },
-  };
+      // Timeline line animation controlled by scroll
+      gsap.fromTo(
+        timelineRef.current,
+        { height: "0%" },
+        {
+          height: "100%",
+          ease: "none",
+          scrollTrigger: {
+            trigger: timelineRef.current,
+            start: "top 80%",
+            end: "bottom 20%",
+            scrub: 2, // Smoother scroll control
+          },
+        }
+      );
+
+      // Education cards animation controlled by scroll
+      cardsRef.current.forEach((card, index) => {
+        if (card) {
+          gsap.fromTo(
+            card,
+            { x: 100, opacity: 0 },
+            {
+              x: 0,
+              opacity: 1,
+              ease: "none",
+              scrollTrigger: {
+                trigger: card,
+                start: "top 85%",
+                end: "top 50%",
+                scrub: 1.5, // Animation follows scroll
+              },
+            }
+          );
+        }
+      });
+
+      // Timeline dots animation controlled by scroll
+      dotsRef.current.forEach((dot, index) => {
+        if (dot) {
+          gsap.fromTo(
+            dot,
+            { scale: 0, rotation: -180 },
+            {
+              scale: 1,
+              rotation: 0,
+              ease: "none",
+              scrollTrigger: {
+                trigger: dot,
+                start: "top 80%",
+                end: "top 60%",
+                scrub: 1,
+              },
+            }
+          );
+        }
+      });
+
+      // Year badges animation controlled by scroll
+      yearsRef.current.forEach((year, index) => {
+        if (year) {
+          gsap.fromTo(
+            year,
+            { opacity: 0, scale: 0 },
+            {
+              opacity: 1,
+              scale: 1,
+              ease: "none",
+              scrollTrigger: {
+                trigger: year,
+                start: "top 80%",
+                end: "top 65%",
+                scrub: 1,
+              },
+            }
+          );
+        }
+      });
+
+      // Continuous learning section animation controlled by scroll
+      gsap.fromTo(
+        continuousRef.current,
+        { y: 50, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          ease: "none",
+          scrollTrigger: {
+            trigger: continuousRef.current,
+            start: "top 85%",
+            end: "top 60%",
+            scrub: 1.5,
+          },
+        }
+      );
+      // Additional scroll-controlled animations for card content
+      cardsRef.current.forEach((card, index) => {
+        if (card) {
+          const cardContent = card.querySelector(".card-content");
+          const cardIcon = card.querySelector(".card-icon");
+          const cardTitle = card.querySelector(".card-title");
+          const cardDescription = card.querySelector(".card-description");
+          const cardAchievements = card.querySelectorAll(".achievement-item");
+
+          // Card content slide in
+          if (cardContent) {
+            gsap.fromTo(
+              cardContent,
+              { x: 30, opacity: 0 },
+              {
+                x: 0,
+                opacity: 1,
+                ease: "none",
+                scrollTrigger: {
+                  trigger: cardContent,
+                  start: "top 80%",
+                  end: "top 55%",
+                  scrub: 1,
+                },
+              }
+            );
+          }
+
+          // Card icon rotation
+          if (cardIcon) {
+            gsap.fromTo(
+              cardIcon,
+              { rotation: -90, scale: 0.8 },
+              {
+                rotation: 0,
+                scale: 1,
+                ease: "none",
+                scrollTrigger: {
+                  trigger: cardIcon,
+                  start: "top 80%",
+                  end: "top 65%",
+                  scrub: 1.5,
+                },
+              }
+            );
+          }
+
+          // Achievement items stagger
+          if (cardAchievements.length > 0) {
+            gsap.fromTo(
+              cardAchievements,
+              { x: 20, opacity: 0 },
+              {
+                x: 0,
+                opacity: 1,
+                ease: "none",
+                stagger: 0.1,
+                scrollTrigger: {
+                  trigger: cardAchievements[0],
+                  start: "top 75%",
+                  end: "top 50%",
+                  scrub: 2,
+                },
+              }
+            );
+          }
+        }
+      });
+    }, educationRef);
+
+    return () => ctx.revert();
+  }, []);
 
   const educationData = [
     {
@@ -72,34 +238,17 @@ const Education = () => {
   ];
 
   return (
-    <motion.section
+    <section
+      ref={educationRef}
       className="py-20 container mx-auto px-4 md:px-8 lg:px-16 xl:px-24 relative"
       id="education"
-      variants={containerVariants}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.3 }}
     >
       {/* Background Elements */}
-      <motion.div
-        className="absolute top-10 left-10 w-80 h-80 bg-primary/10 rounded-full blur-[100px] pointer-events-none -z-10"
-        animate={{
-          scale: [1, 1.2, 1],
-          opacity: [0.1, 0.2, 0.1],
-        }}
-        transition={{
-          duration: 8,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-      />
+      <div className="absolute top-10 left-10 w-80 h-80 bg-primary/10 rounded-full blur-[100px] pointer-events-none -z-10" />
 
       {/* Header Section */}
-      <motion.div className="text-center mb-20" variants={itemVariants}>
-        <motion.h2
-          className="font-display font-bold text-4xl md:text-5xl text-white mb-4"
-          variants={itemVariants}
-        >
+      <div ref={titleRef} className="text-center mb-20">
+        <h2 className="font-display font-bold text-4xl md:text-5xl text-white mb-4">
           <motion.span
             className="inline-block mr-3"
             animate={{
@@ -116,168 +265,84 @@ const Education = () => {
             🎓
           </motion.span>
           Education
-        </motion.h2>
+        </h2>
         <motion.div
           className="h-1 w-24 bg-gradient-to-r from-primary to-secondary mx-auto rounded-full"
           initial={{ width: 0 }}
           whileInView={{ width: 96 }}
           transition={{ duration: 0.8, delay: 0.5 }}
         />
-        <motion.p
-          className="text-gray-400 mt-6 max-w-2xl mx-auto"
-          variants={itemVariants}
-        >
+        <p className="text-gray-400 mt-6 max-w-2xl mx-auto">
           My educational journey from literature to programming, combining
           analytical thinking with technical expertise
-        </motion.p>
-      </motion.div>
+        </p>
+      </div>
 
       {/* Timeline Container */}
       <div className="relative max-w-4xl mx-auto flex justify-center">
         <div className="relative w-full max-w-3xl">
           {/* Vertical Timeline Line - Left Side */}
-          <motion.div
+          <div
+            ref={timelineRef}
             className="absolute left-20 top-0 w-1 bg-gradient-to-b from-primary via-secondary to-primary h-full rounded-full"
-            initial={{ height: 0 }}
-            whileInView={{ height: "100%" }}
-            transition={{ duration: 1.5, delay: 0.5 }}
+            style={{ height: "0%" }}
           />
 
           {/* Timeline Items */}
           {educationData.map((edu, index) => (
-            <motion.div
+            <div
               key={index}
+              ref={(el) => (cardsRef.current[index] = el)}
               className="relative flex items-start mb-20 last:mb-0"
-              initial={{ opacity: 0, x: 100 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{
-                duration: 0.8,
-                delay: index * 0.3,
-                ease: "easeOut",
-              }}
-              viewport={{ once: true, amount: 0.3 }}
             >
               {/* Timeline Dot */}
-              <motion.div
+              <div
+                ref={(el) => (dotsRef.current[index] = el)}
                 className="absolute left-[76px] top-8 w-6 h-6 bg-gradient-to-r from-primary to-secondary rounded-full border-4 border-gray-900 z-10 shadow-lg"
-                initial={{ scale: 0, rotate: -180 }}
-                whileInView={{ scale: 1, rotate: 0 }}
-                transition={{
-                  duration: 0.6,
-                  delay: index * 0.3 + 0.2,
-                  type: "spring",
-                  stiffness: 200,
-                }}
-                whileHover={{
-                  scale: 1.3,
-                  boxShadow: "0 0 20px rgba(249, 115, 22, 0.6)",
-                }}
               >
-                <motion.div
-                  className="absolute inset-1 bg-gradient-to-r from-primary to-secondary rounded-full"
-                  animate={{
-                    scale: [1, 1.2, 1],
-                    opacity: [0.7, 1, 0.7],
-                  }}
-                  transition={{
-                    duration: 2,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
-                />
-              </motion.div>
+                <div className="absolute inset-1 bg-gradient-to-r from-primary to-secondary rounded-full" />
+              </div>
 
               {/* Year Badge - Left Side of Timeline */}
-              <motion.div
+              <div
+                ref={(el) => (yearsRef.current[index] = el)}
                 className="absolute -left-6 top-7 bg-gradient-to-r from-primary to-secondary text-white px-3 py-1.5 rounded-full text-xs font-bold shadow-lg z-10"
-                initial={{ opacity: 0, scale: 0 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{
-                  duration: 0.5,
-                  delay: index * 0.3 + 0.4,
-                  type: "spring",
-                }}
-                whileHover={{ scale: 1.1 }}
               >
                 {edu.year}
-              </motion.div>
+              </div>
 
               {/* Education Card */}
-              <motion.div
-                className="ml-28 w-full max-w-2xl"
-                whileHover={{
-                  y: -15,
-                  scale: 1.02,
-                }}
-                transition={{ duration: 0.3 }}
-              >
+              <div className="ml-28 w-full max-w-2xl">
                 <div className="group relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border border-white/20 rounded-3xl overflow-hidden shadow-2xl transition-all duration-700 hover:border-primary/40">
                   {/* Animated Background Gradient */}
-                  <motion.div
-                    className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                    initial={false}
-                  />
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
                   {/* Glowing Border Effect */}
-                  <motion.div
-                    className="absolute inset-0 rounded-3xl bg-gradient-to-r from-primary/20 to-secondary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm -z-10"
-                    initial={false}
-                  />
+                  <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-primary/20 to-secondary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm -z-10" />
 
                   {/* Main Card */}
-                  <div className="relative p-8 z-10">
+                  <div className="relative p-8 z-10 card-content">
                     {/* Card Header */}
                     <div className="flex items-start gap-6 mb-6">
-                      <motion.div
-                        className="relative"
-                        whileHover={{ rotate: 360, scale: 1.1 }}
-                        transition={{ duration: 0.6 }}
-                      >
+                      <div className="relative card-icon">
                         <div className="w-12 h-12 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-xl flex items-center justify-center border border-primary/30 backdrop-blur-sm">
                           <i className={`${edu.icon} text-primary text-lg`}></i>
                         </div>
-                        <motion.div
-                          className="absolute inset-0 bg-gradient-to-br from-primary/10 to-secondary/10 rounded-2xl"
-                          animate={{
-                            scale: [1, 1.2, 1],
-                            opacity: [0, 0.5, 0],
-                          }}
-                          transition={{
-                            duration: 2,
-                            repeat: Infinity,
-                            ease: "easeInOut",
-                          }}
-                        />
-                      </motion.div>
+                      </div>
 
                       <div className="flex-1">
-                        <motion.h3
-                          className="text-white font-bold text-xl md:text-2xl mb-2 leading-tight group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-primary group-hover:to-secondary transition-all duration-300"
-                          initial={{ opacity: 0, y: 20 }}
-                          whileInView={{ opacity: 1, y: 0 }}
-                          transition={{ delay: index * 0.3 + 0.6 }}
-                        >
+                        <h3 className="card-title text-white font-bold text-xl md:text-2xl mb-2 leading-tight group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-primary group-hover:to-secondary transition-all duration-300">
                           {edu.degree}
-                        </motion.h3>
-                        <motion.p
-                          className="text-primary font-semibold text-base mb-2 flex items-center gap-2"
-                          initial={{ opacity: 0, y: 20 }}
-                          whileInView={{ opacity: 1, y: 0 }}
-                          transition={{ delay: index * 0.3 + 0.7 }}
-                        >
+                        </h3>
+                        <p className="text-primary font-semibold text-base mb-2 flex items-center gap-2">
                           <span className="w-2 h-2 bg-primary rounded-full animate-pulse"></span>
                           {edu.field}
-                        </motion.p>
+                        </p>
                       </div>
                     </div>
 
                     {/* Institution Info with Icons */}
-                    <motion.div
-                      className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4"
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      transition={{ delay: index * 0.3 + 0.8 }}
-                    >
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
                       <div className="flex items-center gap-2 bg-white/5 backdrop-blur-sm rounded-lg p-2 border border-white/10 hover:border-primary/30 transition-all duration-300">
                         <div className="w-6 h-6 bg-primary/20 rounded-md flex items-center justify-center">
                           <i className="fas fa-university text-primary text-xs"></i>
@@ -294,24 +359,15 @@ const Education = () => {
                           {edu.location}
                         </span>
                       </div>
-                    </motion.div>
+                    </div>
 
                     {/* Description */}
-                    <motion.p
-                      className="text-gray-300 leading-relaxed mb-6 text-sm group-hover:text-gray-200 transition-colors duration-300"
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      transition={{ delay: index * 0.3 + 0.9 }}
-                    >
+                    <p className="card-description text-gray-300 leading-relaxed mb-6 text-sm group-hover:text-gray-200 transition-colors duration-300">
                       {edu.description}
-                    </motion.p>
+                    </p>
 
                     {/* Key Learning Areas */}
-                    <motion.div
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      transition={{ delay: index * 0.3 + 1.0 }}
-                    >
+                    <div>
                       <h4 className="text-white font-bold text-base mb-3 flex items-center gap-2">
                         <div className="w-6 h-6 bg-gradient-to-r from-primary to-secondary rounded-md flex items-center justify-center">
                           <span className="text-white text-xs">📚</span>
@@ -320,99 +376,58 @@ const Education = () => {
                       </h4>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                         {edu.achievements.map((achievement, achIndex) => (
-                          <motion.div
+                          <div
                             key={achIndex}
-                            className="group flex items-center gap-2 p-3 rounded-lg bg-gradient-to-r from-white/5 to-white/10 border border-white/10 hover:border-primary/30 hover:from-primary/5 hover:to-secondary/5 transition-all duration-300 cursor-default"
-                            initial={{ opacity: 0 }}
-                            whileInView={{ opacity: 1 }}
-                            transition={{
-                              delay: index * 0.3 + 1.1 + achIndex * 0.1,
-                              duration: 0.5,
-                            }}
-                            whileHover={{ scale: 1.01, x: 3 }}
+                            className="achievement-item group flex items-center gap-2 p-3 rounded-lg bg-gradient-to-r from-white/5 to-white/10 border border-white/10 hover:border-primary/30 hover:from-primary/5 hover:to-secondary/5 transition-all duration-300 cursor-default"
                           >
-                            <motion.div
-                              className="w-2 h-2 bg-gradient-to-r from-primary to-secondary rounded-full"
-                              animate={{
-                                scale: [1, 1.2, 1],
-                              }}
-                              transition={{
-                                duration: 2,
-                                repeat: Infinity,
-                                delay: achIndex * 0.3,
-                              }}
-                            />
+                            <div className="w-2 h-2 bg-gradient-to-r from-primary to-secondary rounded-full" />
                             <span className="text-gray-200 text-xs font-medium group-hover:text-white transition-colors duration-300">
                               {achievement}
                             </span>
-                          </motion.div>
+                          </div>
                         ))}
                       </div>
-                    </motion.div>
+                    </div>
 
                     {/* Decorative Elements */}
-                    <motion.div
-                      className="absolute bottom-0 right-0 w-32 h-32 bg-gradient-to-tl from-secondary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-tl-full"
-                      initial={false}
-                    />
-                    <motion.div
-                      className="absolute top-1/2 left-0 w-1 h-16 bg-gradient-to-b from-primary to-secondary opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-r-full"
-                      initial={false}
-                    />
+                    <div className="absolute bottom-0 right-0 w-32 h-32 bg-gradient-to-tl from-secondary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-tl-full" />
+                    <div className="absolute top-1/2 left-0 w-1 h-16 bg-gradient-to-b from-primary to-secondary opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-r-full" />
                   </div>
                 </div>
-              </motion.div>
-            </motion.div>
+              </div>
+            </div>
           ))}
         </div>
       </div>
 
       {/* Continuous Learning Section */}
-      <motion.div className="mt-20 max-w-4xl mx-auto" variants={cardVariants}>
+      <div ref={continuousRef} className="mt-20 max-w-4xl mx-auto">
         <div className="group relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border border-white/20 rounded-3xl overflow-hidden shadow-2xl transition-all duration-700 hover:border-primary/40">
           {/* Animated Background Gradient */}
-          <motion.div
-            className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-            initial={false}
-          />
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
           {/* Glowing Border Effect */}
-          <motion.div
-            className="absolute inset-0 rounded-3xl bg-gradient-to-r from-primary/20 to-secondary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm -z-10"
-            initial={false}
-          />
+          <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-primary/20 to-secondary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm -z-10" />
 
           <div className="relative p-8 text-center z-10">
-            <motion.h3
-              className="text-white font-bold text-2xl mb-4 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-primary group-hover:to-secondary transition-all duration-300"
-              variants={itemVariants}
-            >
+            <h3 className="text-white font-bold text-2xl mb-4 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-primary group-hover:to-secondary transition-all duration-300">
               Continuous Learning Journey
-            </motion.h3>
-            <motion.p
-              className="text-gray-300 leading-relaxed group-hover:text-gray-200 transition-colors duration-300"
-              variants={itemVariants}
-            >
+            </h3>
+            <p className="text-gray-300 leading-relaxed group-hover:text-gray-200 transition-colors duration-300">
               My educational journey combines the analytical thinking and
               communication skills from my Bengali Literature background with
               intensive technical training from Programming Hero. This unique
               blend allows me to create user-centered solutions with attention
               to detail and deep technical proficiency.
-            </motion.p>
+            </p>
 
             {/* Decorative Elements */}
-            <motion.div
-              className="absolute bottom-0 right-0 w-32 h-32 bg-gradient-to-tl from-secondary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-tl-full"
-              initial={false}
-            />
-            <motion.div
-              className="absolute top-1/2 left-0 w-1 h-16 bg-gradient-to-b from-primary to-secondary opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-r-full"
-              initial={false}
-            />
+            <div className="absolute bottom-0 right-0 w-32 h-32 bg-gradient-to-tl from-secondary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-tl-full" />
+            <div className="absolute top-1/2 left-0 w-1 h-16 bg-gradient-to-b from-primary to-secondary opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-r-full" />
           </div>
         </div>
-      </motion.div>
-    </motion.section>
+      </div>
+    </section>
   );
 };
 
