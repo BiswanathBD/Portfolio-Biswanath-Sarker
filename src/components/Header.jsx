@@ -1,8 +1,11 @@
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Logo from "./Logo";
 import Navigation from "./Navigation";
 
 const Header = () => {
+  const [isScrolled, setIsScrolled] = useState(false);
+
   const headerVariants = {
     hidden: { y: -100, opacity: 0 },
     visible: {
@@ -15,14 +18,32 @@ const Header = () => {
     },
   };
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      setIsScrolled(scrollPosition > 20);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
     <motion.header
-      className="w-full py-6 relative z-40"
+      className={`w-full py-4 z-40 container mx-auto px-4 md:px-8 lg:px-16 xl:px-24 transition-all duration-300 fixed  ${
+        isScrolled ? "top-0 left-0 right-0" : "top-0 left-0 right-0"
+      }`}
       variants={headerVariants}
       initial="hidden"
       animate="visible"
     >
-      <div className="container mx-auto px-4 md:px-8 lg:px-16 xl:px-24 flex justify-between items-center">
+      <div
+        className={`flex justify-between items-center transition-all duration-500 rounded-2xl border ${
+          isScrolled
+            ? "bg-background-dark/80 border-white/10 backdrop-blur-xl px-4 py-3"
+            : "bg-background-dark/0 px-0 py-0 border-transparent"
+        }`}
+      >
         <Logo />
         <Navigation />
       </div>

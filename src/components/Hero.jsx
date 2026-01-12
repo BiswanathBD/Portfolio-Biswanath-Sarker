@@ -28,7 +28,7 @@ const Hero = () => {
 
   return (
     <motion.section
-      className="relative pt-12 pb-24 md:pt-20 md:pb-32 container mx-auto px-4 md:px-8 lg:px-16 xl:px-24"
+      className="relative pt-12 pb-24 md:pt-20 md:pb-32 container mx-auto px-4 md:px-8 lg:px-16 xl:px-24 mt-24"
       variants={containerVariants}
       initial="hidden"
       animate="visible"

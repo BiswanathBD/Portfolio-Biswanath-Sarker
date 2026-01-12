@@ -166,7 +166,7 @@ const Navigation = () => {
             <AnimatePresence>
               {activeSection === item.section && (
                 <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-full border border-primary/30"
+                  className="absolute inset-0 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-lg border border-primary/30"
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.8 }}
@@ -215,7 +215,7 @@ const Navigation = () => {
 
       {/* Mobile menu button */}
       <motion.button
-        className="md:hidden text-white bg-white/5 backdrop-blur-md border border-white/10 rounded-full p-2 flex justify-center items-center shadow-lg"
+        className="md:hidden text-white bg-white/5 backdrop-blur-md border border-white/10 rounded-lg p-2 flex justify-center items-center shadow-lg"
         onClick={() => setIsMenuOpen(!isMenuOpen)}
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
@@ -243,13 +243,13 @@ const Navigation = () => {
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div
-            className="absolute top-full left-0 right-0 mt-4 mx-6 md:hidden"
+            className="absolute top-full left-0 right-0 m-4 md:hidden"
             variants={mobileMenuVariants}
             initial="hidden"
             animate="visible"
             exit="exit"
           >
-            <motion.nav className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-6 shadow-2xl">
+            <motion.nav className="bg-background-dark/90 backdrop-blur-md border border-white/10 rounded-2xl p-6 shadow-2xl">
               <div className="flex flex-col space-y-4 font-medium text-sm">
                 {navItems.map((item, index) => (
                   <motion.a
