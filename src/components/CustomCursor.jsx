@@ -4,10 +4,23 @@ import { motion, useReducedMotion } from "framer-motion";
 const CustomCursor = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
   const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
-    if (shouldReduceMotion) return;
+    // Check screen size and hide cursor on small screens
+    const checkScreenSize = () => {
+      setIsSmallScreen(window.innerWidth < 768); // Hide on screens smaller than md (768px)
+    };
+
+    checkScreenSize();
+    window.addEventListener("resize", checkScreenSize);
+
+    return () => window.removeEventListener("resize", checkScreenSize);
+  }, []);
+
+  useEffect(() => {
+    if (shouldReduceMotion || isSmallScreen) return;
 
     const updateMousePosition = (e) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
@@ -35,9 +48,10 @@ const CustomCursor = () => {
         el.removeEventListener("mouseleave", handleMouseLeave);
       });
     };
-  }, [shouldReduceMotion]);
+  }, [shouldReduceMotion, isSmallScreen]);
 
-  if (shouldReduceMotion) return null;
+  // Hide cursor on small screens or when motion is reduced
+  if (shouldReduceMotion || isSmallScreen) return null;
 
   return (
     <>

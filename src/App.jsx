@@ -18,11 +18,21 @@ function App() {
   useEffect(() => {
     document.documentElement.classList.add("dark");
 
-    // Hide default cursor
-    document.body.style.cursor = "none";
+    // Hide default cursor only on larger screens (md and up)
+    const handleCursorVisibility = () => {
+      if (window.innerWidth >= 768) {
+        document.body.style.cursor = "none";
+      } else {
+        document.body.style.cursor = "auto";
+      }
+    };
+
+    handleCursorVisibility();
+    window.addEventListener("resize", handleCursorVisibility);
 
     return () => {
       document.body.style.cursor = "auto";
+      window.removeEventListener("resize", handleCursorVisibility);
     };
   }, []);
 
