@@ -3,7 +3,6 @@ import { motion } from "framer-motion";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-// Register ScrollTrigger plugin
 gsap.registerPlugin(ScrollTrigger);
 
 const Education = () => {
@@ -17,7 +16,6 @@ const Education = () => {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Title animation controlled by scroll
       gsap.fromTo(
         titleRef.current,
         { y: 50, opacity: 0 },
@@ -29,7 +27,7 @@ const Education = () => {
             trigger: titleRef.current,
             start: "top 90%",
             end: "top 60%",
-            scrub: 1, // Animation follows scroll position
+            scrub: 1,
           },
         }
       );
@@ -51,7 +49,7 @@ const Education = () => {
       );
 
       // Education cards animation controlled by scroll
-      cardsRef.current.forEach((card, index) => {
+      cardsRef.current.forEach((card) => {
         if (card) {
           gsap.fromTo(
             card,
@@ -72,7 +70,7 @@ const Education = () => {
       });
 
       // Timeline dots animation controlled by scroll
-      dotsRef.current.forEach((dot, index) => {
+      dotsRef.current.forEach((dot) => {
         if (dot) {
           gsap.fromTo(
             dot,
@@ -93,7 +91,7 @@ const Education = () => {
       });
 
       // Year badges animation controlled by scroll
-      yearsRef.current.forEach((year, index) => {
+      yearsRef.current.forEach((year) => {
         if (year) {
           gsap.fromTo(
             year,
@@ -130,12 +128,10 @@ const Education = () => {
         }
       );
       // Additional scroll-controlled animations for card content
-      cardsRef.current.forEach((card, index) => {
+      cardsRef.current.forEach((card) => {
         if (card) {
           const cardContent = card.querySelector(".card-content");
           const cardIcon = card.querySelector(".card-icon");
-          const cardTitle = card.querySelector(".card-title");
-          const cardDescription = card.querySelector(".card-description");
           const cardAchievements = card.querySelectorAll(".achievement-item");
 
           // Card content slide in
@@ -180,16 +176,15 @@ const Education = () => {
           if (cardAchievements.length > 0) {
             gsap.fromTo(
               cardAchievements,
-              { x: 20, opacity: 0 },
+              { opacity: 0 },
               {
-                x: 0,
                 opacity: 1,
                 ease: "none",
                 stagger: 0.1,
                 scrollTrigger: {
                   trigger: cardAchievements[0],
-                  start: "top 75%",
-                  end: "top 50%",
+                  start: "top 90%",
+                  end: "top 70%",
                   scrub: 2,
                 },
               }
@@ -375,11 +370,8 @@ const Education = () => {
                         Key Learning Areas
                       </h4>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                        {edu.achievements.map((achievement, achIndex) => (
-                          <div
-                            key={achIndex}
-                            className="achievement-item group flex items-center gap-2 p-3 rounded-lg bg-gradient-to-r from-white/5 to-white/10 border border-white/10 hover:border-primary/30 hover:from-primary/5 hover:to-secondary/5 transition-all duration-300 cursor-default"
-                          >
+                        {edu.achievements.map((achievement) => (
+                          <div className="achievement-item group flex items-center gap-2 p-3 rounded-lg bg-gradient-to-r from-white/5 to-white/10 border border-white/10 hover:border-primary/30 hover:from-primary/5 hover:to-secondary/5 transition-all duration-300 cursor-default">
                             <div className="w-2 h-2 bg-gradient-to-r from-primary to-secondary rounded-full" />
                             <span className="text-gray-200 text-xs font-medium group-hover:text-white transition-colors duration-300">
                               {achievement}
