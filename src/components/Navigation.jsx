@@ -29,7 +29,7 @@ const Navigation = () => {
       y: 0,
       scale: 1,
       transition: {
-        duration: 0.3,
+        duration: 0.6,
         ease: "easeOut",
       },
     },
@@ -249,7 +249,7 @@ const Navigation = () => {
             animate="visible"
             exit="exit"
           >
-            <motion.nav className="bg-background-dark/90 backdrop-blur-md! border border-white/10 rounded-2xl p-6 shadow-2xl">
+            <motion.nav className="bg-background-dark/90 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-2xl">
               <div className="flex flex-col space-y-4 font-medium text-sm">
                 {navItems.map((item, index) => (
                   <motion.a
