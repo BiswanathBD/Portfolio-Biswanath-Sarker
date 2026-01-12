@@ -41,7 +41,7 @@ const Header = () => {
         className={`flex justify-between items-center transition-all duration-500 rounded-2xl border ${
           isScrolled
             ? "bg-background-dark/80 border-white/10 backdrop-blur-xl px-4 py-3"
-            : "bg-background-dark/0 px-0 py-0"
+            : "bg-background-dark/0 border-white/0"
         }`}
       >
         <Logo />
