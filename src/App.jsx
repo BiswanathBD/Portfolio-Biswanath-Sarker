@@ -39,7 +39,7 @@ function App() {
 
   return (
     <motion.div
-      className="bg-background-dark text-gray-100 font-body bg-grid-pattern relative overflow-hidden"
+      className="bg-background-dark text-gray-100 font-body bg-grid-pattern overflow-hidden"
       variants={pageVariants}
       initial="initial"
       animate="animate"
