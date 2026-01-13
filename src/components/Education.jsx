@@ -276,10 +276,10 @@ const Education = () => {
       {/* Timeline Container */}
       <div className="relative max-w-4xl mx-auto flex justify-center">
         <div className="relative w-full max-w-3xl">
-          {/* Vertical Timeline Line - Left Side */}
+          {/* Vertical Timeline Line - Left Side - Hidden on mobile */}
           <div
             ref={timelineRef}
-            className="absolute left-20 top-0 w-1 bg-gradient-to-b from-primary via-secondary to-primary h-full rounded-full"
+            className="absolute left-20 top-0 w-1 bg-gradient-to-b from-primary via-secondary to-primary h-full rounded-full hidden md:block"
             style={{ height: "0%" }}
           />
 
@@ -290,24 +290,24 @@ const Education = () => {
               ref={(el) => (cardsRef.current[index] = el)}
               className="relative flex items-start mb-20 last:mb-0"
             >
-              {/* Timeline Dot */}
+              {/* Timeline Dot - Hidden on mobile */}
               <div
                 ref={(el) => (dotsRef.current[index] = el)}
-                className="absolute left-[76px] top-8 w-6 h-6 bg-gradient-to-r from-primary to-secondary rounded-full border-4 border-gray-900 z-10 shadow-lg"
+                className="absolute left-[76px] top-8 w-6 h-6 bg-gradient-to-r from-primary to-secondary rounded-full border-4 border-gray-900 z-10 shadow-lg hidden md:block"
               >
                 <div className="absolute inset-1 bg-gradient-to-r from-primary to-secondary rounded-full" />
               </div>
 
-              {/* Year Badge - Left Side of Timeline */}
+              {/* Year Badge - Left Side of Timeline on desktop, hidden on mobile */}
               <div
                 ref={(el) => (yearsRef.current[index] = el)}
-                className="absolute -left-6 top-7 bg-gradient-to-r from-primary to-secondary text-white px-3 py-1.5 rounded-full text-xs font-bold shadow-lg z-10"
+                className="absolute -left-6 top-7 bg-gradient-to-r from-primary to-secondary text-white px-3 py-1.5 rounded-full text-xs font-bold shadow-lg z-10 hidden md:block"
               >
                 {edu.year}
               </div>
 
               {/* Education Card */}
-              <div className="ml-28 w-full max-w-2xl">
+              <div className="ml-0 md:ml-28 w-full max-w-2xl">
                 <div className="group relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border border-white/20 rounded-3xl overflow-hidden shadow-2xl transition-all duration-700 hover:border-primary/40">
                   {/* Animated Background Gradient */}
                   <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -316,20 +316,29 @@ const Education = () => {
                   <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-primary/20 to-secondary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm -z-10" />
 
                   {/* Main Card */}
-                  <div className="relative p-8 z-10 card-content">
+                  <div className="relative p-6 md:p-8 z-10 card-content">
+                    {/* Year Tag - Mobile Only */}
+                    <div className="md:hidden mb-4">
+                      <span className="inline-block bg-gradient-to-r from-primary to-secondary text-white px-3 py-1.5 rounded-full text-xs font-bold shadow-lg">
+                        {edu.year}
+                      </span>
+                    </div>
+
                     {/* Card Header */}
-                    <div className="flex items-start gap-6 mb-6">
+                    <div className="flex items-start gap-4 md:gap-6 mb-6">
                       <div className="relative card-icon">
-                        <div className="w-12 h-12 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-xl flex items-center justify-center border border-primary/30 backdrop-blur-sm">
-                          <i className={`${edu.icon} text-primary text-lg`}></i>
+                        <div className="w-10 md:w-12 h-10 md:h-12 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-xl flex items-center justify-center border border-primary/30 backdrop-blur-sm">
+                          <i
+                            className={`${edu.icon} text-primary text-base md:text-lg`}
+                          ></i>
                         </div>
                       </div>
 
                       <div className="flex-1">
-                        <h3 className="card-title text-white font-bold text-xl md:text-2xl mb-2 leading-tight group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-primary group-hover:to-secondary transition-all duration-300">
+                        <h3 className="card-title text-white font-bold text-lg md:text-xl xl:text-2xl mb-2 leading-tight group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-primary group-hover:to-secondary transition-all duration-300">
                           {edu.degree}
                         </h3>
-                        <p className="text-primary font-semibold text-base mb-2 flex items-center gap-2">
+                        <p className="text-primary font-semibold text-sm md:text-base mb-2 flex items-center gap-2">
                           <span className="w-2 h-2 bg-primary rounded-full animate-pulse"></span>
                           {edu.field}
                         </p>
@@ -337,7 +346,7 @@ const Education = () => {
                     </div>
 
                     {/* Institution Info with Icons */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
+                    <div className="grid sm:grid-cols-2 gap-3 mb-4">
                       <div className="flex items-center gap-2 bg-white/5 backdrop-blur-sm rounded-lg p-2 border border-white/10 hover:border-primary/30 transition-all duration-300">
                         <div className="w-6 h-6 bg-primary/20 rounded-md flex items-center justify-center">
                           <i className="fas fa-university text-primary text-xs"></i>
@@ -363,13 +372,13 @@ const Education = () => {
 
                     {/* Key Learning Areas */}
                     <div>
-                      <h4 className="text-white font-bold text-base mb-3 flex items-center gap-2">
+                      <h4 className="text-white font-bold text-sm md:text-base mb-3 flex items-center gap-2">
                         <div className="w-6 h-6 bg-gradient-to-r from-primary to-secondary rounded-md flex items-center justify-center">
                           <span className="text-white text-xs">📚</span>
                         </div>
                         Key Learning Areas
                       </h4>
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                      <div className="grid sm:grid-cols-2 gap-2">
                         {edu.achievements.map((achievement) => (
                           <div className="achievement-item group flex items-center gap-2 p-3 rounded-lg bg-gradient-to-r from-white/5 to-white/10 border border-white/10 hover:border-primary/30 hover:from-primary/5 hover:to-secondary/5 transition-all duration-300 cursor-default">
                             <div className="w-2 h-2 bg-gradient-to-r from-primary to-secondary rounded-full" />

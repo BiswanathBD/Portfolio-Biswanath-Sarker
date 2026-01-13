@@ -1,69 +1,52 @@
 import { useEffect, useRef } from "react";
 import Lenis from "lenis";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { gsap } from "gsap";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const SmoothScroll = () => {
-  const lenisRef = useRef();
+  const lenisRef = useRef(null);
 
   useEffect(() => {
-    // Initialize Lenis
     const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      direction: "vertical",
-      gestureDirection: "vertical",
+      lerp: 0.08,          // ✅ better than duration
       smooth: true,
-      mouseMultiplier: 1,
       smoothTouch: false,
-      touchMultiplier: 2,
-      infinite: false,
     });
 
     lenisRef.current = lenis;
 
-    // Animation frame loop
+    // 🔥 GSAP + Lenis sync
+    lenis.on("scroll", ScrollTrigger.update);
+
     function raf(time) {
       lenis.raf(time);
       requestAnimationFrame(raf);
     }
     requestAnimationFrame(raf);
 
-    // Handle anchor links
+    // Anchor smooth scroll
     const handleSmoothScroll = (e) => {
       const target = e.target.closest('a[href^="#"]');
-      if (target) {
-        e.preventDefault();
-        const targetId = target.getAttribute("href").substring(1);
-        const targetElement = document.getElementById(targetId);
+      if (!target) return;
 
-        if (targetElement) {
-          lenis.scrollTo(targetElement, {
-            offset: -80, // Account for header height
-            duration: 1.5,
-            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-          });
-        } else if (targetId === "") {
-          // Handle home link
-          lenis.scrollTo(0, {
-            duration: 1.5,
-            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-          });
-        }
-      }
+      e.preventDefault();
+      const id = target.getAttribute("href").replace("#", "");
+      const el = id ? document.getElementById(id) : null;
+
+      lenis.scrollTo(el || 0, {
+        offset: -80,
+        duration: 1.2,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      });
     };
 
-    // Add event listeners to navigation links
-    const navLinks = document.querySelectorAll(
-      'nav a[href^="#"], .footer a[href^="#"], a[href^="#"]'
-    );
-    navLinks.forEach((link) => {
-      link.addEventListener("click", handleSmoothScroll);
-    });
+    document.addEventListener("click", handleSmoothScroll);
 
-    // Cleanup
     return () => {
-      navLinks.forEach((link) => {
-        link.removeEventListener("click", handleSmoothScroll);
-      });
+      document.removeEventListener("click", handleSmoothScroll);
+      ScrollTrigger.getAll().forEach(t => t.kill());
       lenis.destroy();
     };
   }, []);

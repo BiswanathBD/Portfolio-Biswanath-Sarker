@@ -48,27 +48,29 @@ function App() {
   };
 
   return (
-    <motion.div
-      className="bg-background-dark text-gray-100 font-body bg-grid-pattern overflow-hidden"
-      variants={pageVariants}
-      initial="initial"
-      animate="animate"
-    >
-      <CustomCursor />
+    <>
       <SmoothScroll />
+      <motion.div
+        className="bg-background-dark text-gray-100 font-body bg-grid-pattern overflow-hidden"
+        variants={pageVariants}
+        initial="initial"
+        animate="animate"
+      >
+        <CustomCursor />
 
-      <Header />
-      <main>
-        <Hero />
-        <About />
-        <Education />
-        <Skills />
-        <Projects />
-        <Contact />
-      </main>
-      <Footer />
-      <ScrollToTop />
-    </motion.div>
+        <Header />
+        <main>
+          <Hero />
+          <About />
+          <Education />
+          <Skills />
+          <Projects />
+          <Contact />
+        </main>
+        <Footer />
+        <ScrollToTop />
+      </motion.div>
+    </>
   );
 }
 
