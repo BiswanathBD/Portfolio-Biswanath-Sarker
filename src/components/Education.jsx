@@ -379,8 +379,11 @@ const Education = () => {
                         Key Learning Areas
                       </h4>
                       <div className="grid sm:grid-cols-2 gap-2">
-                        {edu.achievements.map((achievement) => (
-                          <div className="achievement-item group flex items-center gap-2 p-3 rounded-lg bg-gradient-to-r from-white/5 to-white/10 border border-white/10 hover:border-primary/30 hover:from-primary/5 hover:to-secondary/5 transition-all duration-300 cursor-default">
+                        {edu.achievements.map((achievement, achIndex) => (
+                          <div
+                            key={achIndex}
+                            className="achievement-item group flex items-center gap-2 p-3 rounded-lg bg-gradient-to-r from-white/5 to-white/10 border border-white/10 hover:border-primary/30 hover:from-primary/5 hover:to-secondary/5 transition-all duration-300 cursor-default"
+                          >
                             <div className="w-2 h-2 bg-gradient-to-r from-primary to-secondary rounded-full" />
                             <span className="text-gray-200 text-xs font-medium group-hover:text-white transition-colors duration-300">
                               {achievement}

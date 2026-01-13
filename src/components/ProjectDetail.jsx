@@ -154,7 +154,7 @@ const ProjectDetail = ({ project, isOpen, onClose }) => {
 
               {/* Project Image */}
               <motion.div
-                className="mb-8 rounded-2xl overflow-hidden shadow-2xl"
+                className="mb-8 rounded-2xl overflow-hidden shadow-2xl border border-white/5"
                 variants={itemVariants}
                 whileHover={{ scale: 1.02 }}
                 transition={{ duration: 0.3 }}
@@ -162,7 +162,7 @@ const ProjectDetail = ({ project, isOpen, onClose }) => {
                 <img
                   src={project.image}
                   alt={project.title}
-                  className="w-full h-64 md:h-80 object-cover"
+                  className="w-full aspect-[16/9] object-cover object-top"
                 />
               </motion.div>
 

@@ -71,37 +71,37 @@ const Skills = () => {
       skills: [
         {
           name: "HTML5",
-          icon: "fab fa-html5",
+          icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg",
           color: "text-orange-500",
           level: 95,
         },
         {
           name: "CSS3",
-          icon: "fab fa-css3-alt",
+          icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg",
           color: "text-primary",
           level: 90,
         },
         {
           name: "JavaScript",
-          icon: "fab fa-js",
+          icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg",
           color: "text-yellow-400",
           level: 88,
         },
         {
           name: "React",
-          icon: "fab fa-react",
+          icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
           color: "text-secondary",
           level: 85,
         },
         {
           name: "Next.js",
-          icon: "fas fa-arrow-right",
-          color: "text-gray-300",
+          icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg",
+          color: "text-white",
           level: 80,
         },
         {
           name: "Tailwind CSS",
-          icon: "fas fa-wind",
+          icon: "https://www.vectorlogo.zone/logos/tailwindcss/tailwindcss-icon.svg",
           color: "text-cyan-400",
           level: 92,
         },
@@ -112,19 +112,19 @@ const Skills = () => {
       skills: [
         {
           name: "Node.js",
-          icon: "fab fa-node-js",
+          icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg",
           color: "text-green-500",
           level: 82,
         },
         {
           name: "Express.js",
-          icon: "fas fa-server",
+          icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg",
           color: "text-gray-300",
           level: 78,
         },
         {
           name: "MongoDB",
-          icon: "fas fa-leaf",
+          icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg",
           color: "text-green-600",
           level: 75,
         },
@@ -135,25 +135,25 @@ const Skills = () => {
       skills: [
         {
           name: "Git",
-          icon: "fab fa-git-alt",
+          icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg",
           color: "text-red-500",
           level: 85,
         },
         {
           name: "Firebase",
-          icon: "fas fa-fire",
+          icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg",
           color: "text-orange-400",
           level: 70,
         },
         {
           name: "Netlify",
-          icon: "fas fa-globe",
+          icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/netlify/netlify-original.svg",
           color: "text-teal-400",
           level: 88,
         },
         {
           name: "Vercel",
-          icon: "fas fa-triangle",
+          icon: "https://www.svgrepo.com/show/354513/vercel-icon.svg",
           color: "text-white",
           level: 85,
         },
@@ -164,13 +164,13 @@ const Skills = () => {
       skills: [
         {
           name: "Framer Motion",
-          icon: "fas fa-magic",
+          icon: "https://cdn.brandfetch.io/idDJv1mfrb/theme/light/logo.svg?c=1bxid64Mup7aczewSAYMX&t=1753779030563",
           color: "text-secondary",
           level: 72,
         },
         {
           name: "Daisy UI",
-          icon: "fas fa-palette",
+          icon: "https://img.daisyui.com/images/daisyui/mark-rotating.svg",
           color: "text-pink-400",
           level: 80,
         },
@@ -266,11 +266,15 @@ const Skills = () => {
                     <div className="flex items-center justify-between mb-2">
                       <div className="flex items-center gap-3">
                         <motion.div
-                          className={`w-8 h-8 rounded-full bg-gray-800 border border-gray-700 flex items-center justify-center ${skill.color} hover:scale-110 transition-transform`}
+                          className={`w-8 h-8 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-lg border border-primary/30 flex justify-center items-center ${skill.color} hover:scale-110 hover:shadow-lg hover:shadow-primary/30 hover:border-primary/50 transition-all duration-300`}
                           whileHover={{ rotate: 360 }}
                           transition={{ duration: 0.5 }}
                         >
-                          <i className={`${skill.icon} text-sm`}></i>
+                          <img
+                            src={skill.icon}
+                            alt={skill.name}
+                            className="w-4 h-4"
+                          />
                         </motion.div>
                         <span className="text-gray-200 font-medium">
                           {skill.name}

@@ -1,0 +1,130 @@
+[
+  {
+    "id": 1,
+    "title": "AidEx",
+    "subtitle": "Blood Donation & Funding Platform",
+    "description": "Full-stack web platform connecting blood donors with recipients and enabling secure online funding for life-saving causes. Features blood donation system, Stripe payment integration, and comprehensive admin panel.",
+    "detailedDescription": "AidEx is a comprehensive blood donation and funding platform designed to bridge the gap between blood donors and recipients while enabling secure online funding for life-saving medical causes. The platform features a sophisticated matching system for blood donors and recipients, integrated Stripe payment processing for secure donations, real-time notifications, and a comprehensive admin dashboard for managing all platform activities. Built with modern web technologies, it ensures scalability, security, and an intuitive user experience.",
+    "image": "../src/assets/project/aidexOverview.png",
+    "technologies": [
+      "React",
+      "Node.js",
+      "MongoDB",
+      "Express",
+      "Firebase",
+      "Stripe",
+      "Tailwind CSS",
+      "Framer Motion"
+    ],
+    "features": [
+      "Blood donor and recipient matching system",
+      "Secure Stripe payment integration",
+      "Real-time notifications and alerts",
+      "Comprehensive admin dashboard",
+      "User profile management",
+      "Donation tracking and history",
+      "Responsive design for all devices",
+      "Email notification system"
+    ],
+    "challenges": [
+      "Implementing secure payment processing with Stripe while ensuring PCI compliance and handling various payment scenarios including failed transactions and refunds.",
+      "Designing an efficient blood donor-recipient matching algorithm that considers blood type compatibility, location proximity, and availability status.",
+      "Building a real-time notification system that works across different devices and browsers while maintaining performance and reliability."
+    ],
+    "improvements": [
+      "Implement AI-powered donor-recipient matching based on historical data and success rates to improve compatibility predictions.",
+      "Add mobile app versions for iOS and Android to increase accessibility and user engagement.",
+      "Integrate with hospital management systems for seamless blood inventory tracking and automated requests.",
+      "Implement blockchain technology for transparent donation tracking and building donor trust."
+    ],
+    "liveUrl": "https://aidex-by-biswanath.netlify.app/",
+    "githubUrl": "https://github.com/BiswanathBD/AidEx-Frontend",
+    "serverUrl": "https://github.com/BiswanathBD/AidEx-Backend",
+    "category": "Full Stack"
+  },
+  {
+    "id": 2,
+    "title": "WeCare",
+    "subtitle": "Volunteer Event Management Platform",
+    "description": "Community-driven platform connecting volunteers with meaningful causes. Features event creation, smart search & filtering, personal dashboard, and secure Firebase authentication with responsive animated UI.",
+    "detailedDescription": "WeCare is a comprehensive volunteer event management platform that connects passionate volunteers with meaningful community causes. The platform enables organizations to create and manage volunteer events while providing volunteers with an intuitive interface to discover, join, and track their volunteer activities. Built with React and powered by Firebase, it features advanced search and filtering capabilities, personal dashboards, real-time event updates, and a beautiful animated user interface that enhances user engagement.",
+    "image": "../src/assets/project/weCareOverview.png",
+    "technologies": [
+      "React",
+      "Node.js",
+      "MongoDB",
+      "Express",
+      "Firebase",
+      "Tailwind CSS",
+      "Framer Motion",
+      "Vite"
+    ],
+    "features": [
+      "Event creation and management system",
+      "Advanced search and filtering",
+      "Personal volunteer dashboard",
+      "Real-time event updates",
+      "Secure Firebase authentication",
+      "Responsive animated UI",
+      "Volunteer hour tracking",
+      "Organization profile management"
+    ],
+    "challenges": [
+      "Creating a sophisticated search and filtering system that allows volunteers to find relevant events based on multiple criteria including location, cause type, time commitment, and skills required.",
+      "Implementing real-time updates for event information, volunteer registrations, and cancellations while maintaining data consistency across all users.",
+      "Designing an intuitive dashboard that displays relevant information for both volunteers and organizations without overwhelming the user interface."
+    ],
+    "improvements": [
+      "Add gamification elements like volunteer badges, leaderboards, and achievement systems to increase engagement and retention.",
+      "Implement machine learning recommendations to suggest relevant volunteer opportunities based on user history and preferences.",
+      "Create a mobile app with offline capabilities for volunteers to access event information and check-in even without internet connectivity.",
+      "Add integration with social media platforms for easy event sharing and volunteer recruitment."
+    ],
+    "liveUrl": "https://wecare-biswanath.netlify.app/",
+    "githubUrl": "https://github.com/BiswanathBD/weCare-Client-Site",
+    "serverUrl": "https://github.com/BiswanathBD/weCare-Server-Site",
+    "category": "Full Stack"
+  },
+  {
+    "id": 3,
+    "title": "Smart Deals",
+    "subtitle": "Next-Gen eCommerce Platform",
+    "description": "Futuristic eCommerce web app with neon glow aesthetics and glassmorphism design. Features one-click Google login, responsive layouts, and smooth user experience with modern UI/UX principles.",
+    "detailedDescription": "Smart Deals is a cutting-edge eCommerce platform that combines futuristic design with practical functionality. The platform features a stunning neon glow aesthetic with glassmorphism design elements, creating an immersive shopping experience. Built with modern web technologies, it offers seamless user authentication through Google Sign-In, responsive layouts that work perfectly across all devices, and smooth animations that enhance user engagement. The platform demonstrates advanced UI/UX principles while maintaining excellent performance and accessibility.",
+    "image": "../src/assets/project/smartDealsHome.png",
+    "technologies": [
+      "React",
+      "Node.js",
+      "MongoDB",
+      "Express",
+      "Firebase",
+      "Tailwind CSS",
+      "Framer Motion"
+    ],
+    "features": [
+      "Futuristic neon glow design",
+      "Glassmorphism UI elements",
+      "One-click Google authentication",
+      "Responsive design system",
+      "Smooth animations and transitions",
+      "Product catalog management",
+      "Shopping cart functionality",
+      "Modern checkout process"
+    ],
+    "challenges": [
+      "Creating a visually stunning neon glow and glassmorphism design while maintaining excellent performance and accessibility standards across all devices and browsers.",
+      "Implementing smooth animations and transitions using Framer Motion without compromising page load times and overall user experience.",
+      "Balancing the futuristic aesthetic with practical eCommerce functionality to ensure the design enhances rather than hinders the shopping experience."
+    ],
+    "improvements": [
+      "Implement advanced product recommendation algorithms using machine learning to suggest relevant products based on user behavior and purchase history.",
+      "Add augmented reality (AR) features for product visualization, allowing customers to see how products would look in their environment.",
+      "Integrate with multiple payment gateways and cryptocurrency options to provide flexible payment methods for modern consumers.",
+      "Develop a progressive web app (PWA) version with offline capabilities for browsing products and managing wishlists without internet connectivity."
+    ],
+    "liveUrl": "https://smart-deals-by-biswanath.netlify.app/",
+    "githubUrl": "https://github.com/BiswanathBD/Smart-Deals",
+    "serverUrl": "https://github.com/BiswanathBD/Smart-Deals-Server",
+    "category": "Full Stack"
+  }
+]

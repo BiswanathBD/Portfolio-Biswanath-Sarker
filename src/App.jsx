@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import Header from "./components/Header";
 import Hero from "./components/Hero";
@@ -11,9 +11,12 @@ import Footer from "./components/Footer";
 import CustomCursor from "./components/CustomCursor";
 import SmoothScroll from "./components/SmoothScroll";
 import ScrollToTop from "./components/ScrollToTop";
+import WelcomeLoader from "./components/WelcomeLoader";
 
 function App() {
   const shouldReduceMotion = useReducedMotion();
+  const [showLoader, setShowLoader] = useState(true);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
     document.documentElement.classList.add("dark");
@@ -36,6 +39,23 @@ function App() {
     };
   }, []);
 
+  useEffect(() => {
+    const loaderTimer = setTimeout(() => {
+      setShowLoader(false);
+      localStorage.setItem("hasVisitedPortfolio", "true");
+      setTimeout(() => {
+        setIsLoaded(true);
+      }, 100);
+    }, 5000);
+
+    return () => clearTimeout(loaderTimer);
+  }, []);
+
+  const handleLoaderComplete = () => {
+    setShowLoader(false);
+    setTimeout(() => setIsLoaded(true), 300);
+  };
+
   const pageVariants = {
     initial: { opacity: 0 },
     animate: {
@@ -50,26 +70,33 @@ function App() {
   return (
     <>
       <SmoothScroll />
-      <motion.div
-        className="bg-background-dark text-gray-100 font-body bg-grid-pattern overflow-hidden"
-        variants={pageVariants}
-        initial="initial"
-        animate="animate"
-      >
-        <CustomCursor />
 
-        <Header />
-        <main>
-          <Hero />
-          <About />
-          <Education />
-          <Skills />
-          <Projects />
-          <Contact />
-        </main>
-        <Footer />
-        <ScrollToTop />
-      </motion.div>
+      {/* Welcome Loader */}
+      {showLoader && <WelcomeLoader />}
+
+      {/* Main App Content */}
+      {isLoaded && (
+        <motion.div
+          className="bg-background-dark text-gray-100 font-body bg-grid-pattern overflow-hidden"
+          variants={pageVariants}
+          initial="initial"
+          animate="animate"
+        >
+          <CustomCursor />
+
+          <Header />
+          <main>
+            <Hero />
+            <About />
+            <Education />
+            <Skills />
+            <Projects />
+            <Contact />
+          </main>
+          <Footer />
+          <ScrollToTop />
+        </motion.div>
+      )}
     </>
   );
 }

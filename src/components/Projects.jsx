@@ -1,10 +1,28 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import ProjectDetail from "./ProjectDetail";
 
 const Projects = () => {
   const [selectedProject, setSelectedProject] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [projects, setProjects] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const response = await fetch("/projects.json");
+        const data = await response.json();
+        setProjects(data);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching projects:", error);
+        setLoading(false);
+      }
+    };
+
+    fetchProjects();
+  }, []);
 
   const openProjectDetail = (project) => {
     setSelectedProject(project);
@@ -15,6 +33,7 @@ const Projects = () => {
     setIsModalOpen(false);
     setSelectedProject(null);
   };
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -37,156 +56,15 @@ const Projects = () => {
     },
   };
 
-  const cardVariants = {
-    hidden: { y: 50, opacity: 0, scale: 0.9 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      scale: 1,
-      transition: {
-        duration: 0.8,
-        ease: "easeOut",
-      },
-    },
-  };
-
-  const projects = [
-    {
-      id: 1,
-      title: "AidEx – Blood Donation & Funding Platform",
-      description:
-        "Full-stack web platform connecting blood donors with recipients and enabling secure online funding for life-saving causes. Features blood donation system, Stripe payment integration, and comprehensive admin panel.",
-      detailedDescription:
-        "AidEx is a comprehensive blood donation and funding platform designed to bridge the gap between blood donors and recipients while enabling secure online funding for life-saving medical causes. The platform features a sophisticated matching system for blood donors and recipients, integrated Stripe payment processing for secure donations, real-time notifications, and a comprehensive admin dashboard for managing all platform activities. Built with modern web technologies, it ensures scalability, security, and an intuitive user experience.",
-      image: "https://i.ibb.co.com/zhBTyLgK/image.png",
-      technologies: [
-        "React",
-        "Node.js",
-        "MongoDB",
-        "Express",
-        "Firebase",
-        "Stripe",
-        "Tailwind CSS",
-        "Framer Motion",
-      ],
-      features: [
-        "Blood donor and recipient matching system",
-        "Secure Stripe payment integration",
-        "Real-time notifications and alerts",
-        "Comprehensive admin dashboard",
-        "User profile management",
-        "Donation tracking and history",
-        "Responsive design for all devices",
-        "Email notification system",
-      ],
-      challenges: [
-        "Implementing secure payment processing with Stripe while ensuring PCI compliance and handling various payment scenarios including failed transactions and refunds.",
-        "Designing an efficient blood donor-recipient matching algorithm that considers blood type compatibility, location proximity, and availability status.",
-        "Building a real-time notification system that works across different devices and browsers while maintaining performance and reliability.",
-      ],
-      improvements: [
-        "Implement AI-powered donor-recipient matching based on historical data and success rates to improve compatibility predictions.",
-        "Add mobile app versions for iOS and Android to increase accessibility and user engagement.",
-        "Integrate with hospital management systems for seamless blood inventory tracking and automated requests.",
-        "Implement blockchain technology for transparent donation tracking and building donor trust.",
-      ],
-      liveUrl: "https://aidex-by-biswanath.netlify.app/",
-      githubUrl: "https://github.com/BiswanathBD/AidEx-Frontend",
-      serverUrl: "https://github.com/BiswanathBD/AidEx-Backend",
-      category: "Full Stack",
-    },
-    {
-      id: 2,
-      title: "WeCare — Volunteer Event Management Platform",
-      description:
-        "Community-driven platform connecting volunteers with meaningful causes. Features event creation, smart search & filtering, personal dashboard, and secure Firebase authentication with responsive animated UI.",
-      detailedDescription:
-        "WeCare is a comprehensive volunteer event management platform that connects passionate volunteers with meaningful community causes. The platform enables organizations to create and manage volunteer events while providing volunteers with an intuitive interface to discover, join, and track their volunteer activities. Built with React and powered by Firebase, it features advanced search and filtering capabilities, personal dashboards, real-time event updates, and a beautiful animated user interface that enhances user engagement.",
-      image: "https://i.ibb.co.com/VWq9FbB2/image.png",
-      technologies: [
-        "React",
-        "Node.js",
-        "MongoDB",
-        "Express",
-        "Firebase",
-        "Tailwind CSS",
-        "Framer Motion",
-        "Vite",
-      ],
-      features: [
-        "Event creation and management system",
-        "Advanced search and filtering",
-        "Personal volunteer dashboard",
-        "Real-time event updates",
-        "Secure Firebase authentication",
-        "Responsive animated UI",
-        "Volunteer hour tracking",
-        "Organization profile management",
-      ],
-      challenges: [
-        "Creating a sophisticated search and filtering system that allows volunteers to find relevant events based on multiple criteria including location, cause type, time commitment, and skills required.",
-        "Implementing real-time updates for event information, volunteer registrations, and cancellations while maintaining data consistency across all users.",
-        "Designing an intuitive dashboard that displays relevant information for both volunteers and organizations without overwhelming the user interface.",
-      ],
-      improvements: [
-        "Add gamification elements like volunteer badges, leaderboards, and achievement systems to increase engagement and retention.",
-        "Implement machine learning recommendations to suggest relevant volunteer opportunities based on user history and preferences.",
-        "Create a mobile app with offline capabilities for volunteers to access event information and check-in even without internet connectivity.",
-        "Add integration with social media platforms for easy event sharing and volunteer recruitment.",
-      ],
-      liveUrl: "https://wecare-biswanath.netlify.app/",
-      githubUrl: "https://github.com/BiswanathBD/weCare-Client-Site",
-      serverUrl: "https://github.com/BiswanathBD/weCare-Server-Site",
-      category: "Full Stack",
-    },
-    {
-      id: 3,
-      title: "Smart Deals — Next-Gen eCommerce Platform",
-      description:
-        "Futuristic eCommerce web app with neon glow aesthetics and glassmorphism design. Features one-click Google login, responsive layouts, and smooth user experience with modern UI/UX principles.",
-      detailedDescription:
-        "Smart Deals is a cutting-edge eCommerce platform that combines futuristic design with practical functionality. The platform features a stunning neon glow aesthetic with glassmorphism design elements, creating an immersive shopping experience. Built with modern web technologies, it offers seamless user authentication through Google Sign-In, responsive layouts that work perfectly across all devices, and smooth animations that enhance user engagement. The platform demonstrates advanced UI/UX principles while maintaining excellent performance and accessibility.",
-      image: "https://i.ibb.co.com/mCgFmvhr/image.png",
-      technologies: [
-        "React",
-        "Node.js",
-        "MongoDB",
-        "Express",
-        "Firebase",
-        "Tailwind CSS",
-        "Framer Motion",
-      ],
-      features: [
-        "Futuristic neon glow design",
-        "Glassmorphism UI elements",
-        "One-click Google authentication",
-        "Responsive design system",
-        "Smooth animations and transitions",
-        "Product catalog management",
-        "Shopping cart functionality",
-        "Modern checkout process",
-      ],
-      challenges: [
-        "Creating a visually stunning neon glow and glassmorphism design while maintaining excellent performance and accessibility standards across all devices and browsers.",
-        "Implementing smooth animations and transitions using Framer Motion without compromising page load times and overall user experience.",
-        "Balancing the futuristic aesthetic with practical eCommerce functionality to ensure the design enhances rather than hinders the shopping experience.",
-      ],
-      improvements: [
-        "Implement advanced product recommendation algorithms using machine learning to suggest relevant products based on user behavior and purchase history.",
-        "Add augmented reality (AR) features for product visualization, allowing customers to see how products would look in their environment.",
-        "Integrate with multiple payment gateways and cryptocurrency options to provide flexible payment methods for modern consumers.",
-        "Develop a progressive web app (PWA) version with offline capabilities for browsing products and managing wishlists without internet connectivity.",
-      ],
-      liveUrl: "https://smart-deals-by-biswanath.netlify.app/",
-      githubUrl: "https://github.com/BiswanathBD/Smart-Deals",
-      serverUrl: "https://github.com/BiswanathBD/Smart-Deals-Server",
-      category: "Full Stack",
-    },
-  ];
-
   const categories = ["All", "Full Stack"];
   const [activeCategory, setActiveCategory] = useState("All");
-  const [filteredProjects, setFilteredProjects] = useState(projects);
+  const [filteredProjects, setFilteredProjects] = useState([]);
+
+  useEffect(() => {
+    if (projects.length > 0) {
+      setFilteredProjects(projects);
+    }
+  }, [projects]);
 
   const filterProjects = (category) => {
     setActiveCategory(category);
@@ -271,265 +149,158 @@ const Projects = () => {
         </motion.p>
       </motion.div>
 
-      {/* Filter Buttons */}
-      <motion.div className="flex justify-center mb-12" variants={itemVariants}>
-        <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-full p-2 shadow-lg">
-          <div className="flex space-x-2">
-            {categories.map((category) => (
-              <motion.button
-                key={category}
-                onClick={() => filterProjects(category)}
-                className={`px-6 py-2 rounded-full font-medium text-sm transition-all duration-300 ${
-                  activeCategory === category
-                    ? "bg-gradient-to-r from-primary to-secondary text-white shadow-lg"
-                    : "text-gray-300 hover:text-white hover:bg-white/10"
-                }`}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                {category}
-              </motion.button>
-            ))}
-          </div>
+      {/* Loading State */}
+      {loading && (
+        <div className="flex justify-center items-center min-h-[400px]">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
         </div>
-      </motion.div>
+      )}
+
+      {/* Filter Buttons */}
+      {!loading && projects.length > 0 && (
+        <motion.div
+          className="flex justify-center mb-12"
+          variants={itemVariants}
+        >
+          <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-full p-2 shadow-lg">
+            <div className="flex space-x-2">
+              {categories.map((category) => (
+                <motion.button
+                  key={category}
+                  onClick={() => filterProjects(category)}
+                  className={`px-6 py-2 rounded-full font-medium text-sm transition-all duration-300 ${
+                    activeCategory === category
+                      ? "bg-gradient-to-r from-primary to-secondary text-white shadow-lg"
+                      : "text-gray-300 hover:text-white hover:bg-white/10"
+                  }`}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  {category}
+                </motion.button>
+              ))}
+            </div>
+          </div>
+        </motion.div>
+      )}
 
       {/* Projects Grid */}
-      <motion.div
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-        variants={containerVariants}
-      >
-        {filteredProjects.map((project, index) => (
-          <motion.div
-            key={project.id}
-            className="group relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border border-white/20 rounded-3xl overflow-hidden shadow-2xl transition-all duration-700 hover:border-primary/40 flex flex-col min-h-[600px]"
-            variants={cardVariants}
-            whileHover={{ scale: 1.01 }}
-            transition={{ duration: 0.3 }}
-          >
-            {/* Animated Background Gradient */}
-            <motion.div
-              className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-              initial={false}
-            />
+      {!loading && projects.length > 0 && (
+        <div className="flex flex-col justify-center items-center gap-8">
+          {filteredProjects.map((project) => (
+            <div
+              key={project.id}
+              className="group relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl rounded-lg border border-white/10 shadow-2xl transition-all duration-700 hover:border-primary/40 grid grid-cols-2 w-[32rem] aspect-[4/3] ml-8 hover:scale-105"
+            >
+              <div>
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  className="w-[50%] aspect-[3/4] object-cover border border-white/20 absolute top-1/2 -translate-y-1/2 -left-6 shadow-2xl rounded-md group-hover:scale-y-105 transition-all duration-300"
+                />
+              </div>
 
-            {/* Glowing Border Effect */}
-            <motion.div
-              className="absolute inset-0 rounded-3xl bg-gradient-to-r from-primary/20 to-secondary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm -z-10"
-              initial={false}
-            />
+              {/* Project Content - Right Side */}
+              <div className="py-8 pr-4 flex flex-col justify-between">
+                {/* Content Area */}
+                <div className="flex-1">
+                  <div className="relative mb-4">
+                    <h3 className="font-extrabold text-3xl lg:text-4xl bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent mb-2 hover:scale-105 hover:translate-x-2 transition-transform duration-300">
+                      {project.title}
+                    </h3>
+                    {project.subtitle && (
+                      <p className="text-lg lg:text-xl font-medium text-white">
+                        {project.subtitle}
+                      </p>
+                    )}
+                  </div>
 
-            {/* Project Image */}
-            <div className="relative overflow-hidden rounded-t-3xl">
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-10"></div>
-              <motion.img
-                src={project.image}
-                alt={project.title}
-                className="w-full h-56 object-cover filter group-hover:brightness-110"
-                whileHover={{ scale: 1.1 }}
-                transition={{ duration: 0.7 }}
-              />
+                  {/* Description */}
+                  <p className="text-sm leading-relaxed mb-4 text-primary line-clamp-3">
+                    {project.description}
+                  </p>
 
-              {/* Floating Action Buttons */}
-              <motion.div
-                className="absolute top-6 right-6 flex flex-col space-y-3 opacity-0 group-hover:opacity-100 transition-all duration-500 z-20"
-                initial={{ x: 20 }}
-                whileHover={{ x: 0 }}
-              >
-                <motion.a
-                  href={project.liveUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-12 h-12 bg-white/10 backdrop-blur-md rounded-2xl flex items-center justify-center text-white hover:bg-primary hover:scale-110 transition-all duration-300 shadow-lg"
-                  title="Live Demo"
-                  whileHover={{ rotate: 360 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <i className="fas fa-external-link-alt text-sm"></i>
-                </motion.a>
-                <motion.a
-                  href={project.githubUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-12 h-12 bg-white/10 backdrop-blur-md rounded-2xl flex items-center justify-center text-white hover:bg-secondary hover:scale-110 transition-all duration-300 shadow-lg"
-                  title="Frontend Code"
-                  whileHover={{ rotate: -360 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <i className="fab fa-github text-sm"></i>
-                </motion.a>
-                {project.serverUrl && (
-                  <motion.a
-                    href={project.serverUrl}
+                  {/* Technology Pills - 2 Lines with Remaining Count */}
+                  <div className="mb-6">
+                    <div className="flex flex-wrap gap-2">
+                      {project.technologies
+                        .slice(0, 5)
+                        .map((tech, techIndex) => (
+                          <span
+                            key={techIndex}
+                            className="relative px-3 py-1.5 bg-gradient-to-r from-primary/20 to-secondary/20 text-secondary text-xs font-medium rounded-md border border-primary/30 backdrop-blur-sm hover:border-primary/50 hover:text-white hover:from-primary/30 hover:to-secondary/30 transition-all duration-300 cursor-default hover:-translate-y-1"
+                          >
+                            <div className="absolute inset-0 bg-gradient-to-r from-primary/10 to-secondary/10 rounded-md opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
+                            <span className="relative">{tech}</span>
+                          </span>
+                        ))}
+                      {project.technologies.length > 5 && (
+                        <span className="relative px-3 py-1.5 bg-gradient-to-r from-secondary/30 to-primary/30 text-white text-xs font-medium rounded-md border border-secondary/50 backdrop-blur-sm cursor-default animate-pulse">
+                          <div className="absolute inset-0 bg-gradient-to-r from-secondary/20 to-primary/20 rounded-md"></div>
+                          <span className="relative">
+                            +{project.technologies.length - 5}
+                          </span>
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Action Buttons */}
+                <div className="flex gap-4">
+                  <button
+                    onClick={() => openProjectDetail(project)}
+                    className="w-full relative overflow-hidden px-4 py-2.5 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-lg border border-primary/30 hover:from-primary/30 hover:to-secondary/30 hover:border-primary/40 text-primary transition-all duration-300 hover:-translate-y-1"
+                  >
+                    <span className="flex items-center justify-center gap-2 text-sm font-medium">
+                      Details
+                    </span>
+                  </button>
+
+                  <a
+                    href={project.liveUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-12 h-12 bg-white/10 backdrop-blur-md rounded-2xl flex items-center justify-center text-white hover:bg-gradient-to-r hover:from-primary hover:to-secondary hover:scale-110 transition-all duration-300 shadow-lg"
-                    title="Backend Code"
-                    whileHover={{ rotate: 360 }}
-                    transition={{ duration: 0.3 }}
+                    className="w-full relative overflow-hidden bg-gradient-to-r from-primary to-secondary text-white text-center py-2.5 px-4 rounded-lg text-sm shadow-lg transition-all duration-300 hover:-translate-y-1 hover:scale-105"
                   >
-                    <i className="fas fa-server text-sm"></i>
-                  </motion.a>
-                )}
-              </motion.div>
-
-              {/* Modern Category Badge */}
-              <motion.div
-                className="absolute bottom-6 left-6 z-20"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-              >
-                <div className="relative">
-                  <div className="absolute inset-0 bg-primary/20 rounded-2xl blur-sm"></div>
-                  <span className="relative px-4 py-2 bg-gradient-to-r from-primary/80 to-secondary/80 backdrop-blur-sm text-white text-sm font-semibold rounded-2xl border border-white/20 shadow-lg">
-                    {project.category}
-                  </span>
-                </div>
-              </motion.div>
-
-              {/* Animated Corner Accent */}
-              <motion.div
-                className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-bl from-primary/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                initial={false}
-              />
-            </div>
-
-            {/* Project Content */}
-            <div className="relative p-8 z-10 flex flex-col grow">
-              {/* Content Area */}
-              <div className="flex-1">
-                {/* Title with Gradient Underline */}
-                <div className="relative mb-4">
-                  <motion.h3
-                    className="font-display font-bold text-2xl text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-primary group-hover:to-secondary transition-all duration-300"
-                    whileHover={{ scale: 1.02 }}
-                  >
-                    {project.title}
-                  </motion.h3>
-                  <motion.div
-                    className="absolute -bottom-1 left-0 h-0.5 bg-gradient-to-r from-primary to-secondary"
-                    initial={{ width: 0 }}
-                    whileHover={{ width: "100%" }}
-                    transition={{ duration: 0.5, ease: "easeOut" }}
-                  />
-                </div>
-
-                <motion.p
-                  className="text-gray-300 text-sm leading-relaxed mb-6 group-hover:text-gray-200 transition-colors duration-300"
-                  variants={itemVariants}
-                >
-                  {project.description}
-                </motion.p>
-
-                {/* Modern Technology Pills */}
-                <motion.div
-                  className="flex flex-wrap gap-2 mb-6"
-                  variants={containerVariants}
-                >
-                  {project.technologies.map((tech, techIndex) => (
-                    <motion.span
-                      key={techIndex}
-                      className="relative px-3 py-1.5 bg-gradient-to-tl from-primary/20 to-secondary/0 text-gray-200 text-xs font-medium rounded-full border border-white/10 backdrop-blur-sm hover:border-primary/50 hover:text-white hover:to-secondary/20 transition-all duration-300 cursor-default"
-                      variants={itemVariants}
-                      whileHover={{ y: -1 }}
-                      transition={{ duration: 0.2 }}
-                    >
-                      <div className="absolute inset-0 bg-gradient-to-r from-primary/10 to-secondary/10 rounded-full opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
-                      <span className="relative">{tech}</span>
-                    </motion.span>
-                  ))}
-                </motion.div>
-              </div>
-
-              {/* Action Buttons */}
-              <div className="flex space-x-4 mt-auto">
-                <motion.button
-                  onClick={() => openProjectDetail(project)}
-                  className="flex-1 relative overflow-hidden bg-gradient-to-r from-primary/50 to-secondary/50 backdrop-blur-sm text-white text-center py-3 px-6 rounded-lg font-semibold text-sm shadow-lg transition-all duration-300 border border-primary/30"
-                  whileHover={{ y: -2, scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  <span className="relative z-10 flex items-center justify-center gap-2">
-                    View Details
-                    <motion.i
-                      className="fas fa-info-circle text-xs"
-                      animate={{ rotate: [0, 360] }}
-                      transition={{
-                        duration: 3,
-                        repeat: Infinity,
-                        ease: "linear",
-                      }}
-                    />
-                  </span>
-                  <div className="absolute inset-0 bg-gradient-to-r from-primary to-secondary opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
-                </motion.button>
-
-                <motion.a
-                  href={project.liveUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex-1 relative overflow-hidden bg-gradient-to-r from-primary to-secondary text-white text-center py-3 px-6 rounded-lg font-semibold text-sm shadow-lg transition-all duration-300"
-                  whileHover={{ y: -2, scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  <span className="relative z-10 flex items-center justify-center gap-2">
                     Live Demo
-                    <motion.i
-                      className="fas fa-rocket text-xs"
-                      animate={{ x: [0, 3, 0] }}
-                      transition={{
-                        duration: 2,
-                        repeat: Infinity,
-                        ease: "easeInOut",
-                      }}
-                    />
-                  </span>
-                  <div className="absolute inset-0 bg-gradient-to-r from-secondary to-primary opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300"></div>
-                </motion.a>
+                  </a>
+                </div>
               </div>
             </div>
-
-            {/* Decorative Elements */}
-            <motion.div
-              className="absolute bottom-0 right-0 w-32 h-32 bg-gradient-to-tl from-secondary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-tl-full"
-              initial={false}
-            />
-            <motion.div
-              className="absolute top-1/2 left-0 w-1 h-16 bg-gradient-to-b from-primary to-secondary opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-r-full"
-              initial={false}
-            />
-          </motion.div>
-        ))}
-      </motion.div>
+          ))}
+        </div>
+      )}
 
       {/* View More Button */}
-      <motion.div
-        className="text-center mt-12"
-        variants={itemVariants}
-        whileInView="visible"
-        viewport={{ once: true }}
-      >
-        <motion.a
-          href="https://github.com/BiswanathBD?tab=repositories"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 bg-white/5 backdrop-blur-md border border-white/10 text-gray-300 px-8 py-3 rounded-full font-medium hover:bg-white/10 hover:text-white hover:border-primary/30 transition-all duration-300"
-          whileHover={{ scale: 1.05, y: -2 }}
-          whileTap={{ scale: 0.95 }}
+      {!loading && projects.length > 0 && (
+        <motion.div
+          className="text-center mt-12"
+          variants={itemVariants}
+          whileInView="visible"
+          viewport={{ once: true }}
         >
-          View All Projects on GitHub
-          <motion.i
-            className="fas fa-arrow-right text-sm"
-            animate={{ x: [0, 5, 0] }}
-            transition={{
-              duration: 2,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-          />
-        </motion.a>
-      </motion.div>
+          <motion.a
+            href="https://github.com/BiswanathBD?tab=repositories"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 bg-white/5 backdrop-blur-md border border-white/10 text-gray-300 px-8 py-3 rounded-full font-medium hover:bg-white/10 hover:text-white hover:border-primary/30 transition-all duration-300"
+            whileHover={{ scale: 1.05, y: -2 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            View All Projects on GitHub
+            <motion.i
+              className="fas fa-arrow-right text-sm"
+              animate={{ x: [0, 5, 0] }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            />
+          </motion.a>
+        </motion.div>
+      )}
 
       {/* Project Detail Modal */}
       <ProjectDetail
