@@ -20,7 +20,7 @@ const ProfileShowcase = () => {
     >
       {/* --- BACKGROUND GRADIENT --- */}
       <motion.div
-        className="absolute inset-0 bg-gradient-to-tr from-primary to-secondary rounded-full blur-[100px] opacity-20 scale-75"
+        className="absolute inset-0 bg-gradient-to-tr from-primary to-secondary rounded-full blur-[100px] opacity-25 scale-75"
         animate={{ rotate: [0, 360], scale: [0.75, 0.85, 0.75] }}
         transition={{
           rotate: { duration: 20, repeat: Infinity, ease: "linear" },
@@ -39,7 +39,7 @@ const ProfileShowcase = () => {
 
       {/* --- PROFILE IMAGE  --- */}
       <motion.div
-        className="relative w-48 md:w-64 aspect-square rounded-full border border-primary bg-transparent overflow-hidden shadow-[0_0_100px_10px_#a855f750] z-10"
+        className="relative w-48 md:w-64 aspect-square rounded-full border-2 border-primary/50 bg-transparent overflow-hidden shadow-[0_0_100px_10px_#a855f760] z-10"
         whileHover={{ scale: 1.05 }}
         transition={{ duration: 0.6 }}
       >

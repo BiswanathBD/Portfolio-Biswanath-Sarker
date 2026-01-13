@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { delay } from "framer-motion/dom";
 
 // Register ScrollTrigger plugin
 gsap.registerPlugin(ScrollTrigger);
@@ -56,11 +57,10 @@ const Skills = () => {
   };
 
   const cardVariants = {
-    hidden: { y: 30, opacity: 0 },
+    hidden: { opacity: 0 },
     visible: {
-      y: 0,
       opacity: 1,
-      transition: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] },
+      transition: { duration: 0.6, delay: 0.3, ease: "eachInOut" },
     },
   };
 
@@ -69,36 +69,111 @@ const Skills = () => {
     {
       title: "Frontend Development",
       skills: [
-        { name: "HTML5", icon: "fab fa-html5", color: "text-orange-500", level: 95 },
-        { name: "CSS3", icon: "fab fa-css3-alt", color: "text-primary", level: 90 },
-        { name: "JavaScript", icon: "fab fa-js", color: "text-yellow-400", level: 88 },
-        { name: "React", icon: "fab fa-react", color: "text-secondary", level: 85 },
-        { name: "Next.js", icon: "fas fa-arrow-right", color: "text-gray-300", level: 80 },
-        { name: "Tailwind CSS", icon: "fas fa-wind", color: "text-cyan-400", level: 92 },
+        {
+          name: "HTML5",
+          icon: "fab fa-html5",
+          color: "text-orange-500",
+          level: 95,
+        },
+        {
+          name: "CSS3",
+          icon: "fab fa-css3-alt",
+          color: "text-primary",
+          level: 90,
+        },
+        {
+          name: "JavaScript",
+          icon: "fab fa-js",
+          color: "text-yellow-400",
+          level: 88,
+        },
+        {
+          name: "React",
+          icon: "fab fa-react",
+          color: "text-secondary",
+          level: 85,
+        },
+        {
+          name: "Next.js",
+          icon: "fas fa-arrow-right",
+          color: "text-gray-300",
+          level: 80,
+        },
+        {
+          name: "Tailwind CSS",
+          icon: "fas fa-wind",
+          color: "text-cyan-400",
+          level: 92,
+        },
       ],
     },
     {
       title: "Backend Development",
       skills: [
-        { name: "Node.js", icon: "fab fa-node-js", color: "text-green-500", level: 82 },
-        { name: "Express.js", icon: "fas fa-server", color: "text-gray-300", level: 78 },
-        { name: "MongoDB", icon: "fas fa-leaf", color: "text-green-600", level: 75 },
+        {
+          name: "Node.js",
+          icon: "fab fa-node-js",
+          color: "text-green-500",
+          level: 82,
+        },
+        {
+          name: "Express.js",
+          icon: "fas fa-server",
+          color: "text-gray-300",
+          level: 78,
+        },
+        {
+          name: "MongoDB",
+          icon: "fas fa-leaf",
+          color: "text-green-600",
+          level: 75,
+        },
       ],
     },
     {
       title: "Tools & Services",
       skills: [
-        { name: "Git", icon: "fab fa-git-alt", color: "text-red-500", level: 85 },
-        { name: "Firebase", icon: "fas fa-fire", color: "text-orange-400", level: 70 },
-        { name: "Netlify", icon: "fas fa-globe", color: "text-teal-400", level: 88 },
-        { name: "Vercel", icon: "fas fa-triangle", color: "text-white", level: 85 },
+        {
+          name: "Git",
+          icon: "fab fa-git-alt",
+          color: "text-red-500",
+          level: 85,
+        },
+        {
+          name: "Firebase",
+          icon: "fas fa-fire",
+          color: "text-orange-400",
+          level: 70,
+        },
+        {
+          name: "Netlify",
+          icon: "fas fa-globe",
+          color: "text-teal-400",
+          level: 88,
+        },
+        {
+          name: "Vercel",
+          icon: "fas fa-triangle",
+          color: "text-white",
+          level: 85,
+        },
       ],
     },
     {
       title: "UI/UX & Animation",
       skills: [
-        { name: "Framer Motion", icon: "fas fa-magic", color: "text-secondary", level: 72 },
-        { name: "Daisy UI", icon: "fas fa-palette", color: "text-pink-400", level: 80 },
+        {
+          name: "Framer Motion",
+          icon: "fas fa-magic",
+          color: "text-secondary",
+          level: 72,
+        },
+        {
+          name: "Daisy UI",
+          icon: "fas fa-palette",
+          color: "text-pink-400",
+          level: 80,
+        },
       ],
     },
   ];
@@ -123,7 +198,12 @@ const Skills = () => {
           <motion.span
             className="inline-block mr-3"
             animate={{ rotate: [0, 10, -10, 0], scale: [1, 1.1, 1] }}
-            transition={{ duration: 3, repeat: Infinity, repeatDelay: 2, ease: "easeInOut" }}
+            transition={{
+              duration: 3,
+              repeat: Infinity,
+              repeatDelay: 2,
+              ease: "easeInOut",
+            }}
           >
             ⚡
           </motion.span>
@@ -141,13 +221,19 @@ const Skills = () => {
       </div>
 
       {/* Skills Grid */}
-      <motion.div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" variants={containerVariants}>
+      <motion.div
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
+        variants={containerVariants}
+      >
         {skillCategories.map((category, categoryIndex) => (
           <motion.div
             key={category.title}
             className="relative group bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6 shadow-xl transition-all duration-300 hover:border-primary/30 overflow-hidden"
             variants={cardVariants}
-            whileHover={{ y: -10, scale: 1.02 }}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: false }}
+            whileHover={{ scale: 1.02 }}
             transition={{ duration: 0.3 }}
           >
             {/* Animated Background */}
@@ -186,9 +272,13 @@ const Skills = () => {
                         >
                           <i className={`${skill.icon} text-sm`}></i>
                         </motion.div>
-                        <span className="text-gray-200 font-medium">{skill.name}</span>
+                        <span className="text-gray-200 font-medium">
+                          {skill.name}
+                        </span>
                       </div>
-                      <span className="text-gray-400 text-sm font-mono">{skill.level}%</span>
+                      <span className="text-gray-400 text-sm font-mono">
+                        {skill.level}%
+                      </span>
                     </div>
                     {/* Progress Bar */}
                     <div className="w-full bg-gray-800 rounded-full h-1.5 overflow-hidden">
@@ -196,12 +286,12 @@ const Skills = () => {
                         className="h-full bg-gradient-to-r from-primary to-secondary rounded-full"
                         initial={{ width: 0 }}
                         whileInView={{ width: `${skill.level}%` }}
+                        viewport={{ once: false }}
                         transition={{
                           duration: 1.5,
                           delay: categoryIndex * 0.2 + skillIndex * 0.1,
                           ease: "easeOut",
                         }}
-                        viewport={{ once: true }}
                       />
                     </div>
                   </motion.div>
@@ -223,17 +313,27 @@ const Skills = () => {
       </motion.div>
 
       {/* Additional Stats */}
-      <motion.div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6" variants={containerVariants}>
+      <motion.div
+        className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6"
+        variants={containerVariants}
+      >
         {[
           { number: "15+", label: "Technologies", color: "text-primary" },
           { number: "30+", label: "Projects", color: "text-secondary" },
           { number: "6+", label: "Months Experience", color: "text-secondary" },
-          { number: "100%", label: "Client Satisfaction", color: "text-primary" },
+          {
+            number: "100%",
+            label: "Client Satisfaction",
+            color: "text-primary",
+          },
         ].map((stat, index) => (
           <motion.div
             key={index}
             className="text-center bg-white/5 backdrop-blur-md border border-white/10 rounded-xl p-6 hover:border-primary/30 transition-all"
             variants={cardVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: false }}
             whileHover={{ y: -5, scale: 1.05 }}
             transition={{ duration: 0.3 }}
           >
@@ -247,7 +347,7 @@ const Skills = () => {
                 type: "spring",
                 stiffness: 200,
               }}
-              viewport={{ once: true }}
+              viewport={{ once: false }}
             >
               {stat.number}
             </motion.div>
