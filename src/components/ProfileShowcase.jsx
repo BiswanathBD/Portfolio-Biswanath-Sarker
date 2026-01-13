@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import heroProfile from "../assets/heroProfile.jpeg";
 
 const ProfileShowcase = () => {
   const imageVariants = {
@@ -46,7 +47,7 @@ const ProfileShowcase = () => {
         <img
           alt="Biswanath Sarker"
           className="w-full h-full rounded-full object-cover"
-          src="https://i.ibb.co.com/TBWLX9Q6/IMG-0657.jpg"
+          src={heroProfile}
         />
       </motion.div>
 

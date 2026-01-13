@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import myImg from "../assets/aboutMeImg.png"
 
 // Register ScrollTrigger plugin
 gsap.registerPlugin(ScrollTrigger);
@@ -252,7 +253,7 @@ const About = () => {
               <img
                 alt="Biswanath Sarker"
                 className="w-full h-full object-cover rounded-xl"
-                src="https://i.ibb.co.com/ym449tPb/20240122-111131-1.jpg"
+                src={myImg}
               />
 
               {/* Subtle Overlay */}
