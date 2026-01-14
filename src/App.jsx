@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion, useReducedMotion, AnimatePresence } from "framer-motion";
 import Header from "./components/Header";
 import Hero from "./components/Hero";
 import About from "./components/About";
@@ -16,12 +16,11 @@ import WelcomeLoader from "./components/WelcomeLoader";
 function App() {
   const shouldReduceMotion = useReducedMotion();
   const [showLoader, setShowLoader] = useState(true);
-  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
     document.documentElement.classList.add("dark");
+    document.body.style.backgroundColor = "#0f0518";
 
-    // Hide default cursor only on larger screens (md and up)
     const handleCursorVisibility = () => {
       if (window.innerWidth >= 768) {
         document.body.style.cursor = "none";
@@ -43,26 +42,19 @@ function App() {
     const loaderTimer = setTimeout(() => {
       setShowLoader(false);
       localStorage.setItem("hasVisitedPortfolio", "true");
-      setTimeout(() => {
-        setIsLoaded(true);
-      }, 100);
-    }, 5000);
+    }, 3000);
 
     return () => clearTimeout(loaderTimer);
   }, []);
-
-  const handleLoaderComplete = () => {
-    setShowLoader(false);
-    setTimeout(() => setIsLoaded(true), 300);
-  };
 
   const pageVariants = {
     initial: { opacity: 0 },
     animate: {
       opacity: 1,
       transition: {
-        duration: shouldReduceMotion ? 0.1 : 0.6,
-        ease: [0.25, 0.46, 0.45, 0.94],
+        duration: shouldReduceMotion ? 0.1 : 0.8,
+        ease: "easeInOut",
+        delay: 0.2,
       },
     },
   };
@@ -71,32 +63,38 @@ function App() {
     <>
       <SmoothScroll />
 
-      {/* Welcome Loader */}
-      {showLoader && <WelcomeLoader />}
+      {/* Persistent Dark Background */}
+      <div className="fixed inset-0 bg-background-dark -z-50" />
 
-      {/* Main App Content */}
-      {isLoaded && (
-        <motion.div
-          className="bg-background-dark text-gray-100 font-body bg-grid-pattern overflow-hidden"
-          variants={pageVariants}
-          initial="initial"
-          animate="animate"
-        >
-          <CustomCursor />
+      <AnimatePresence mode="wait">
+        {/* Welcome Loader */}
+        {showLoader && <WelcomeLoader key="loader" />}
 
-          <Header />
-          <main>
-            <Hero />
-            <About />
-            <Education />
-            <Skills />
-            <Projects />
-            <Contact />
-          </main>
-          <Footer />
-          <ScrollToTop />
-        </motion.div>
-      )}
+        {/* Main App Content */}
+        {!showLoader && (
+          <motion.div
+            key="main"
+            className="bg-background-dark text-gray-100 font-body bg-grid-pattern overflow-hidden min-h-screen"
+            variants={pageVariants}
+            initial="initial"
+            animate="animate"
+          >
+            <CustomCursor />
+
+            <Header />
+            <main>
+              <Hero />
+              <About />
+              <Education />
+              <Skills />
+              <Projects />
+              <Contact />
+            </main>
+            <Footer />
+            <ScrollToTop />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 }
