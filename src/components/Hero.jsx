@@ -46,20 +46,6 @@ const Hero = () => {
       initial="hidden"
       animate="visible"
     >
-      {/* Background blob */}
-      <div
-        className="absolute top-0 left-1/4 w-96 h-96 bg-primary/20 rounded-full blur-[100px] pointer-events-none -z-10 opacity-40"
-        animate={{
-          scale: [1, 1.1, 1],
-          opacity: [0.4, 0.5, 0.4],
-        }}
-        transition={{
-          duration: 6,
-          repeat: Infinity,
-          ease: "easeInOut",
-          repeatType: "reverse",
-        }}
-      />
 
       <div className="flex flex-col-reverse lg:flex-row gap-8 items-center relative">
         <div className="flex-1 flex flex-col-reverse sm:flex-row items-center gap-6 sm:gap-0">

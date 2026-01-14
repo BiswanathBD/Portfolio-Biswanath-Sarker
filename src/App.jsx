@@ -63,14 +63,9 @@ function App() {
     <>
       <SmoothScroll />
 
-      {/* Persistent Dark Background */}
-      <div className="fixed inset-0 bg-background-dark -z-50" />
-
       <AnimatePresence mode="wait">
-        {/* Welcome Loader */}
         {showLoader && <WelcomeLoader key="loader" />}
 
-        {/* Main App Content */}
         {!showLoader && (
           <motion.div
             key="main"

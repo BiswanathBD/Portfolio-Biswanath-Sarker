@@ -13,8 +13,8 @@ export default {
         "surface-light": "#ffffff",
       },
       fontFamily: {
-        display: ["Poppins", "sans-serif"],
-        body: ["Inter", "sans-serif"],
+        display: ["Nunito", "sans-serif"],
+        body: ["Nunito", "sans-serif"],
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",

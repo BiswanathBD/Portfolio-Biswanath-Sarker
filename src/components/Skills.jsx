@@ -1,8 +1,7 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { delay } from "framer-motion/dom";
 
 // Register ScrollTrigger plugin
 gsap.registerPlugin(ScrollTrigger);
@@ -10,8 +9,31 @@ gsap.registerPlugin(ScrollTrigger);
 const Skills = () => {
   const skillsRef = useRef();
   const titleRef = useRef();
+  const cardsRef = useRef([]);
+  const statsRef = useRef([]);
+  const [skillCategories, setSkillCategories] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  // Fetch skills data
+  useEffect(() => {
+    const fetchSkills = async () => {
+      try {
+        const response = await fetch("/skills.json");
+        const data = await response.json();
+        setSkillCategories(data);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching skills:", error);
+        setLoading(false);
+      }
+    };
+
+    fetchSkills();
+  }, []);
 
   useEffect(() => {
+    if (loading || skillCategories.length === 0) return;
+
     const ctx = gsap.context(() => {
       // Title animation controlled by scroll
       gsap.fromTo(
@@ -29,164 +51,97 @@ const Skills = () => {
           },
         }
       );
+
+      // Skill cards animation controlled by scroll
+      cardsRef.current.forEach((card) => {
+        if (card) {
+          gsap.fromTo(
+            card,
+            { opacity: 0 },
+            {
+              opacity: 1,
+              ease: "none",
+              scrollTrigger: {
+                trigger: card,
+                start: "top 90%",
+                end: "top 60%",
+                scrub: 0.5,
+              },
+            }
+          );
+
+          // Animate skill items within each card
+          const skillItems = card.querySelectorAll(".skill-item");
+          skillItems.forEach((item) => {
+            gsap.fromTo(
+              item,
+              { x: -20, opacity: 0 },
+              {
+                x: 0,
+                opacity: 1,
+                ease: "none",
+                scrollTrigger: {
+                  trigger: item,
+                  start: "top 85%",
+                  end: "top 65%",
+                  scrub: 1,
+                },
+              }
+            );
+
+            // Animate progress bars
+            const progressBar = item.querySelector(".progress-bar");
+            if (progressBar) {
+              const level = progressBar.getAttribute("data-level");
+              gsap.fromTo(
+                progressBar,
+                { width: "0%" },
+                {
+                  width: `${level}%`,
+                  ease: "none",
+                  scrollTrigger: {
+                    trigger: progressBar,
+                    start: "top 85%",
+                    end: "top 60%",
+                    scrub: 2,
+                  },
+                }
+              );
+            }
+          });
+        }
+      });
+
+      // Stats animation controlled by scroll
+      statsRef.current.forEach((stat) => {
+        if (stat) {
+          gsap.fromTo(
+            stat,
+            { opacity: 0 },
+            {
+              y: 0,
+              opacity: 1,
+              ease: "none",
+              scrollTrigger: {
+                trigger: stat,
+                start: "top 95%",
+                end: "top 80%",
+                scrub: 0.5,
+              },
+            }
+          );
+        }
+      });
     }, skillsRef);
 
     return () => ctx.revert();
-  }, []);
-
-  // Framer Motion Variants
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        delayChildren: 0.1,
-        staggerChildren: 0.05,
-        ease: [0.25, 0.46, 0.45, 0.94],
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { y: 15, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: { duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] },
-    },
-  };
-
-  const cardVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { duration: 0.6, delay: 0.3, ease: "eachInOut" },
-    },
-  };
-
-  // Skill Categories Data
-  const skillCategories = [
-    {
-      title: "Frontend Development",
-      skills: [
-        {
-          name: "HTML5",
-          icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg",
-          color: "text-orange-500",
-          level: 95,
-        },
-        {
-          name: "CSS3",
-          icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg",
-          color: "text-primary",
-          level: 90,
-        },
-        {
-          name: "JavaScript",
-          icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg",
-          color: "text-yellow-400",
-          level: 88,
-        },
-        {
-          name: "React",
-          icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
-          color: "text-secondary",
-          level: 85,
-        },
-        {
-          name: "Next.js",
-          icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg",
-          color: "text-white",
-          level: 80,
-        },
-        {
-          name: "Tailwind CSS",
-          icon: "https://www.vectorlogo.zone/logos/tailwindcss/tailwindcss-icon.svg",
-          color: "text-cyan-400",
-          level: 92,
-        },
-      ],
-    },
-    {
-      title: "Backend Development",
-      skills: [
-        {
-          name: "Node.js",
-          icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg",
-          color: "text-green-500",
-          level: 82,
-        },
-        {
-          name: "Express.js",
-          icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg",
-          color: "text-gray-300",
-          level: 78,
-        },
-        {
-          name: "MongoDB",
-          icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg",
-          color: "text-green-600",
-          level: 75,
-        },
-      ],
-    },
-    {
-      title: "Tools & Services",
-      skills: [
-        {
-          name: "Git",
-          icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg",
-          color: "text-red-500",
-          level: 85,
-        },
-        {
-          name: "Firebase",
-          icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg",
-          color: "text-orange-400",
-          level: 70,
-        },
-        {
-          name: "Netlify",
-          icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/netlify/netlify-original.svg",
-          color: "text-teal-400",
-          level: 88,
-        },
-        {
-          name: "Vercel",
-          icon: "https://www.svgrepo.com/show/354513/vercel-icon.svg",
-          color: "text-white",
-          level: 85,
-        },
-      ],
-    },
-    {
-      title: "UI/UX & Animation",
-      skills: [
-        {
-          name: "Framer Motion",
-          icon: "https://cdn.brandfetch.io/idDJv1mfrb/theme/light/logo.svg?c=1bxid64Mup7aczewSAYMX&t=1753779030563",
-          color: "text-secondary",
-          level: 72,
-        },
-        {
-          name: "Daisy UI",
-          icon: "https://img.daisyui.com/images/daisyui/mark-rotating.svg",
-          color: "text-pink-400",
-          level: 80,
-        },
-      ],
-    },
-  ];
+  }, [skillCategories, loading]);
 
   return (
-    <motion.section
+    <section
       ref={skillsRef}
       className="py-20 container mx-auto px-4 md:px-8 lg:px-16 xl:px-24 relative"
       id="skills"
-      variants={containerVariants}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.2 }}
     >
       {/* Background Elements */}
       <div className="absolute top-10 right-10 w-72 h-72 bg-secondary/10 rounded-full blur-[100px] pointer-events-none -z-10" />
@@ -195,18 +150,7 @@ const Skills = () => {
       {/* Header Section */}
       <div ref={titleRef} className="text-center mb-20">
         <h2 className="font-display font-bold text-4xl md:text-5xl text-white mb-4">
-          <motion.span
-            className="inline-block mr-3"
-            animate={{ rotate: [0, 10, -10, 0], scale: [1, 1.1, 1] }}
-            transition={{
-              duration: 3,
-              repeat: Infinity,
-              repeatDelay: 2,
-              ease: "easeInOut",
-            }}
-          >
-            ⚡
-          </motion.span>
+          <span className="inline-block mr-3">⚡</span>
           Skills & Technologies
         </h2>
         <motion.div
@@ -220,146 +164,114 @@ const Skills = () => {
         </p>
       </div>
 
-      {/* Skills Grid */}
-      <motion.div
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
-        variants={containerVariants}
-      >
-        {skillCategories.map((category, categoryIndex) => (
-          <motion.div
-            key={category.title}
-            className="relative group bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6 shadow-xl transition-all duration-300 hover:border-primary/30 overflow-hidden"
-            variants={cardVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: false }}
-            whileHover={{ scale: 1.02 }}
-            transition={{ duration: 0.3 }}
-          >
-            {/* Animated Background */}
-            <motion.div
-              className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl"
-              initial={false}
-            />
-            <motion.div
-              className="absolute inset-0 rounded-2xl bg-gradient-to-r from-primary/20 to-secondary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm -z-10"
-              initial={false}
-            />
+      {/* Loading State */}
+      {loading && (
+        <div className="flex justify-center items-center min-h-[400px]">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+        </div>
+      )}
 
-            <div className="relative z-10">
-              <motion.h3
-                className="font-display font-bold text-lg text-white mb-6 group-hover:text-primary transition-colors"
-                variants={itemVariants}
-              >
-                {category.title}
-              </motion.h3>
-              <div className="space-y-4">
-                {category.skills.map((skill, skillIndex) => (
-                  <motion.div
-                    key={skill.name}
-                    className="skill-item"
-                    variants={itemVariants}
-                    custom={skillIndex}
-                    whileHover={{ x: 5 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <div className="flex items-center justify-between mb-2">
-                      <div className="flex items-center gap-3">
-                        <motion.div
-                          className={`w-8 h-8 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-lg border border-primary/30 flex justify-center items-center ${skill.color} hover:scale-110 hover:shadow-lg hover:shadow-primary/30 hover:border-primary/50 transition-all duration-300`}
-                          whileHover={{ rotate: 360 }}
-                          transition={{ duration: 0.5 }}
-                        >
-                          <img
-                            src={skill.icon}
-                            alt={skill.name}
-                            className="w-4 h-4"
-                          />
-                        </motion.div>
-                        <span className="text-gray-200 font-medium">
-                          {skill.name}
+      {/* Skills Grid */}
+      {!loading && skillCategories.length > 0 && (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {skillCategories.map((category, categoryIndex) => (
+            <div
+              key={category.title}
+              ref={(el) => (cardsRef.current[categoryIndex] = el)}
+              className="relative group bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6 shadow-xl transition-all duration-300 hover:border-primary/30 overflow-hidden hover:scale-105"
+            >
+              {/* Animated Background */}
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl" />
+              <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-primary/20 to-secondary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm -z-10" />
+
+              <div className="relative z-10">
+                <h3 className="font-display font-bold text-lg text-white mb-6 group-hover:text-primary transition-colors">
+                  {category.title}
+                </h3>
+                <div className="space-y-4">
+                  {category.skills.map((skill) => (
+                    <div key={skill.name} className="skill-item">
+                      <div className="flex items-center justify-between mb-2">
+                        <div className="flex items-center gap-3">
+                          <div
+                            className={`w-8 h-8 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-lg border border-primary/30 flex justify-center items-center ${skill.color} hover:scale-110 hover:shadow-lg hover:shadow-primary/30 hover:border-primary/50 transition-all duration-300`}
+                          >
+                            <img
+                              src={skill.icon}
+                              alt={skill.name}
+                              className="w-4 h-4"
+                            />
+                          </div>
+                          <span className="text-gray-200 font-medium">
+                            {skill.name}
+                          </span>
+                        </div>
+                        <span className="text-gray-400 text-sm font-mono">
+                          {skill.level}%
                         </span>
                       </div>
-                      <span className="text-gray-400 text-sm font-mono">
-                        {skill.level}%
-                      </span>
+                      {/* Progress Bar */}
+                      <div className="w-full bg-gray-800 rounded-full h-1.5 overflow-hidden">
+                        <div
+                          className="progress-bar h-full bg-gradient-to-r from-primary to-secondary rounded-full"
+                          data-level={skill.level}
+                          style={{ width: "0%" }}
+                        />
+                      </div>
                     </div>
-                    {/* Progress Bar */}
-                    <div className="w-full bg-gray-800 rounded-full h-1.5 overflow-hidden">
-                      <motion.div
-                        className="h-full bg-gradient-to-r from-primary to-secondary rounded-full"
-                        initial={{ width: 0 }}
-                        whileInView={{ width: `${skill.level}%` }}
-                        viewport={{ once: false }}
-                        transition={{
-                          duration: 1.5,
-                          delay: categoryIndex * 0.2 + skillIndex * 0.1,
-                          ease: "easeOut",
-                        }}
-                      />
-                    </div>
-                  </motion.div>
-                ))}
+                  ))}
+                </div>
               </div>
-            </div>
 
-            {/* Decorative Elements */}
-            <motion.div
-              className="absolute bottom-0 right-0 w-20 h-20 bg-gradient-to-tl from-secondary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-tl-full"
-              initial={false}
-            />
-            <motion.div
-              className="absolute top-1/2 left-0 w-1 h-10 bg-gradient-to-b from-primary to-secondary opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-r-full"
-              initial={false}
-            />
-          </motion.div>
-        ))}
-      </motion.div>
+              {/* Decorative Elements */}
+              <div className="absolute bottom-0 right-0 w-20 h-20 bg-gradient-to-tl from-secondary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-tl-full" />
+              <div className="absolute top-1/2 left-0 w-1 h-10 bg-gradient-to-b from-primary to-secondary opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-r-full" />
+            </div>
+          ))}
+        </div>
+      )}
 
       {/* Additional Stats */}
-      <motion.div
-        className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6"
-        variants={containerVariants}
-      >
-        {[
-          { number: "15+", label: "Technologies", color: "text-primary" },
-          { number: "30+", label: "Projects", color: "text-secondary" },
-          { number: "6+", label: "Months Experience", color: "text-secondary" },
-          {
-            number: "100%",
-            label: "Client Satisfaction",
-            color: "text-primary",
-          },
-        ].map((stat, index) => (
-          <motion.div
-            key={index}
-            className="text-center bg-white/5 backdrop-blur-md border border-white/10 rounded-xl p-6 hover:border-primary/30 transition-all"
-            variants={cardVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: false }}
-            whileHover={{ y: -5, scale: 1.05 }}
-            transition={{ duration: 0.3 }}
-          >
-            <motion.div
-              className={`text-3xl font-bold ${stat.color} mb-2`}
-              initial={{ scale: 0 }}
-              whileInView={{ scale: 1 }}
-              transition={{
-                duration: 0.5,
-                delay: index * 0.1,
-                type: "spring",
-                stiffness: 200,
-              }}
-              viewport={{ once: false }}
+      {!loading && skillCategories.length > 0 && (
+        <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6">
+          {[
+            { number: "15+", label: "Technologies", color: "text-primary" },
+            { number: "30+", label: "Projects", color: "text-secondary" },
+            {
+              number: "6+",
+              label: "Months Experience",
+              color: "text-secondary",
+            },
+            {
+              number: "100%",
+              label: "Client Satisfaction",
+              color: "text-primary",
+            },
+          ].map((stat, index) => (
+            <div
+              key={index}
+              ref={(el) => (statsRef.current[index] = el)}
+              className="text-center bg-white/5 backdrop-blur-md border border-white/10 rounded-xl p-6 hover:border-primary/30 transition-all hover:-translate-y-2 hover:scale-105"
             >
-              {stat.number}
-            </motion.div>
-            <div className="text-gray-400 text-sm">{stat.label}</div>
-          </motion.div>
-        ))}
-      </motion.div>
-    </motion.section>
+              <motion.div
+                className={`text-3xl font-bold ${stat.color} mb-2`}
+                initial={{ scale: 0 }}
+                whileInView={{ scale: [0, 1.2, 1] }}
+                transition={{
+                  duration: 0.6,
+                  delay: index * 0.1,
+                  ease: "easeOut",
+                }}
+                viewport={{ once: false }}
+              >
+                {stat.number}
+              </motion.div>
+              <div className="text-gray-400 text-sm">{stat.label}</div>
+            </div>
+          ))}
+        </div>
+      )}
+    </section>
   );
 };
 
