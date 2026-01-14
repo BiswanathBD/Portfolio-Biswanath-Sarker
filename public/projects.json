@@ -5,7 +5,7 @@
     "subtitle": "Blood Donation & Funding Platform",
     "description": "Full-stack web platform connecting blood donors with recipients and enabling secure online funding for life-saving causes. Features blood donation system, Stripe payment integration, and comprehensive admin panel.",
     "detailedDescription": "AidEx is a comprehensive blood donation and funding platform designed to bridge the gap between blood donors and recipients while enabling secure online funding for life-saving medical causes. The platform features a sophisticated matching system for blood donors and recipients, integrated Stripe payment processing for secure donations, real-time notifications, and a comprehensive admin dashboard for managing all platform activities. Built with modern web technologies, it ensures scalability, security, and an intuitive user experience.",
-    "image": "../src/assets/project/aidexOverview.png",
+    "image": "/aidexOverview.png",
     "technologies": [
       "React",
       "Node.js",
@@ -48,7 +48,7 @@
     "subtitle": "Volunteer Event Management Platform",
     "description": "Community-driven platform connecting volunteers with meaningful causes. Features event creation, smart search & filtering, personal dashboard, and secure Firebase authentication with responsive animated UI.",
     "detailedDescription": "WeCare is a comprehensive volunteer event management platform that connects passionate volunteers with meaningful community causes. The platform enables organizations to create and manage volunteer events while providing volunteers with an intuitive interface to discover, join, and track their volunteer activities. Built with React and powered by Firebase, it features advanced search and filtering capabilities, personal dashboards, real-time event updates, and a beautiful animated user interface that enhances user engagement.",
-    "image": "../src/assets/project/weCareOverview.png",
+    "image": "/weCareOverview.png",
     "technologies": [
       "React",
       "Node.js",
@@ -91,7 +91,7 @@
     "subtitle": "Next-Gen eCommerce Platform",
     "description": "Futuristic eCommerce web app with neon glow aesthetics and glassmorphism design. Features one-click Google login, responsive layouts, and smooth user experience with modern UI/UX principles.",
     "detailedDescription": "Smart Deals is a cutting-edge eCommerce platform that combines futuristic design with practical functionality. The platform features a stunning neon glow aesthetic with glassmorphism design elements, creating an immersive shopping experience. Built with modern web technologies, it offers seamless user authentication through Google Sign-In, responsive layouts that work perfectly across all devices, and smooth animations that enhance user engagement. The platform demonstrates advanced UI/UX principles while maintaining excellent performance and accessibility.",
-    "image": "../src/assets/project/smartDealsHome.png",
+    "image": "/smartDealsHome.png",
     "technologies": [
       "React",
       "Node.js",
