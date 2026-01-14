@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import ProjectDetail from "./ProjectDetail";
 
 const Projects = () => {
@@ -7,6 +7,7 @@ const Projects = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [direction, setDirection] = useState(0);
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -34,35 +35,15 @@ const Projects = () => {
     setSelectedProject(null);
   };
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        delayChildren: 0.2,
-        staggerChildren: 0.1,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        duration: 0.8,
-        ease: "easeOut",
-      },
-    },
-  };
-
   const categories = ["All", "Full Stack"];
   const [activeCategory, setActiveCategory] = useState("All");
   const [filteredProjects, setFilteredProjects] = useState([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
     if (projects.length > 0) {
       setFilteredProjects(projects);
+      setCurrentIndex(0);
     }
   }, [projects]);
 
@@ -75,11 +56,101 @@ const Projects = () => {
         projects.filter((project) => project.category === category)
       );
     }
+    setCurrentIndex(0);
+    setDirection(0);
+  };
+
+  const nextSlide = () => {
+    setDirection(1);
+    setCurrentIndex((prev) =>
+      prev === filteredProjects.length - 1 ? 0 : prev + 1
+    );
+  };
+
+  const prevSlide = () => {
+    setDirection(-1);
+    setCurrentIndex((prev) =>
+      prev === 0 ? filteredProjects.length - 1 : prev - 1
+    );
+  };
+
+  const goToSlide = (index) => {
+    setDirection(index > currentIndex ? 1 : -1);
+    setCurrentIndex(index);
+  };
+
+  const getNextIndex = () => {
+    return (currentIndex + 1) % filteredProjects.length;
+  };
+
+  // --- Animation Variants ---
+
+  // Variants for the Main (Left/Focused) Card
+  const focusedVariants = {
+    enter: (dir) => ({
+      // If Next (dir 1): Slide in from the Right (where the side card was)
+      // If Prev (dir -1): Fade in from Center/Left (Scale Up)
+      x: dir > 0 ? "50%" : -100,
+      opacity: dir > 0 ? 0.6 : 0,
+      scale: dir > 0 ? 0.8 : 0.85,
+      zIndex: 5,
+    }),
+    center: {
+      x: 0,
+      opacity: 1,
+      scale: 1,
+      zIndex: 10,
+      transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] }, // Custom cubic bezier for smooth snapping
+    },
+    exit: (dir) => ({
+      // If Next (dir 1): Fade out / Scale Down
+      // If Prev (dir -1): Slide to the Right (becoming the side card)
+      x: dir > 0 ? -100 : "50%",
+      opacity: dir > 0 ? 0 : 0.6,
+      scale: dir > 0 ? 0.85 : 0.8,
+      zIndex: 5,
+      transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+    }),
+  };
+
+  // Variants for the Side (Right/Next) Card
+  const sideVariants = {
+    enter: (dir) => ({
+      // If Next: Standard Fade In from right
+      // If Prev: Start from the Center (where the Focused card was)
+      x: dir > 0 ? 100 : "-100%", // -100% relative to itself puts it roughly in the center slot
+      opacity: 0,
+      scale: dir > 0 ? 0.8 : 1,
+    }),
+    center: {
+      x: 0,
+      opacity: 0.6,
+      scale: 0.8, // Keep it smaller than focused
+      zIndex: 5,
+      transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+    },
+    exit: (dir) => ({
+      // Standard exit
+      x: dir > 0 ? -100 : 100,
+      opacity: 0,
+      scale: 0.8,
+      transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+    }),
+  };
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { staggerChildren: 0.1 } },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { duration: 0.8 } },
   };
 
   return (
     <motion.section
-      className="py-20 container mx-auto px-4 md:px-8 lg:px-16 xl:px-24 relative"
+      className="py-20 container mx-auto px-4 md:px-8 lg:px-16 xl:px-24 relative overflow-hidden"
       id="projects"
       variants={containerVariants}
       initial="hidden"
@@ -89,27 +160,13 @@ const Projects = () => {
       {/* Background Elements */}
       <motion.div
         className="absolute top-20 left-10 w-80 h-80 bg-primary/10 rounded-full blur-[100px] pointer-events-none -z-10"
-        animate={{
-          x: [0, 50, 0],
-          y: [0, -30, 0],
-        }}
-        transition={{
-          duration: 15,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
+        animate={{ x: [0, 50, 0], y: [0, -30, 0] }}
+        transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
       />
       <motion.div
         className="absolute bottom-20 right-10 w-96 h-96 bg-secondary/10 rounded-full blur-[120px] pointer-events-none -z-10"
-        animate={{
-          x: [0, -40, 0],
-          y: [0, 40, 0],
-        }}
-        transition={{
-          duration: 12,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
+        animate={{ x: [0, -40, 0], y: [0, 40, 0] }}
+        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
       />
 
       <motion.div className="text-center mb-16" variants={itemVariants}>
@@ -184,91 +241,215 @@ const Projects = () => {
         </motion.div>
       )}
 
-      {/* Projects Grid */}
-      {!loading && projects.length > 0 && (
-        <div className="flex flex-col justify-center items-center gap-8">
-          {filteredProjects.map((project) => (
-            <div
-              key={project.id}
-              className="group relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl rounded-lg border border-white/10 shadow-2xl transition-all duration-700 hover:border-primary/40 grid grid-cols-2 w-[32rem] aspect-[4/3] ml-8 hover:scale-105"
-            >
-              <div>
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  className="w-[50%] aspect-[3/4] object-cover border border-white/20 absolute top-1/2 -translate-y-1/2 -left-6 shadow-2xl rounded-md group-hover:scale-y-105 transition-all duration-300"
-                />
+      {/* Projects Carousel */}
+      {!loading && filteredProjects.length > 0 && (
+        <div className="relative">
+          <div className="flex items-center justify-center overflow-visible py-12">
+            <div className="relative w-full px-4">
+              <div className="flex items-center justify-center gap-6">
+                {/* Using mode="popLayout" ensures that as one exits and one enters, 
+                  they don't wait for each other, creating the "swap" effect 
+                */}
+                <AnimatePresence
+                  mode="popLayout"
+                  custom={direction}
+                  initial={false}
+                >
+                  {/* FOCUSED CARD (Left) */}
+                  <motion.div
+                    key={`focused-${currentIndex}`}
+                    custom={direction}
+                    variants={focusedVariants}
+                    initial="enter"
+                    animate="center"
+                    exit="exit"
+                    className="w-full max-w-[32rem] bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl rounded-lg border border-primary/40 shadow-2xl z-20 ml-8"
+                    layout
+                  >
+                    <div className="grid grid-cols-2 aspect-[4/3]">
+                      <div>
+                        <img
+                          src={filteredProjects[currentIndex].image}
+                          alt={filteredProjects[currentIndex].title}
+                          className="w-[50%] aspect-[3/4] object-cover border border-white/20 absolute top-1/2 -translate-y-1/2 -left-6 shadow-2xl rounded-md group-hover:scale-y-105 transition-all duration-300"
+                        />
+                      </div>
+
+                      <div className="py-8 pr-4 flex flex-col justify-between">
+                        <div className="flex-1">
+                          <div className="relative mb-4">
+                            <h3 className="font-extrabold text-3xl lg:text-4xl bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent mb-2 hover:scale-105 hover:translate-x-2 transition-transform duration-300">
+                              {filteredProjects[currentIndex].title}
+                            </h3>
+                            {filteredProjects[currentIndex].subtitle && (
+                              <p className="text-lg lg:text-xl font-medium text-white">
+                                {filteredProjects[currentIndex].subtitle}
+                              </p>
+                            )}
+                          </div>
+
+                          <p className="text-sm leading-relaxed mb-4 text-primary line-clamp-3">
+                            {filteredProjects[currentIndex].description}
+                          </p>
+
+                          <div className="mb-6">
+                            <div className="flex flex-wrap gap-2">
+                              {filteredProjects[currentIndex].technologies
+                                .slice(0, 5)
+                                .map((tech, techIndex) => (
+                                  <span
+                                    key={techIndex}
+                                    className="relative px-3 py-1.5 bg-gradient-to-r from-primary/20 to-secondary/20 text-secondary text-xs font-medium rounded-md border border-primary/30 backdrop-blur-sm hover:border-primary/50 hover:text-white hover:from-primary/30 hover:to-secondary/30 transition-all duration-300 cursor-default hover:-translate-y-1"
+                                  >
+                                    <div className="absolute inset-0 bg-gradient-to-r from-primary/10 to-secondary/10 rounded-md opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
+                                    <span className="relative">{tech}</span>
+                                  </span>
+                                ))}
+                              {filteredProjects[currentIndex].technologies
+                                .length > 5 && (
+                                <span className="relative px-3 py-1.5 bg-gradient-to-r from-secondary/30 to-primary/30 text-white text-xs font-medium rounded-md border border-secondary/50 backdrop-blur-sm cursor-default animate-pulse">
+                                  <div className="absolute inset-0 bg-gradient-to-r from-secondary/20 to-primary/20 rounded-md"></div>
+                                  <span className="relative">
+                                    +
+                                    {filteredProjects[currentIndex].technologies
+                                      .length - 5}
+                                  </span>
+                                </span>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="flex gap-4">
+                          <button
+                            onClick={() =>
+                              openProjectDetail(filteredProjects[currentIndex])
+                            }
+                            className="w-full relative overflow-hidden px-4 py-2.5 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-lg border border-primary/30 hover:from-primary/30 hover:to-secondary/30 hover:border-primary/40 text-primary transition-all duration-300 hover:-translate-y-1"
+                          >
+                            <span className="flex items-center justify-center gap-2 text-sm font-medium">
+                              Details
+                            </span>
+                          </button>
+
+                          <a
+                            href={filteredProjects[currentIndex].liveUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="w-full relative overflow-hidden bg-gradient-to-r from-primary to-secondary text-white text-center py-2.5 px-4 rounded-lg text-sm shadow-lg transition-all duration-300 hover:-translate-y-1 hover:scale-105"
+                          >
+                            Live Demo
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </motion.div>
+
+                  {/* NON-FOCUSED CARD (Right) */}
+                  {filteredProjects.length > 1 && (
+                    <motion.div
+                      key={`next-${getNextIndex()}`}
+                      custom={direction}
+                      variants={sideVariants}
+                      initial="enter"
+                      animate="center"
+                      exit="exit"
+                      onClick={nextSlide}
+                      className="w-full max-w-[28rem] bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl rounded-lg border border-white/10 shadow-2xl cursor-pointer hover:opacity-80 transition-opacity z-10 hidden lg:block ml-8"
+                      layout
+                    >
+                      <div className="grid grid-cols-2 aspect-[4/3]">
+                        <div>
+                          <img
+                            src={filteredProjects[getNextIndex()].image}
+                            alt={filteredProjects[getNextIndex()].title}
+                            className="w-[50%] aspect-[3/4] object-cover border border-white/20 absolute top-1/2 -translate-y-1/2 -left-6 shadow-2xl rounded-md"
+                          />
+                        </div>
+
+                        <div className="py-8 pr-4 flex flex-col justify-between">
+                          <div className="flex-1">
+                            <div className="relative mb-4">
+                              <h3 className="font-extrabold text-2xl lg:text-3xl bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent mb-2">
+                                {filteredProjects[getNextIndex()].title}
+                              </h3>
+                              {filteredProjects[getNextIndex()].subtitle && (
+                                <p className="text-base lg:text-lg font-medium text-white">
+                                  {filteredProjects[getNextIndex()].subtitle}
+                                </p>
+                              )}
+                            </div>
+
+                            <p className="text-xs leading-relaxed mb-4 text-primary line-clamp-2">
+                              {filteredProjects[getNextIndex()].description}
+                            </p>
+
+                            <div className="mb-4">
+                              <div className="flex flex-wrap gap-1.5">
+                                {filteredProjects[getNextIndex()].technologies
+                                  .slice(0, 4)
+                                  .map((tech, techIndex) => (
+                                    <span
+                                      key={techIndex}
+                                      className="relative px-2 py-1 bg-gradient-to-r from-primary/20 to-secondary/20 text-secondary text-xs font-medium rounded-md border border-primary/30"
+                                    >
+                                      <span className="relative">{tech}</span>
+                                    </span>
+                                  ))}
+                                {filteredProjects[getNextIndex()].technologies
+                                  .length > 4 && (
+                                  <span className="relative px-2 py-1 bg-gradient-to-r from-secondary/30 to-primary/30 text-white text-xs font-medium rounded-md">
+                                    +
+                                    {filteredProjects[getNextIndex()]
+                                      .technologies.length - 4}
+                                  </span>
+                                )}
+                              </div>
+                            </div>
+                          </div>
+
+                          <div className="text-xs px-3 py-1 bg-gradient-to-r from-primary/20 to-secondary/20 text-primary border border-white/10 rounded-md mt-2 w-fit mx-auto animate-pulse">
+                            Click to view
+                          </div>
+                        </div>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
 
-              {/* Project Content - Right Side */}
-              <div className="py-8 pr-4 flex flex-col justify-between">
-                {/* Content Area */}
-                <div className="flex-1">
-                  <div className="relative mb-4">
-                    <h3 className="font-extrabold text-3xl lg:text-4xl bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent mb-2 hover:scale-105 hover:translate-x-2 transition-transform duration-300">
-                      {project.title}
-                    </h3>
-                    {project.subtitle && (
-                      <p className="text-lg lg:text-xl font-medium text-white">
-                        {project.subtitle}
-                      </p>
-                    )}
-                  </div>
-
-                  {/* Description */}
-                  <p className="text-sm leading-relaxed mb-4 text-primary line-clamp-3">
-                    {project.description}
-                  </p>
-
-                  {/* Technology Pills - 2 Lines with Remaining Count */}
-                  <div className="mb-6">
-                    <div className="flex flex-wrap gap-2">
-                      {project.technologies
-                        .slice(0, 5)
-                        .map((tech, techIndex) => (
-                          <span
-                            key={techIndex}
-                            className="relative px-3 py-1.5 bg-gradient-to-r from-primary/20 to-secondary/20 text-secondary text-xs font-medium rounded-md border border-primary/30 backdrop-blur-sm hover:border-primary/50 hover:text-white hover:from-primary/30 hover:to-secondary/30 transition-all duration-300 cursor-default hover:-translate-y-1"
-                          >
-                            <div className="absolute inset-0 bg-gradient-to-r from-primary/10 to-secondary/10 rounded-md opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
-                            <span className="relative">{tech}</span>
-                          </span>
-                        ))}
-                      {project.technologies.length > 5 && (
-                        <span className="relative px-3 py-1.5 bg-gradient-to-r from-secondary/30 to-primary/30 text-white text-xs font-medium rounded-md border border-secondary/50 backdrop-blur-sm cursor-default animate-pulse">
-                          <div className="absolute inset-0 bg-gradient-to-r from-secondary/20 to-primary/20 rounded-md"></div>
-                          <span className="relative">
-                            +{project.technologies.length - 5}
-                          </span>
-                        </span>
-                      )}
-                    </div>
-                  </div>
-                </div>
-
-                {/* Action Buttons */}
-                <div className="flex gap-4">
-                  <button
-                    onClick={() => openProjectDetail(project)}
-                    className="w-full relative overflow-hidden px-4 py-2.5 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-lg border border-primary/30 hover:from-primary/30 hover:to-secondary/30 hover:border-primary/40 text-primary transition-all duration-300 hover:-translate-y-1"
-                  >
-                    <span className="flex items-center justify-center gap-2 text-sm font-medium">
-                      Details
-                    </span>
-                  </button>
-
-                  <a
-                    href={project.liveUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-full relative overflow-hidden bg-gradient-to-r from-primary to-secondary text-white text-center py-2.5 px-4 rounded-lg text-sm shadow-lg transition-all duration-300 hover:-translate-y-1 hover:scale-105"
-                  >
-                    Live Demo
-                  </a>
-                </div>
+              {/* Navigation Arrows */}
+              <div className="absolute inset-0 flex items-center justify-between pointer-events-none z-30 px-4">
+                <button
+                  onClick={prevSlide}
+                  className="pointer-events-auto w-12 h-12 bg-white/10 backdrop-blur-md border border-white/20 rounded-full flex items-center justify-center text-white hover:bg-primary hover:border-primary transition-all duration-300 hover:scale-110"
+                >
+                  <i className="fas fa-chevron-left"></i>
+                </button>
+                <button
+                  onClick={nextSlide}
+                  className="pointer-events-auto w-12 h-12 bg-white/10 backdrop-blur-md border border-white/20 rounded-full flex items-center justify-center text-white hover:bg-primary hover:border-primary transition-all duration-300 hover:scale-110"
+                >
+                  <i className="fas fa-chevron-right"></i>
+                </button>
               </div>
             </div>
-          ))}
+          </div>
+
+          {/* Dots Navigation */}
+          <div className="flex items-center justify-center gap-2 mt-8">
+            {filteredProjects.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => goToSlide(index)}
+                className={`transition-all duration-300 rounded-full ${
+                  index === currentIndex
+                    ? "w-8 h-2 bg-gradient-to-r from-primary to-secondary"
+                    : "w-2 h-2 bg-white/30 hover:bg-white/50"
+                }`}
+              />
+            ))}
+          </div>
         </div>
       )}
 
@@ -302,7 +483,6 @@ const Projects = () => {
         </motion.div>
       )}
 
-      {/* Project Detail Modal */}
       <ProjectDetail
         project={selectedProject}
         isOpen={isModalOpen}
