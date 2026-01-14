@@ -1,8 +1,17 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import ProjectDetail from "./ProjectDetail";
 
+gsap.registerPlugin(ScrollTrigger);
+
 const Projects = () => {
+  const projectsRef = useRef();
+  const titleRef = useRef();
+  const filterRef = useRef();
+  const carouselRef = useRef();
+
   const [selectedProject, setSelectedProject] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [projects, setProjects] = useState([]);
@@ -24,6 +33,68 @@ const Projects = () => {
 
     fetchProjects();
   }, []);
+
+  // GSAP Scroll-Controlled Animations
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // Title animation controlled by scroll
+      gsap.fromTo(
+        titleRef.current,
+        { y: 50, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          ease: "none",
+          scrollTrigger: {
+            trigger: titleRef.current,
+            start: "top 90%",
+            end: "top 60%",
+            scrub: 1,
+          },
+        }
+      );
+
+      // Filter buttons animation controlled by scroll
+      if (filterRef.current) {
+        gsap.fromTo(
+          filterRef.current,
+          { y: 30, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            ease: "none",
+            scrollTrigger: {
+              trigger: filterRef.current,
+              start: "top 85%",
+              end: "top 65%",
+              scrub: 1,
+            },
+          }
+        );
+      }
+
+      // Carousel section animation controlled by scroll
+      if (carouselRef.current) {
+        gsap.fromTo(
+          carouselRef.current,
+          { y: 40, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            ease: "none",
+            scrollTrigger: {
+              trigger: carouselRef.current,
+              start: "top 85%",
+              end: "top 55%",
+              scrub: 1.5,
+            },
+          }
+        );
+      }
+    }, projectsRef);
+
+    return () => ctx.revert();
+  }, [projects]);
 
   const openProjectDetail = (project) => {
     setSelectedProject(project);
@@ -138,24 +209,11 @@ const Projects = () => {
     }),
   };
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { staggerChildren: 0.1 } },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { duration: 0.8 } },
-  };
-
   return (
     <motion.section
+      ref={projectsRef}
       className="py-20 container mx-auto px-4 md:px-8 lg:px-16 xl:px-24 relative overflow-hidden"
       id="projects"
-      variants={containerVariants}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.2 }}
     >
       {/* Background Elements */}
       <motion.div
@@ -169,11 +227,8 @@ const Projects = () => {
         transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
       />
 
-      <motion.div className="text-center mb-16" variants={itemVariants}>
-        <motion.h2
-          className="font-display font-bold text-4xl md:text-5xl text-white mb-4"
-          variants={itemVariants}
-        >
+      <motion.div ref={titleRef} className="text-center mb-16">
+        <motion.h2 className="font-display font-bold text-4xl md:text-5xl text-white mb-4">
           <motion.span
             className="inline-block mr-3"
             animate={{
@@ -197,10 +252,7 @@ const Projects = () => {
           whileInView={{ width: 96 }}
           transition={{ duration: 0.8, delay: 0.5 }}
         />
-        <motion.p
-          className="text-gray-400 mt-6 max-w-2xl mx-auto"
-          variants={itemVariants}
-        >
+        <motion.p className="text-gray-400 mt-6 max-w-2xl mx-auto">
           Here are some of my recent projects that showcase my skills and
           experience in web development
         </motion.p>
@@ -215,10 +267,7 @@ const Projects = () => {
 
       {/* Filter Buttons */}
       {!loading && projects.length > 0 && (
-        <motion.div
-          className="flex justify-center mb-12"
-          variants={itemVariants}
-        >
+        <motion.div ref={filterRef} className="flex justify-center mb-12">
           <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-full p-2 shadow-lg">
             <div className="flex space-x-2">
               {categories.map((category) => (
@@ -243,7 +292,7 @@ const Projects = () => {
 
       {/* Projects Carousel */}
       {!loading && filteredProjects.length > 0 && (
-        <div className="relative">
+        <div ref={carouselRef} className="relative">
           <div className="flex items-center justify-center overflow-visible py-12">
             <div className="relative w-full px-4">
               <div className="flex items-center justify-center gap-6">
@@ -455,12 +504,7 @@ const Projects = () => {
 
       {/* View More Button */}
       {!loading && projects.length > 0 && (
-        <motion.div
-          className="text-center mt-12"
-          variants={itemVariants}
-          whileInView="visible"
-          viewport={{ once: true }}
-        >
+        <motion.div className="text-center mt-12">
           <motion.a
             href="https://github.com/BiswanathBD?tab=repositories"
             target="_blank"
