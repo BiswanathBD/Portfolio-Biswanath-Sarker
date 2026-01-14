@@ -252,3 +252,33 @@ body {
 .hover\:-rotate-360:hover {
   transform: rotate(-360deg);
 }
+
+/* Swiper Custom Styles */
+.swiper-pagination-custom .swiper-pagination-bullet {
+  width: 8px;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.3);
+  opacity: 1;
+  transition: all 0.3s ease;
+  border-radius: 9999px;
+}
+
+.swiper-pagination-custom .swiper-pagination-bullet-active {
+  width: 32px;
+  height: 8px;
+  background: linear-gradient(to right, #f916d3, #7d5fff);
+  border-radius: 9999px;
+}
+
+.swiper-pagination-custom .swiper-pagination-bullet:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+/* Swiper slide transitions */
+.swiper-slide {
+  transition: all 0.3s ease;
+}
+
+.swiper-slide-active {
+  z-index: 20;
+}

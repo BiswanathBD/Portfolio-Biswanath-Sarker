@@ -25,8 +25,8 @@ const Education = () => {
           ease: "none",
           scrollTrigger: {
             trigger: titleRef.current,
-            start: "top 90%",
-            end: "top 60%",
+            start: "top 80%",
+            end: "top 50%",
             scrub: 1,
           },
         }
@@ -41,9 +41,9 @@ const Education = () => {
           ease: "none",
           scrollTrigger: {
             trigger: timelineRef.current,
-            start: "top 80%",
+            start: "top 70%",
             end: "bottom 20%",
-            scrub: 2, // Smoother scroll control
+            scrub: 2,
           },
         }
       );
@@ -60,9 +60,9 @@ const Education = () => {
               ease: "none",
               scrollTrigger: {
                 trigger: card,
-                start: "top 85%",
-                end: "top 50%",
-                scrub: 1.5, // Animation follows scroll
+                start: "top 75%",
+                end: "top 45%",
+                scrub: 1.5,
               },
             }
           );

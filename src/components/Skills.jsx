@@ -45,8 +45,8 @@ const Skills = () => {
           ease: "none",
           scrollTrigger: {
             trigger: titleRef.current,
-            start: "top 90%",
-            end: "top 60%",
+            start: "top 80%",
+            end: "top 50%",
             scrub: 1,
           },
         }
@@ -63,8 +63,8 @@ const Skills = () => {
               ease: "none",
               scrollTrigger: {
                 trigger: card,
-                start: "top 90%",
-                end: "top 60%",
+                start: "top 80%",
+                end: "top 55%",
                 scrub: 0.5,
               },
             }

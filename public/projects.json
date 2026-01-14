@@ -126,5 +126,38 @@
     "githubUrl": "https://github.com/BiswanathBD/Smart-Deals",
     "serverUrl": "https://github.com/BiswanathBD/Smart-Deals-Server",
     "category": "Full Stack"
+  },
+  {
+    "id": 4,
+    "title": "Neon Portfolio",
+    "subtitle": "Interactive Developer Showcase",
+    "description": "A visually striking personal portfolio with neon highlights, smooth animations, and immersive interactions. Designed to showcase projects, skills, and experience in a modern, engaging way.",
+    "detailedDescription": "Neon Portfolio is an interactive developer portfolio built to stand out through bold neon accents, fluid animations, and a clean glass-inspired interface. The project focuses on delivering a memorable first impression while maintaining clarity and usability. Advanced motion effects powered by Framer Motion enhance user engagement, while a responsive layout ensures a seamless experience across desktops, tablets, and mobile devices. The portfolio highlights projects, technical skills, and professional background with a strong emphasis on performance, accessibility, and modern UI standards.",
+    "image": "/neonPortfolioHome.png",
+    "technologies": ["React", "Tailwind CSS", "Framer Motion", "GSAP", "Vite"],
+    "features": [
+      "Neon accent UI design",
+      "Glassmorphism sections",
+      "Smooth page transitions",
+      "Interactive project showcase",
+      "Scroll-based animations",
+      "Fully responsive layout",
+      "Optimized performance"
+    ],
+    "challenges": [
+      "Designing a visually bold neon interface without overwhelming the user or reducing content readability.",
+      "Implementing complex scroll-based and interactive animations while keeping performance smooth on low-end devices.",
+      "Structuring the project data and components to ensure scalability and easy content updates."
+    ],
+    "improvements": [
+      "Add a CMS integration to manage projects and content dynamically without code changes.",
+      "Introduce dark/light theme toggling with animated transitions.",
+      "Enhance accessibility with advanced keyboard navigation and screen-reader optimizations.",
+      "Implement analytics to track user engagement and optimize content placement."
+    ],
+    "liveUrl": "https://neon-portfolio-demo.netlify.app/",
+    "githubUrl": "https://github.com/BiswanathBD/Neon-Portfolio",
+    "serverUrl": "",
+    "category": "Frontend"
   }
 ]

@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import myImg from "../assets/aboutMeImg.png"
+import myImg from "../assets/aboutMeImg.png";
 
 // Register ScrollTrigger plugin
 gsap.registerPlugin(ScrollTrigger);
@@ -31,8 +31,8 @@ const About = () => {
           ease: "none",
           scrollTrigger: {
             trigger: titleRef.current,
-            start: "top 90%",
-            end: "top 60%",
+            start: "top 80%",
+            end: "top 50%",
             scrub: 1,
           },
         }
@@ -48,8 +48,8 @@ const About = () => {
           ease: "none",
           scrollTrigger: {
             trigger: imageContainerRef.current,
-            start: "top 85%",
-            end: "top 50%",
+            start: "top 75%",
+            end: "top 45%",
             scrub: 2,
           },
         }
@@ -65,8 +65,8 @@ const About = () => {
           ease: "none",
           scrollTrigger: {
             trigger: profileImageRef.current,
-            start: "top 80%",
-            end: "top 55%",
+            start: "top 70%",
+            end: "top 50%",
             scrub: 1.5,
           },
         }
@@ -82,8 +82,8 @@ const About = () => {
           ease: "none",
           scrollTrigger: {
             trigger: contentRef.current,
-            start: "top 85%",
-            end: "top 55%",
+            start: "top 75%",
+            end: "top 50%",
             scrub: 1.5,
           },
         }
@@ -99,8 +99,8 @@ const About = () => {
           ease: "none",
           scrollTrigger: {
             trigger: nameRef.current,
-            start: "top 80%",
-            end: "top 65%",
+            start: "top 70%",
+            end: "top 55%",
             scrub: 1,
           },
         }
