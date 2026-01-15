@@ -3,9 +3,9 @@ import {} from "react";
 const ProjectCard = ({ project, isActive, openProjectDetail }) => {
   return (
     <div
-      className={`group relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl rounded-lg border shadow-2xl transition-all duration-1000 ${
+      className={`group relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl rounded-lg border shadow-2xl transition-all duration-500 md:aspect-[4/3] ${
         isActive
-          ? "scale-100 opacity-100 shadow-xl md:ml-2 lg:ml-6 border-primary/40 hover:border-primary/60"
+          ? "scale-100 opacity-100 shadow-xl md:ml-2 lg:ml-6 border-primary/40 hover:border-primary/60 hover:scale-105"
           : "scale-75 opacity-60 blur-[2px] border-white/10"
       }`}
     >
@@ -30,7 +30,7 @@ const ProjectCard = ({ project, isActive, openProjectDetail }) => {
         </div>
 
         {/* Content Section */}
-        <div className="p-6 md:py-8 md:pr-6 flex flex-col justify-between">
+        <div className="p-6 md:py-8 md:-ml-6 flex flex-col justify-between">
           <div className="flex-1">
             <div className="relative mb-3 md:mb-4">
               <h3
@@ -66,7 +66,7 @@ const ProjectCard = ({ project, isActive, openProjectDetail }) => {
                 {project.technologies.slice(0, 5).map((tech, techIndex) => (
                   <span
                     key={techIndex}
-                    className="relative px-2 py-1 md:px-3 md:py-1.5 bg-gradient-to-r from-primary/20 to-secondary/20 text-secondary text-xs font-medium rounded-md border border-primary/30 backdrop-blur-sm hover:border-primary/50 hover:text-white hover:from-primary/30 hover:to-secondary/30 cursor-default hover:-translate-y-1 transition-all duration-300"
+                    className="relative px-2 py-1 md:px-3 md:py-1.5 bg-gradient-to-r from-primary/10 to-secondary/10 text-secondary text-xs font-medium rounded-md border border-primary/20 group-hover:border-primary/50 group-hover:text-white group-hover:from-primary/30 group-hover:to-secondary/30 cursor-default transition-all duration-300"
                   >
                     <div className="absolute inset-0 bg-gradient-to-r from-primary/10 to-secondary/10 rounded-md opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
                     <span className="relative">{tech}</span>

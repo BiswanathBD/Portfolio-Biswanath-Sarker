@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 const WelcomeLoader = () => {
   return (
     <motion.div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-background-dark"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-background-dark text-4xl sm:text-6xl md:text-8xl font-thin"
       initial={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.8, ease: "easeInOut", delay: 0.5 }}
@@ -20,7 +20,7 @@ const WelcomeLoader = () => {
         }}
       >
         {/* Background Text (Dark) */}
-        <h1 className="text-4xl sm:text-6xl md:text-8xl font-light text-white/5 font-display select-none">
+        <h1 className="text-white/5 font-display select-none">
           Welcome
         </h1>
 
@@ -35,7 +35,7 @@ const WelcomeLoader = () => {
             delay: 0.2,
           }}
         >
-          <h1 className="text-4xl sm:text-6xl md:text-8xl font-light bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent font-display select-none">
+          <h1 className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent font-display select-none">
             Welcome
           </h1>
         </motion.div>
