@@ -84,7 +84,7 @@ const Skills = () => {
                   trigger: item,
                   start: "top 85%",
                   end: "top 65%",
-                  scrub: 1,
+                  scrub: 1.5,
                 },
               }
             );

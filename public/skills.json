@@ -73,6 +73,18 @@
         "level": 85
       },
       {
+        "name": "Postman",
+        "icon": "https://www.vectorlogo.zone/logos/getpostman/getpostman-icon.svg",
+        "color": "text-orange-500",
+        "level": 80
+      },
+      {
+        "name": "Thunder Client",
+        "icon": "https://raw.githubusercontent.com/rangav/thunder-client-support/master/images/thunder-icon.png",
+        "color": "text-purple-400",
+        "level": 75
+      },
+      {
         "name": "Firebase",
         "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg",
         "color": "text-orange-400",
@@ -96,10 +108,34 @@
     "title": "UI/UX & Animation",
     "skills": [
       {
+        "name": "GSAP",
+        "icon": "https://cdn.worldvectorlogo.com/logos/gsap-greensock.svg",
+        "color": "text-green-500",
+        "level": 78
+      },
+      {
+        "name": "Lenis",
+        "icon": "https://avatars.githubusercontent.com/u/124888245?s=200&v=4",
+        "color": "text-blue-400",
+        "level": 70
+      },
+      {
+        "name": "Swiper",
+        "icon": "https://cdn.worldvectorlogo.com/logos/swiper-1.svg",
+        "color": "text-blue-500",
+        "level": 75
+      },
+      {
+        "name": "AOS",
+        "icon": "https://avatars.githubusercontent.com/u/10077740?s=200&v=4",
+        "color": "text-cyan-400",
+        "level": 72
+      },
+      {
         "name": "Framer Motion",
         "icon": "https://cdn.brandfetch.io/idDJv1mfrb/theme/light/logo.svg?c=1bxid64Mup7aczewSAYMX&t=1753779030563",
         "color": "text-secondary",
-        "level": 72
+        "level": 85
       },
       {
         "name": "Daisy UI",

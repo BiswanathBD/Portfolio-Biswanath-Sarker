@@ -14,7 +14,6 @@ import ScrollToTop from "./components/ScrollToTop";
 import WelcomeLoader from "./components/WelcomeLoader";
 
 function App() {
-  const shouldReduceMotion = useReducedMotion();
   const [showLoader, setShowLoader] = useState(true);
 
   useEffect(() => {
@@ -49,14 +48,7 @@ function App() {
 
   const pageVariants = {
     initial: { opacity: 0 },
-    animate: {
-      opacity: 1,
-      transition: {
-        duration: shouldReduceMotion ? 0.1 : 0.8,
-        ease: "easeInOut",
-        delay: 0.2,
-      },
-    },
+    animate: { opacity: 1 },
   };
 
   return (

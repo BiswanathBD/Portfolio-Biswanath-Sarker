@@ -47,7 +47,7 @@ const Hero = () => {
       animate="visible"
     >
 
-      <div className="flex flex-col-reverse lg:flex-row gap-8 items-center relative">
+      <div className="flex flex-col-reverse lg:flex-row gap-20 lg:gap-8 items-center relative">
         <div className="flex-1 flex flex-col-reverse sm:flex-row items-center gap-6 sm:gap-0">
           {/* Social icons vertical on left */}
           <motion.div
