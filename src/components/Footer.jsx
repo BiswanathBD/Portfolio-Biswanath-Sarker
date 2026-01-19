@@ -76,7 +76,7 @@ const Footer = () => {
     >
       {/* Background Elements */}
       <motion.div
-        className="absolute top-0 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-[100px] pointer-events-none -z-10"
+        className="absolute top-0 left-1/4 bg-primary/5 rounded-full blur-[100px] pointer-events-none -z-10"
         animate={{
           scale: [1, 1.2, 1],
           x: [0, 50, 0],
@@ -87,6 +87,7 @@ const Footer = () => {
           ease: "easeInOut",
         }}
       />
+
       <motion.div
         className="absolute bottom-0 right-1/4 w-80 h-80 bg-secondary/5 rounded-full blur-[100px] pointer-events-none -z-10"
         animate={{
@@ -100,53 +101,60 @@ const Footer = () => {
         }}
       />
 
-      <div className="container mx-auto px-4 md:px-8 lg:px-16 xl:px-24 py-12">
+      <div className="container mx-auto px-4 md:px-8 lg:px-16 xl:px-24 py-8">
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center"
+          className="grid grid-cols-1 md:grid-cols-3 gap-8"
           variants={containerVariants}
         >
           {/* Logo & Description */}
           <motion.div
-            className="text-center md:text-left"
+            className="text-center md:text-left space-y-3"
             variants={itemVariants}
           >
+            {/* Name and Title in one line */}
             <motion.div
-              className="font-display font-bold text-2xl tracking-wide mb-3"
-              whileHover={{ scale: 1.05 }}
-              transition={{ duration: 0.2 }}
+              className="flex items-center justify-center md:justify-start gap-3"
+              whileHover={{ x: 3 }}
+              transition={{ duration: 0.3 }}
             >
-              <span className="text-gray-400">
-                &lt;
-                <motion.span
-                  className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent"
-                  animate={{
-                    backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
-                  }}
-                  transition={{
-                    duration: 3,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
-                >
-                  {" "}
-                  Biswanath{" "}
-                </motion.span>
-                /&gt;
-              </span>
+              <div className="font-display font-bold text-xl tracking-wide">
+                <span className="bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
+                  Biswanath
+                </span>
+              </div>
+
+              <div className="h-6 w-px bg-gradient-to-b from-primary/50 to-secondary/50 ani" />
+
+              <div className="text-sm font-medium">
+                <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent animate-pulse">
+                  MERN Stack Developer
+                </span>
+              </div>
             </motion.div>
+
+            {/* Stylish Subtitle */}
             <motion.p
-              className="text-gray-400 text-sm leading-relaxed max-w-xs mx-auto md:mx-0"
+              className="text-sm leading-relaxed max-w-xs mx-auto md:mx-0 bg-gradient-to-r from-gray-400 via-gray-300 to-gray-400 bg-clip-text text-transparent"
               variants={itemVariants}
+              style={{ backgroundSize: "200% auto" }}
+              animate={{
+                backgroundPosition: ["0% center", "200% center"],
+              }}
+              transition={{
+                duration: 8,
+                repeat: Infinity,
+                ease: "linear",
+              }}
             >
-              MERN Stack Developer crafting modern web experiences with passion
-              and precision.
+              "Building modern web applications with clean code and creative
+              solutions."
             </motion.p>
           </motion.div>
 
           {/* Quick Links */}
           <motion.div className="text-center" variants={itemVariants}>
             <motion.h3
-              className="text-white font-semibold mb-4 text-sm"
+              className="font-bold mb-4 text-lg bg-gradient-to-r from-primary via-secondary to-primary bg-clip-text text-transparent"
               variants={itemVariants}
             >
               Quick Links
@@ -176,13 +184,18 @@ const Footer = () => {
             variants={itemVariants}
           >
             <motion.h3
-              className="text-white font-semibold mb-4 text-sm"
+              className="font-bold mb-4 text-lg bg-gradient-to-r from-secondary via-primary to-secondary bg-clip-text text-transparent"
               variants={itemVariants}
+              transition={{
+                duration: 8,
+                repeat: Infinity,
+                ease: "linear",
+              }}
             >
               Connect With Me
             </motion.h3>
             <motion.div
-              className="flex justify-center md:justify-end space-x-4"
+              className="flex justify-center md:justify-end space-x-3"
               variants={containerVariants}
             >
               {socialLinks.map((social, index) => (
@@ -191,14 +204,25 @@ const Footer = () => {
                   href={social.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 ${social.color} transition-all duration-300 hover:bg-white/10 hover:border-primary/30`}
+                  className="group relative"
                   title={social.name}
                   variants={itemVariants}
-                  whileHover={{ scale: 1.2, rotate: 360, y: -3 }}
-                  whileTap={{ scale: 0.9 }}
-                  transition={{ duration: 0.3 }}
+                  whileHover={{ y: -5, scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
+                  transition={{ duration: 0.3, ease: "easeOut" }}
                 >
-                  <i className={`${social.icon} text-sm`}></i>
+                  {/* Glow effect on hover */}
+                  <motion.div
+                    className="absolute inset-0 rounded-lg bg-gradient-to-r from-primary/20 to-secondary/20 blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                    initial={false}
+                  />
+
+                  {/* Icon container */}
+                  <div
+                    className={`relative w-8 h-8 rounded-lg bg-gradient-to-br from-white/5 to-white/10 border border-white/10 flex items-center justify-center text-gray-400 ${social.color} transition-all duration-300 group-hover:border-primary/50 group-hover:shadow-lg group-hover:shadow-primary/20`}
+                  >
+                    <i className={`${social.icon} text-base`}></i>
+                  </div>
                 </motion.a>
               ))}
             </motion.div>
