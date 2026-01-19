@@ -46,7 +46,6 @@ const Hero = () => {
       initial="hidden"
       animate="visible"
     >
-
       <div className="flex flex-col-reverse lg:flex-row gap-20 lg:gap-8 items-center relative">
         <div className="flex-1 flex flex-col-reverse sm:flex-row items-center gap-6 sm:gap-0">
           {/* Social icons vertical on left */}
@@ -126,9 +125,10 @@ const Hero = () => {
             >
               <motion.a
                 className="group relative px-6 py-2 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-lg border border-primary/30 transition-all hover:-translate-y-0.5 overflow-hidden text-primary"
-                href="#"
+                href="https://drive.google.com/file/d/1UPEo8V-QZZUxq6PQeHD__XSX3x_JPRBe/view?usp=sharing"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
+                target="_blank"
               >
                 <span className="relative z-10 flex items-center gap-2">
                   Download Resume
