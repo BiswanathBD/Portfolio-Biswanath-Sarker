@@ -35,7 +35,7 @@ const Contact = () => {
             scrub: 1,
             id: "contact-title",
           },
-        }
+        },
       );
 
       // 2. Info Card (Slide from Left)
@@ -53,7 +53,7 @@ const Contact = () => {
             scrub: 1.2,
             id: "contact-info-card",
           },
-        }
+        },
       );
 
       // 3. Form Card (Slide from Right)
@@ -71,7 +71,7 @@ const Contact = () => {
             scrub: 1.2,
             id: "contact-form-card",
           },
-        }
+        },
       );
 
       // 4. Social Icons (Staggered Fade & Scale)
@@ -91,7 +91,7 @@ const Contact = () => {
                 scrub: 1 + index * 0.15,
                 id: `contact-social-${index}`,
               },
-            }
+            },
           );
         }
       });
