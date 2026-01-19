@@ -49,7 +49,7 @@ const Skills = () => {
             end: "top 50%",
             scrub: 1,
           },
-        }
+        },
       );
 
       // Skill cards animation controlled by scroll
@@ -67,7 +67,7 @@ const Skills = () => {
                 end: "top 55%",
                 scrub: 0.5,
               },
-            }
+            },
           );
 
           // Animate skill items within each card
@@ -82,11 +82,11 @@ const Skills = () => {
                 ease: "none",
                 scrollTrigger: {
                   trigger: item,
-                  start: "top 85%",
-                  end: "top 65%",
+                  start: "top 90%",
+                  end: "top 80%",
                   scrub: 1.5,
                 },
-              }
+              },
             );
 
             // Animate progress bars
@@ -101,11 +101,11 @@ const Skills = () => {
                   ease: "none",
                   scrollTrigger: {
                     trigger: progressBar,
-                    start: "top 85%",
-                    end: "top 60%",
+                    start: "top 90%",
+                    end: "top 90%",
                     scrub: 2,
                   },
-                }
+                },
               );
             }
           });
@@ -128,7 +128,7 @@ const Skills = () => {
                 end: "top 80%",
                 scrub: 0.5,
               },
-            }
+            },
           );
         }
       });
@@ -148,20 +148,56 @@ const Skills = () => {
       <div className="absolute bottom-10 left-10 w-96 h-96 bg-primary/10 rounded-full blur-[120px] pointer-events-none -z-10" />
 
       {/* Header Section */}
-      <div ref={titleRef} className="text-center mb-20">
-        <h2 className="font-display font-bold text-4xl md:text-5xl text-white mb-4">
-          <span className="inline-block mr-3">⚡</span>
-          Skills & Technologies
-        </h2>
-        <motion.div
-          className="h-1 w-24 bg-gradient-to-r from-primary to-secondary mx-auto rounded-full"
-          initial={{ width: 0 }}
-          whileInView={{ width: 96 }}
-          transition={{ duration: 0.8, delay: 0.5 }}
-        />
-        <p className="text-gray-400 mt-6 max-w-2xl mx-auto">
-          Here are the technologies and tools I work with to bring ideas to life
-        </p>
+      <div ref={titleRef} className="text-center mb-8 md:mb-16 relative">
+        {/* Background decorative elements */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-r from-primary/5 to-secondary/5 rounded-full blur-3xl pointer-events-none" />
+
+        <div className="relative inline-block">
+          {/* Main Title */}
+          <div className="relative">
+            <h2 className="font-display font-bold text-4xl md:text-5xl lg:text-6xl text-white mb-2 relative z-10 tracking-tight">
+              Skills &{" "}
+              <span className="relative inline-block">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-secondary to-primary bg-[length:200%_100%] animate-gradient">
+                  Technologies
+                </span>
+              </span>
+            </h2>
+
+            {/* Decorative corner brackets */}
+            <div className="absolute -top-2 -left-4 w-6 h-6 border-l-2 border-t-2 border-primary/40 rounded-tl-xl animate-pulse" />
+            <div className="absolute -top-2 -right-4 w-6 h-6 border-r-2 border-t-2 border-secondary/40 rounded-tr-xl animate-pulse" />
+            <div className="absolute -bottom-2 -left-4 w-6 h-6 border-l-2 border-b-2 border-secondary/40 rounded-bl-xl animate-pulse" />
+            <div className="absolute -bottom-2 -right-4 w-6 h-6 border-r-2 border-b-2 border-primary/40 rounded-br-xl animate-pulse" />
+
+            {/* Floating dots */}
+            <motion.div
+              className="absolute -top-2 left-1/4 w-2 h-2 bg-primary rounded-full"
+              animate={{
+                y: [-5, 5, -5],
+                opacity: [0.3, 1, 0.3],
+              }}
+              transition={{
+                duration: 3,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            />
+            <motion.div
+              className="absolute -bottom-2 right-1/4 w-2 h-2 bg-secondary rounded-full"
+              animate={{
+                y: [5, -5, 5],
+                opacity: [0.3, 1, 0.3],
+              }}
+              transition={{
+                duration: 3,
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: 1.5,
+              }}
+            />
+          </div>
+        </div>
       </div>
 
       {/* Loading State */}

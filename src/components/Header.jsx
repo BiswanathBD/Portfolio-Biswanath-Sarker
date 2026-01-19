@@ -14,7 +14,7 @@ const Header = () => {
       y: 0,
       transition: {
         duration: 0.2,
-        delay: 1.5 + i * 0.1,
+        delay: 1 + i * 0.1,
         ease: "easeOut",
       },
     }),

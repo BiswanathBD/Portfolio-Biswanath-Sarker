@@ -29,7 +29,7 @@ const Education = () => {
             end: "top 50%",
             scrub: 1,
           },
-        }
+        },
       );
 
       // Timeline line animation controlled by scroll
@@ -45,7 +45,7 @@ const Education = () => {
             end: "bottom 20%",
             scrub: 2,
           },
-        }
+        },
       );
 
       // Education cards animation controlled by scroll
@@ -64,7 +64,7 @@ const Education = () => {
                 end: "top 45%",
                 scrub: 1.5,
               },
-            }
+            },
           );
         }
       });
@@ -85,7 +85,7 @@ const Education = () => {
                 end: "top 60%",
                 scrub: 1,
               },
-            }
+            },
           );
         }
       });
@@ -106,7 +106,7 @@ const Education = () => {
                 end: "top 65%",
                 scrub: 1,
               },
-            }
+            },
           );
         }
       });
@@ -125,7 +125,7 @@ const Education = () => {
             end: "top 60%",
             scrub: 1.5,
           },
-        }
+        },
       );
       // Additional scroll-controlled animations for card content
       cardsRef.current.forEach((card) => {
@@ -149,7 +149,7 @@ const Education = () => {
                   end: "top 55%",
                   scrub: 1,
                 },
-              }
+              },
             );
           }
 
@@ -168,7 +168,7 @@ const Education = () => {
                   end: "top 65%",
                   scrub: 1.5,
                 },
-              }
+              },
             );
           }
 
@@ -184,10 +184,10 @@ const Education = () => {
                 scrollTrigger: {
                   trigger: cardAchievements[0],
                   start: "top 90%",
-                  end: "top 70%",
-                  scrub: 2,
+                  end: "top 80%",
+                  scrub: 0.5,
                 },
-              }
+              },
             );
           }
         }
@@ -242,35 +242,55 @@ const Education = () => {
       <div className="absolute top-10 left-10 w-80 h-80 bg-primary/10 rounded-full blur-[100px] pointer-events-none -z-10" />
 
       {/* Header Section */}
-      <div ref={titleRef} className="text-center mb-20">
-        <h2 className="font-display font-bold text-4xl md:text-5xl text-white mb-4">
-          <motion.span
-            className="inline-block mr-3"
-            animate={{
-              rotate: [0, 10, -10, 0],
-              scale: [1, 1.1, 1],
-            }}
-            transition={{
-              duration: 3,
-              repeat: Infinity,
-              repeatDelay: 2,
-              ease: "easeInOut",
-            }}
-          >
-            🎓
-          </motion.span>
-          Education
-        </h2>
-        <motion.div
-          className="h-1 w-24 bg-gradient-to-r from-primary to-secondary mx-auto rounded-full"
-          initial={{ width: 0 }}
-          whileInView={{ width: 96 }}
-          transition={{ duration: 0.8, delay: 0.5 }}
-        />
-        <p className="text-gray-400 mt-6 max-w-2xl mx-auto">
-          My educational journey from literature to programming, combining
-          analytical thinking with technical expertise
-        </p>
+      <div ref={titleRef} className="text-center mb-8 md:mb-16 relative">
+        {/* Background decorative elements */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-r from-primary/5 to-secondary/5 rounded-full blur-3xl pointer-events-none" />
+
+        <div className="relative inline-block">
+          {/* Main Title */}
+          <div className="relative">
+            <h2 className="font-display font-bold text-4xl md:text-5xl lg:text-6xl text-white mb-2 relative z-10 tracking-tight">
+              <span className="relative inline-block">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-secondary to-primary bg-[length:200%_100%] animate-gradient">
+                  Education
+                </span>
+              </span>
+            </h2>
+
+            {/* Decorative corner brackets */}
+            <div className="absolute -top-2 -left-4 w-6 h-6 border-l-2 border-t-2 border-primary/40 rounded-tl-xl animate-pulse" />
+            <div className="absolute -top-2 -right-4 w-6 h-6 border-r-2 border-t-2 border-secondary/40 rounded-tr-xl animate-pulse" />
+            <div className="absolute -bottom-2 -left-4 w-6 h-6 border-l-2 border-b-2 border-secondary/40 rounded-bl-xl animate-pulse" />
+            <div className="absolute -bottom-2 -right-4 w-6 h-6 border-r-2 border-b-2 border-primary/40 rounded-br-xl animate-pulse" />
+
+            {/* Floating dots */}
+            <motion.div
+              className="absolute -top-2 left-1/4 w-2 h-2 bg-primary rounded-full"
+              animate={{
+                y: [-5, 5, -5],
+                opacity: [0.3, 1, 0.3],
+              }}
+              transition={{
+                duration: 3,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            />
+            <motion.div
+              className="absolute -bottom-2 right-1/4 w-2 h-2 bg-secondary rounded-full"
+              animate={{
+                y: [5, -5, 5],
+                opacity: [0.3, 1, 0.3],
+              }}
+              transition={{
+                duration: 3,
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: 1.5,
+              }}
+            />
+          </div>
+        </div>
       </div>
 
       {/* Timeline Container */}

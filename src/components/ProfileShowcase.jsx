@@ -1,7 +1,26 @@
 import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
 import heroProfile from "../assets/heroProfile.jpeg";
 
 const ProfileShowcase = () => {
+  const [skills, setSkills] = useState([]);
+
+  useEffect(() => {
+    fetch("/skills.json")
+      .then((res) => res.json())
+      .then((data) => setSkills(data))
+      .catch((err) => console.error("Error loading skills:", err));
+  }, []);
+
+  // Extract specific skills for each circle
+  const getSkillByName = (name) => {
+    for (const category of skills) {
+      const skill = category.skills.find((s) => s.name === name);
+      if (skill) return skill;
+    }
+    return null;
+  };
+
   const imageVariants = {
     hidden: { scale: 0.9, opacity: 0 },
     visible: {
@@ -58,44 +77,70 @@ const ProfileShowcase = () => {
         animate={{ rotate: 360 }}
         transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
       >
+        {/* HTML5 */}
         <motion.div
           className="absolute w-7 h-7 top-2 left-1/2 -ml-5 -mt-5 bg-white/10 backdrop-blur-md border border-white/20 rounded-full shadow-lg flex items-center justify-center pointer-events-auto"
           animate={{ rotate: -360 }}
           transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
           whileHover={{ scale: 1.2, zIndex: 50 }}
         >
-          <i className="fab fa-html5 text-orange-500 text-lg"></i>
+          {getSkillByName("HTML5") && (
+            <img
+              src={getSkillByName("HTML5").icon}
+              alt="HTML5"
+              className="w-4 h-4 object-contain"
+            />
+          )}
         </motion.div>
 
+        {/* CSS3 */}
         <motion.div
           className="absolute w-6 h-6 top-1/2 right-1.5 -mr-4 -mt-4 bg-white/10 backdrop-blur-md border border-white/20 rounded-full shadow-lg flex items-center justify-center pointer-events-auto"
           animate={{ rotate: -360 }}
           transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
           whileHover={{ scale: 1.2, zIndex: 50 }}
         >
-          <i className="fab fa-css3-alt text-primary text-sm"></i>
+          {getSkillByName("CSS3") && (
+            <img
+              src={getSkillByName("CSS3").icon}
+              alt="CSS3"
+              className="w-3.5 h-3.5 object-contain"
+            />
+          )}
         </motion.div>
 
+        {/* JavaScript */}
         <motion.div
           className="absolute w-7 h-7 bottom-2 left-1/2 -ml-5 -mb-5 bg-white/10 backdrop-blur-md border border-white/20 rounded-full shadow-lg flex items-center justify-center pointer-events-auto"
           animate={{ rotate: -360 }}
           transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
           whileHover={{ scale: 1.2, zIndex: 50 }}
         >
-          <i className="fab fa-js text-yellow-400 text-lg"></i>
+          {getSkillByName("JavaScript") && (
+            <img
+              src={getSkillByName("JavaScript").icon}
+              alt="JavaScript"
+              className="w-4 h-4 object-contain"
+            />
+          )}
         </motion.div>
 
+        {/* React */}
         <motion.div
           className="absolute w-6 h-6 top-1/2 left-1.5 -ml-4 -mt-4 bg-white/10 backdrop-blur-md border border-white/20 rounded-full shadow-lg flex items-center justify-center pointer-events-auto"
           animate={{ rotate: -360 }}
           transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
           whileHover={{ scale: 1.2, zIndex: 50 }}
         >
-          <motion.i
-            className="fab fa-react text-secondary text-sm"
-            animate={{ rotate: 360 }}
-            transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-          />
+          {getSkillByName("React") && (
+            <motion.img
+              src={getSkillByName("React").icon}
+              alt="React"
+              className="w-3.5 h-3.5 object-contain"
+              animate={{ rotate: 360 }}
+              transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+            />
+          )}
         </motion.div>
       </motion.div>
 
@@ -106,40 +151,68 @@ const ProfileShowcase = () => {
         animate={{ rotate: -360 }}
         transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
       >
+        {/* Node.js */}
         <motion.div
           className="absolute w-7 h-7 top-2 left-1/2 -ml-5 -mt-5 bg-white/10 backdrop-blur-md border border-white/20 rounded-full shadow-lg flex items-center justify-center pointer-events-auto"
           animate={{ rotate: 360 }}
           transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
           whileHover={{ scale: 1.2, zIndex: 50 }}
         >
-          <i className="fab fa-node-js text-green-500 text-lg"></i>
+          {getSkillByName("Node.js") && (
+            <img
+              src={getSkillByName("Node.js").icon}
+              alt="Node.js"
+              className="w-4 h-4 object-contain"
+            />
+          )}
         </motion.div>
 
+        {/* Express.js */}
         <motion.div
           className="absolute w-6 h-6 top-1/2 right-1.5 -mr-4 -mt-4 bg-white/10 backdrop-blur-md border border-white/20 rounded-full shadow-lg flex items-center justify-center pointer-events-auto"
           animate={{ rotate: 360 }}
           transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
           whileHover={{ scale: 1.2, zIndex: 50 }}
         >
-          <i className="fas fa-server text-gray-300 text-xs"></i>
+          {getSkillByName("Express.js") && (
+            <img
+              src={getSkillByName("Express.js").icon}
+              alt="Express.js"
+              className="w-3.5 h-3.5 object-contain invert"
+            />
+          )}
         </motion.div>
 
+        {/* MongoDB */}
         <motion.div
           className="absolute w-8 h-8 -bottom-4 left-1/2 -ml-4.5 -mb-4.5 bg-white/10 backdrop-blur-md border border-white/20 rounded-full shadow-lg flex items-center justify-center pointer-events-auto"
           animate={{ rotate: 360 }}
           transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
           whileHover={{ scale: 1.2, zIndex: 50 }}
         >
-          <i className="fas fa-leaf text-green-600 text-sm"></i>
+          {getSkillByName("MongoDB") && (
+            <img
+              src={getSkillByName("MongoDB").icon}
+              alt="MongoDB"
+              className="w-4 h-4 object-contain"
+            />
+          )}
         </motion.div>
 
+        {/* Tailwind CSS */}
         <motion.div
           className="absolute w-6 h-6 top-1/2 left-1 -ml-4 -mt-4 bg-white/10 backdrop-blur-md border border-white/20 rounded-full shadow-lg flex items-center justify-center pointer-events-auto"
           animate={{ rotate: 360 }}
           transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
           whileHover={{ scale: 1.2, zIndex: 50 }}
         >
-          <i className="fas fa-database text-primary text-xs"></i>
+          {getSkillByName("Tailwind CSS") && (
+            <img
+              src={getSkillByName("Tailwind CSS").icon}
+              alt="Tailwind CSS"
+              className="w-3.5 h-3.5 object-contain"
+            />
+          )}
         </motion.div>
       </motion.div>
 
@@ -150,84 +223,140 @@ const ProfileShowcase = () => {
         animate={{ rotate: 360 }}
         transition={{ duration: 80, repeat: Infinity, ease: "linear" }}
       >
+        {/* Git */}
         <motion.div
           className="absolute w-7 h-7 top-2 left-1/2 -ml-5 -mt-5 bg-white/10 backdrop-blur-md border border-white/20 rounded-full shadow-lg flex items-center justify-center pointer-events-auto"
           animate={{ rotate: -360 }}
           transition={{ duration: 80, repeat: Infinity, ease: "linear" }}
           whileHover={{ scale: 1.2, zIndex: 50 }}
         >
-          <i className="fab fa-git-alt text-red-500 text-lg"></i>
+          {getSkillByName("Git") && (
+            <img
+              src={getSkillByName("Git").icon}
+              alt="Git"
+              className="w-4 h-4 object-contain"
+            />
+          )}
         </motion.div>
 
+        {/* Firebase */}
         <motion.div
           className="absolute w-6 h-6 top-1/2 right-1 -mr-4 -mt-4 bg-white/10 backdrop-blur-md border border-white/20 rounded-full shadow-lg flex items-center justify-center pointer-events-auto"
           animate={{ rotate: -360 }}
           transition={{ duration: 80, repeat: Infinity, ease: "linear" }}
           whileHover={{ scale: 1.2, zIndex: 50 }}
         >
-          <i className="fas fa-fire text-orange-400 text-xs"></i>
+          {getSkillByName("Firebase") && (
+            <img
+              src={getSkillByName("Firebase").icon}
+              alt="Firebase"
+              className="w-3.5 h-3.5 object-contain"
+            />
+          )}
         </motion.div>
 
+        {/* Netlify */}
         <motion.div
           className="absolute w-7 h-7 bottom-2 left-1/2 -ml-5 -mb-5 bg-white/10 backdrop-blur-md border border-white/20 rounded-full shadow-lg flex items-center justify-center pointer-events-auto"
           animate={{ rotate: -360 }}
           transition={{ duration: 80, repeat: Infinity, ease: "linear" }}
           whileHover={{ scale: 1.2, zIndex: 50 }}
         >
-          <i className="fas fa-wind text-cyan-400 text-lg"></i>
+          {getSkillByName("Netlify") && (
+            <img
+              src={getSkillByName("Netlify").icon}
+              alt="Netlify"
+              className="w-4 h-4 object-contain"
+            />
+          )}
         </motion.div>
 
+        {/* Postman */}
         <motion.div
           className="absolute w-6 h-6 top-1/2 left-1 -ml-4 -mt-4 bg-white/10 backdrop-blur-md border border-white/20 rounded-full shadow-lg flex items-center justify-center pointer-events-auto"
           animate={{ rotate: -360 }}
           transition={{ duration: 80, repeat: Infinity, ease: "linear" }}
           whileHover={{ scale: 1.2, zIndex: 50 }}
         >
-          <i className="fas fa-code text-indigo-400 text-xs"></i>
+          {getSkillByName("Postman") && (
+            <img
+              src={getSkillByName("Postman").icon}
+              alt="Postman"
+              className="w-3.5 h-3.5 object-contain"
+            />
+          )}
         </motion.div>
       </motion.div>
 
-      {/* --- ICONS: OUTER CIRCLE (Cloud/Other) --- */}
+      {/* --- ICONS: OUTER CIRCLE (UI/Animation) --- */}
       <motion.div
         className="absolute w-[28rem] h-[34rem] md:w-[32rem] aspect-square rounded-full z-0 pointer-events-none"
         style={{ top: "50%", left: "50%", x: "-50%", y: "-50%" }}
         animate={{ rotate: -360 }}
         transition={{ duration: 100, repeat: Infinity, ease: "linear" }}
       >
+        {/* GSAP */}
         <motion.div
           className="absolute w-8 h-8 top-8 md:top-0 left-1/2 -ml-4.5 -mt-4.5 bg-white/10 backdrop-blur-md border border-white/20 rounded-full shadow-lg flex items-center justify-center pointer-events-auto"
           animate={{ rotate: 360 }}
           transition={{ duration: 100, repeat: Infinity, ease: "linear" }}
           whileHover={{ scale: 1.2, zIndex: 50 }}
         >
-          <i className="fas fa-globe text-teal-400 text-sm"></i>
+          {getSkillByName("GSAP") && (
+            <img
+              src={getSkillByName("GSAP").icon}
+              alt="GSAP"
+              className="w-4 h-4 object-contain"
+            />
+          )}
         </motion.div>
 
+        {/* Framer Motion */}
         <motion.div
-          className="absolute w-7 h-7 top-1/2 right-1.5 -mr-5 -mt-5 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-black shadow-lg flex items-center justify-center pointer-events-auto"
+          className="absolute w-7 h-7 top-1/2 right-1.5 -mr-5 -mt-5 bg-white/10 backdrop-blur-md border border-white/20 rounded-full shadow-lg flex items-center justify-center pointer-events-auto"
           animate={{ rotate: 360 }}
           transition={{ duration: 100, repeat: Infinity, ease: "linear" }}
           whileHover={{ scale: 1.2, zIndex: 50 }}
         >
-          <i className="fas fa-play -rotate-90 text-white text-base"></i>
+          {getSkillByName("Framer Motion") && (
+            <img
+              src={getSkillByName("Framer Motion").icon}
+              alt="Framer Motion"
+              className="w-4 h-4 object-contain"
+            />
+          )}
         </motion.div>
 
+        {/* Swiper */}
         <motion.div
           className="absolute w-6 h-6 bottom-12 md:bottom-5 left-1/2 -ml-4 -mb-4 bg-white/10 backdrop-blur-md border border-white/20 rounded-full shadow-lg flex items-center justify-center pointer-events-auto"
           animate={{ rotate: 360 }}
           transition={{ duration: 100, repeat: Infinity, ease: "linear" }}
           whileHover={{ scale: 1.2, zIndex: 50 }}
         >
-          <i className="fas fa-cloud text-sky-400 text-xs"></i>
+          {getSkillByName("Swiper") && (
+            <img
+              src={getSkillByName("Swiper").icon}
+              alt="Swiper"
+              className="w-3.5 h-3.5 object-contain"
+            />
+          )}
         </motion.div>
 
+        {/* AOS */}
         <motion.div
           className="absolute w-7 h-7 top-1/2 left-1.5 -ml-5 -mt-5 bg-white/10 backdrop-blur-md border border-white/20 rounded-full shadow-lg flex items-center justify-center pointer-events-auto"
           animate={{ rotate: 360 }}
           transition={{ duration: 100, repeat: Infinity, ease: "linear" }}
           whileHover={{ scale: 1.2, zIndex: 50 }}
         >
-          <i className="fab fa-github text-white text-lg"></i>
+          {getSkillByName("AOS") && (
+            <img
+              src={getSkillByName("AOS").icon}
+              alt="AOS"
+              className="w-4 h-4 object-contain rounded-full"
+            />
+          )}
         </motion.div>
       </motion.div>
 

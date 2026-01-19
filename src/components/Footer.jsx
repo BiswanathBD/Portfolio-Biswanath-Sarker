@@ -226,7 +226,6 @@ const Footer = () => {
             viewport={{ once: true }}
           >
             © {new Date().getFullYear()} Biswanath Sarker. All rights reserved.
-            Built with ❤️ using React & Tailwind CSS
           </motion.p>
         </motion.div>
       </div>

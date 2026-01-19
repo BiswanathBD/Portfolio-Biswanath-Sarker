@@ -115,19 +115,19 @@
       },
       {
         "name": "Lenis",
-        "icon": "https://avatars.githubusercontent.com/u/124888245?s=200&v=4",
+        "icon": "https://avatars.githubusercontent.com/u/67077908?s=200&v=4",
         "color": "text-blue-400",
         "level": 70
       },
       {
         "name": "Swiper",
-        "icon": "https://cdn.worldvectorlogo.com/logos/swiper-1.svg",
+        "icon": "https://swiperjs.com/images/swiper-logo.svg",
         "color": "text-blue-500",
         "level": 75
       },
       {
         "name": "AOS",
-        "icon": "https://avatars.githubusercontent.com/u/10077740?s=200&v=4",
+        "icon": "https://www.drupal.org/files/project-images/Drupal-AOSJS-Animate-On-Scroll-Javascript-Library.png",
         "color": "text-cyan-400",
         "level": 72
       },

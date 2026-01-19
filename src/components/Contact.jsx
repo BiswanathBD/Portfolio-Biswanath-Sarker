@@ -160,33 +160,62 @@ const Contact = () => {
   return (
     <section
       ref={sectionRef}
-      className="py-20 container mx-auto px-4 md:px-8 lg:px-16 xl:px-24 relative overflow-hidden"
+      className="py-20 container mx-auto px-4 md:px-8 lg:px-16 xl:px-24 relative z-20"
       id="contact"
     >
       {/* Background Blobs */}
       <div className="absolute top-20 left-10 w-80 h-80 bg-primary/10 rounded-full blur-[100px] pointer-events-none -z-10" />
 
-      <div ref={titleRef} className="text-center mb-16">
-        <h2 className="font-display font-bold text-4xl md:text-5xl text-white mb-4">
-          <motion.span
-            className="inline-block mr-3"
-            animate={{ scale: [1, 1.1, 1] }}
-            transition={{ duration: 2, repeat: Infinity }}
-          >
-            📧
-          </motion.span>
-          Get In Touch
-        </h2>
-        <motion.div
-          className="h-1 w-24 bg-gradient-to-r from-primary to-secondary mx-auto rounded-full"
-          initial={{ width: 0 }}
-          whileInView={{ width: 96 }}
-          transition={{ duration: 0.8, delay: 0.5 }}
-        />
-        <p className="text-gray-400 mt-6 max-w-2xl mx-auto">
-          Have a project in mind or want to collaborate? I'd love to hear from
-          you. Let's create something amazing together!
-        </p>
+      <div ref={titleRef} className="text-center mb-8 md:mb-16 relative">
+        {/* Background decorative elements */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-r from-primary/5 to-secondary/5 rounded-full blur-3xl pointer-events-none" />
+
+        <div className="relative inline-block">
+          {/* Main Title */}
+          <div className="relative">
+            <h2 className="font-display font-bold text-4xl md:text-5xl lg:text-6xl text-white mb-2 relative z-10 tracking-tight">
+              Get In{" "}
+              <span className="relative inline-block">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-secondary to-primary bg-[length:200%_100%] animate-gradient">
+                  Touch
+                </span>
+              </span>
+            </h2>
+
+            {/* Decorative corner brackets */}
+            <div className="absolute -top-2 -left-4 w-6 h-6 border-l-2 border-t-2 border-primary/40 rounded-tl-xl animate-pulse" />
+            <div className="absolute -top-2 -right-4 w-6 h-6 border-r-2 border-t-2 border-secondary/40 rounded-tr-xl animate-pulse" />
+            <div className="absolute -bottom-2 -left-4 w-6 h-6 border-l-2 border-b-2 border-secondary/40 rounded-bl-xl animate-pulse" />
+            <div className="absolute -bottom-2 -right-4 w-6 h-6 border-r-2 border-b-2 border-primary/40 rounded-br-xl animate-pulse" />
+
+            {/* Floating dots */}
+            <motion.div
+              className="absolute -top-2 left-1/4 w-2 h-2 bg-primary rounded-full"
+              animate={{
+                y: [-5, 5, -5],
+                opacity: [0.3, 1, 0.3],
+              }}
+              transition={{
+                duration: 3,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            />
+            <motion.div
+              className="absolute -bottom-2 right-1/4 w-2 h-2 bg-secondary rounded-full"
+              animate={{
+                y: [5, -5, 5],
+                opacity: [0.3, 1, 0.3],
+              }}
+              transition={{
+                duration: 3,
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: 1.5,
+              }}
+            />
+          </div>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr] gap-8 max-w-6xl mx-auto items-stretch">
@@ -195,28 +224,69 @@ const Contact = () => {
           ref={infoCardRef}
           className="group relative bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-2xl flex flex-col"
         >
-          <h3 className="text-2xl font-bold text-white mb-6">
-            Contact Information
-          </h3>
-          <div className="space-y-3 flex-1">
+          {/* Title with divider */}
+            <h3 className="text-2xl font-bold text-white mb-4">
+              Contact Information
+            </h3>
+
+          <div className="space-y-4 flex-1">
             {contactInfo.map((info, i) => (
-              <a
-                key={i}
-                href={info.link}
-                className="flex items-center gap-3 p-3 bg-white/5 rounded-xl border border-white/10 hover:border-primary/50 transition-all"
-              >
+              <div key={i} className="group/item relative">
+                {/* Glowing background on hover */}
                 <div
-                  className={`w-10 h-10 bg-white/5 rounded-xl flex items-center justify-center`}
+                  className={`absolute -inset-1 bg-gradient-to-r ${
+                    i % 2 === 0
+                      ? "from-primary/20 to-primary/5"
+                      : "from-secondary/20 to-secondary/5"
+                  } rounded-2xl blur-lg opacity-0 group-hover/item:opacity-100 transition-all duration-500`}
+                />
+
+                <a
+                  href={info.link}
+                  className="relative flex items-center gap-4 p-4 rounded-xl border border-white/10 hover:border-white/20 transition-all duration-500 backdrop-blur-sm overflow-hidden"
                 >
-                  <i className={`${info.icon} ${info.color} text-base`} />
-                </div>
-                <div>
-                  <p className="text-gray-400 text-xs">{info.label}</p>
-                  <p className="text-white font-semibold text-sm">
-                    {info.value}
-                  </p>
-                </div>
-              </a>
+                  {/* Animated shine effect */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover/item:translate-x-full transition-transform duration-1000" />
+
+                  {/* Icon container */}
+                  <div
+                    className={`relative flex-shrink-0 w-10 h-10 rounded-lg bg-gradient-to-br ${
+                      i % 2 === 0
+                        ? "from-primary/20 to-primary/5"
+                        : "from-secondary/20 to-secondary/5"
+                    } flex items-center justify-center border ${
+                      i % 2 === 0 ? "border-primary/20" : "border-secondary/20"
+                    } group-hover/item:scale-110 group-hover/item:rotate-6 transition-all duration-500`}
+                  >
+                    <i className={`${info.icon} ${info.color} text-xl`} />
+                    {/* Pulse effect */}
+                    <div
+                      className={`absolute inset-0 rounded-xl ${
+                        i % 2 === 0 ? "bg-primary/20" : "bg-secondary/20"
+                      } animate-ping opacity-0 group-hover/item:opacity-75`}
+                    />
+                  </div>
+
+                  {/* Text */}
+                  <div className="relative flex-1">
+                    <p className="text-gray-400 text-xs font-medium mb-0.5">
+                      {info.label}
+                    </p>
+                    <p className="text-white font-semibold text-sm group-hover/item:text-gray-100 transition-colors">
+                      {info.value}
+                    </p>
+                  </div>
+
+                  {/* Arrow indicator */}
+                  <motion.div
+                    className={`${info.color} opacity-0 group-hover/item:opacity-100 transition-opacity`}
+                    animate={{ x: [0, 5, 0] }}
+                    transition={{ duration: 1.5, repeat: Infinity }}
+                  >
+                    <i className="fas fa-arrow-right text-sm" />
+                  </motion.div>
+                </a>
+              </div>
             ))}
           </div>
         </div>

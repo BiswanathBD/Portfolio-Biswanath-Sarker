@@ -10,8 +10,10 @@ gsap.registerPlugin(ScrollTrigger);
 const About = () => {
   const aboutRef = useRef();
   const titleRef = useRef();
+  const titleTextRef = useRef();
+  const titleAccentRef = useRef();
+  const titleLineRef = useRef();
   const imageContainerRef = useRef();
-  const profileImageRef = useRef();
   const contentRef = useRef();
   const nameRef = useRef();
   const paragraphsRef = useRef([]);
@@ -21,7 +23,7 @@ const About = () => {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Title animation controlled by scroll
+      // Title container animation
       gsap.fromTo(
         titleRef.current,
         { y: 50, opacity: 0 },
@@ -35,7 +37,57 @@ const About = () => {
             end: "top 50%",
             scrub: 1,
           },
-        }
+        },
+      );
+
+      // Title text animation
+      gsap.fromTo(
+        titleTextRef.current,
+        { scale: 0.8, opacity: 0 },
+        {
+          scale: 1,
+          opacity: 1,
+          ease: "none",
+          scrollTrigger: {
+            trigger: titleTextRef.current,
+            start: "top 80%",
+            end: "top 60%",
+            scrub: 1.5,
+          },
+        },
+      );
+
+      // Title accent line animation
+      gsap.fromTo(
+        titleAccentRef.current,
+        { scaleX: 0, opacity: 0 },
+        {
+          scaleX: 1,
+          opacity: 1,
+          ease: "none",
+          scrollTrigger: {
+            trigger: titleAccentRef.current,
+            start: "top 75%",
+            end: "top 55%",
+            scrub: 1,
+          },
+        },
+      );
+
+      // Decorative line animation
+      gsap.fromTo(
+        titleLineRef.current,
+        { width: 0 },
+        {
+          width: "100%",
+          ease: "none",
+          scrollTrigger: {
+            trigger: titleLineRef.current,
+            start: "top 75%",
+            end: "top 60%",
+            scrub: 1.5,
+          },
+        },
       );
 
       // Image container scale and fade
@@ -48,28 +100,28 @@ const About = () => {
           ease: "none",
           scrollTrigger: {
             trigger: imageContainerRef.current,
-            start: "top 75%",
-            end: "top 45%",
+            start: "top 80%",
+            end: "top 60%",
             scrub: 2,
           },
-        }
+        },
       );
 
       // Profile image slide in from left
       gsap.fromTo(
-        profileImageRef.current,
+        imageContainerRef.current,
         { x: -100, opacity: 0 },
         {
           x: 0,
           opacity: 1,
           ease: "none",
           scrollTrigger: {
-            trigger: profileImageRef.current,
-            start: "top 70%",
-            end: "top 50%",
-            scrub: 1.5,
+            trigger: imageContainerRef.current,
+            start: "top 100%",
+            end: "top 80%",
+            scrub: 1,
           },
-        }
+        },
       );
 
       // Content slide in from right
@@ -82,11 +134,11 @@ const About = () => {
           ease: "none",
           scrollTrigger: {
             trigger: contentRef.current,
-            start: "top 75%",
-            end: "top 50%",
+            start: "top 90%",
+            end: "top 80%",
             scrub: 1.5,
           },
-        }
+        },
       );
 
       // Name animation
@@ -99,11 +151,11 @@ const About = () => {
           ease: "none",
           scrollTrigger: {
             trigger: nameRef.current,
-            start: "top 70%",
-            end: "top 55%",
+            start: "top 80%",
+            end: "top 65%",
             scrub: 1,
           },
-        }
+        },
       );
 
       // Paragraphs stagger animation
@@ -119,10 +171,10 @@ const About = () => {
               scrollTrigger: {
                 trigger: paragraph,
                 start: "top 85%",
-                end: "top 65%",
+                end: "top 75%",
                 scrub: 1 + index * 0.2,
               },
-            }
+            },
           );
         }
       });
@@ -132,18 +184,18 @@ const About = () => {
         if (item) {
           gsap.fromTo(
             item,
-            { x: 50, opacity: 0 },
+            { y: 30, opacity: 0 },
             {
-              x: 0,
+              y: 0,
               opacity: 1,
               ease: "none",
               scrollTrigger: {
                 trigger: item,
-                start: "top 85%",
-                end: "top 65%",
+                start: "top 95%",
+                end: "top 85%",
                 scrub: 1.5 + index * 0.3,
               },
-            }
+            },
           );
         }
       });
@@ -164,13 +216,13 @@ const About = () => {
                 end: "top 60%",
                 scrub: 1 + index * 0.2,
               },
-            }
+            },
           );
         }
       });
 
       // Accent elements animation
-      accentElementsRef.current.forEach((element, index) => {
+      accentElementsRef.current.forEach((element) => {
         if (element) {
           gsap.fromTo(
             element,
@@ -181,11 +233,11 @@ const About = () => {
               ease: "none",
               scrollTrigger: {
                 trigger: element,
-                start: "top 75%",
-                end: "top 60%",
-                scrub: 1.5,
+                start: "top 90%",
+                end: "top 80%",
+                scrub: 0.5,
               },
-            }
+            },
           );
         }
       });
@@ -204,34 +256,56 @@ const About = () => {
       <div className="absolute top-10 right-10 w-80 h-80 bg-secondary/10 rounded-full blur-[100px] pointer-events-none -z-10" />
 
       {/* Header Section */}
-      <div ref={titleRef} className="text-center mb-20">
-        <h2 className="font-display font-bold text-4xl md:text-5xl text-white mb-4">
-          <motion.span
-            className="inline-block mr-3"
-            animate={{
-              scale: [1, 1.1, 1],
-            }}
-            transition={{
-              duration: 3,
-              repeat: Infinity,
-              repeatDelay: 1,
-              ease: "easeInOut",
-            }}
-          >
-            👨🏻‍💼
-          </motion.span>
-          About Me
-        </h2>
-        <motion.div
-          className="h-1 w-24 bg-gradient-to-r from-primary to-secondary mx-auto rounded-full"
-          initial={{ width: 0 }}
-          whileInView={{ width: 96 }}
-          transition={{ duration: 0.8, delay: 0.5 }}
-        />
-        <p className="text-gray-400 mt-6 max-w-2xl mx-auto">
-          Full Stack Developer with a unique journey from literature to code,
-          combining creativity with technical expertise
-        </p>
+      <div ref={titleRef} className="text-center mb-8 md:mb-16 relative">
+        {/* Background decorative elements */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-r from-primary/5 to-secondary/5 rounded-full blur-3xl pointer-events-none" />
+
+        <div className="relative inline-block">
+          {/* Main Title */}
+          <div ref={titleTextRef} className="relative">
+            <h2 className="font-display font-bold text-4xl md:text-5xl lg:text-6xl text-white mb-2 relative z-10 tracking-tight">
+              About{" "}
+              <span className="relative inline-block">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-secondary to-primary bg-[length:200%_100%] animate-gradient">
+                  Me
+                </span>
+              </span>
+            </h2>
+
+            {/* Decorative corner brackets */}
+            <div className="absolute -top-2 -left-4 w-6 h-6 border-l-2 border-t-2 border-primary/40 rounded-tl-xl animate-pulse" />
+            <div className="absolute -top-2 -right-4 w-6 h-6 border-r-2 border-t-2 border-secondary/40 rounded-tr-xl animate-pulse" />
+            <div className="absolute -bottom-2 -left-4 w-6 h-6 border-l-2 border-b-2 border-secondary/40 rounded-bl-xl animate-pulse" />
+            <div className="absolute -bottom-2 -right-4 w-6 h-6 border-r-2 border-b-2 border-primary/40 rounded-br-xl animate-pulse" />
+
+            {/* Floating dots */}
+            <motion.div
+              className="absolute -top-2 left-1/4 w-2 h-2 bg-primary rounded-full"
+              animate={{
+                y: [-5, 5, -5],
+                opacity: [0.3, 1, 0.3],
+              }}
+              transition={{
+                duration: 3,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            />
+            <motion.div
+              className="absolute -bottom-2 right-1/4 w-2 h-2 bg-secondary rounded-full"
+              animate={{
+                y: [5, -5, 5],
+                opacity: [0.3, 1, 0.3],
+              }}
+              transition={{
+                duration: 3,
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: 1.5,
+              }}
+            />
+          </div>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
@@ -239,20 +313,16 @@ const About = () => {
           ref={imageContainerRef}
           className="relative flex justify-center group order-2 md:order-1"
         >
-          {/* Outer Glow */}
-          <div className="absolute -inset-6 bg-gradient-to-br from-primary/15 via-secondary/15 to-primary/15 rounded-3xl blur-xl opacity-50 group-hover:opacity-70 transition-all duration-700" />
-
           {/* Main Image Container */}
           <div
-            ref={profileImageRef}
-            className="relative w-3/4 hover:scale-105 hover:-translate-y-1 transition-transform duration-400"
+            className="relative w-2/3 hover:scale-105 transition-all duration-1000 shadow-[0_0_100px_rgba(167,85,246,0.2)] hover:shadow-[0_0_140px_rgba(167,85,246,0.4)] rounded-2xl"
           >
             {/* Image Container */}
             <div className="relative w-full border border-primary/50 p-1 bg-transparent rounded-2xl overflow-hidden">
               {/* Profile Image */}
               <img
                 alt="Biswanath Sarker"
-                className="w-full h-full object-cover rounded-xl"
+                className="w-full aspect-square object-cover rounded-xl"
                 src={myImg}
               />
 
@@ -263,152 +333,208 @@ const About = () => {
             {/* Corner Accent Elements */}
             <div
               ref={(el) => (accentElementsRef.current[0] = el)}
-              className="absolute -top-3 -left-3 w-8 h-8 border-l-3 border-t-3 border-primary rounded-tl-lg opacity-80"
+              className="absolute -top-2 -left-2 w-6 h-6 border-l-2 border-t-2 border-primary rounded-tl-lg opacity-80"
             />
             <div
               ref={(el) => (accentElementsRef.current[1] = el)}
-              className="absolute -top-3 -right-3 w-8 h-8 border-r-3 border-t-3 border-secondary rounded-tr-lg opacity-80"
+              className="absolute -top-2 -right-2 w-6 h-6 border-r-2 border-t-2 border-secondary rounded-tr-lg opacity-80"
             />
             <div
               ref={(el) => (accentElementsRef.current[2] = el)}
-              className="absolute -bottom-3 -left-3 w-8 h-8 border-l-3 border-b-3 border-primary rounded-bl-lg opacity-80"
+              className="absolute -bottom-2 -left-2 w-6 h-6 border-l-2 border-b-2 border-primary rounded-bl-lg opacity-80"
             />
             <div
               ref={(el) => (accentElementsRef.current[3] = el)}
-              className="absolute -bottom-3 -right-3 w-8 h-8 border-r-3 border-b-3 border-secondary rounded-br-lg opacity-80"
+              className="absolute -bottom-2 -right-2 w-6 h-6 border-r-2 border-b-2 border-secondary rounded-br-lg opacity-80"
             />
 
             {/* Side Accent Lines */}
             <div
               ref={(el) => (accentElementsRef.current[4] = el)}
-              className="absolute top-8 -left-1 w-6 h-0.5 bg-gradient-to-r from-primary to-transparent opacity-60"
+              className="absolute top-6 -left-1 w-4 h-0.5 bg-gradient-to-r from-primary to-transparent opacity-60"
             />
             <div
               ref={(el) => (accentElementsRef.current[5] = el)}
-              className="absolute top-16 -left-1 w-4 h-0.5 bg-gradient-to-r from-secondary to-transparent opacity-60"
+              className="absolute top-12 -left-1 w-3 h-0.5 bg-gradient-to-r from-secondary to-transparent opacity-60"
             />
             <div
               ref={(el) => (accentElementsRef.current[6] = el)}
-              className="absolute bottom-8 -right-1 w-6 h-0.5 bg-gradient-to-l from-primary to-transparent opacity-60"
+              className="absolute bottom-6 -right-1 w-4 h-0.5 bg-gradient-to-l from-primary to-transparent opacity-60"
             />
             <div
               ref={(el) => (accentElementsRef.current[7] = el)}
-              className="absolute bottom-16 -right-1 w-4 h-0.5 bg-gradient-to-l from-secondary to-transparent opacity-60"
+              className="absolute bottom-12 -right-1 w-3 h-0.5 bg-gradient-to-l from-secondary to-transparent opacity-60"
             />
 
             {/* Top and Bottom Accent Lines */}
             <div
               ref={(el) => (accentElementsRef.current[8] = el)}
-              className="absolute -top-1 left-8 h-6 w-0.5 bg-gradient-to-b from-primary to-transparent opacity-60"
+              className="absolute -top-1 left-6 h-4 w-0.5 bg-gradient-to-b from-primary to-transparent opacity-60"
             />
             <div
               ref={(el) => (accentElementsRef.current[9] = el)}
-              className="absolute -top-1 left-16 h-4 w-0.5 bg-gradient-to-b from-secondary to-transparent opacity-60"
+              className="absolute -top-1 left-12 h-3 w-0.5 bg-gradient-to-b from-secondary to-transparent opacity-60"
             />
             <div
               ref={(el) => (accentElementsRef.current[10] = el)}
-              className="absolute -bottom-1 right-8 h-6 w-0.5 bg-gradient-to-t from-primary to-transparent opacity-60"
+              className="absolute -bottom-1 right-6 h-4 w-0.5 bg-gradient-to-t from-primary to-transparent opacity-60"
             />
             <div
               ref={(el) => (accentElementsRef.current[11] = el)}
-              className="absolute -bottom-1 right-16 h-4 w-0.5 bg-gradient-to-t from-secondary to-transparent opacity-60"
+              className="absolute -bottom-1 right-12 h-3 w-0.5 bg-gradient-to-t from-secondary to-transparent opacity-60"
             />
           </div>
 
           {/* Floating Tech Icons */}
           <div
             ref={(el) => (floatingIconsRef.current[0] = el)}
-            className="absolute top-6 right-6 w-10 h-10 bg-primary/10 backdrop-blur-sm rounded-xl flex items-center justify-center border border-primary/20 shadow-lg"
+            className="absolute top-4 right-4 w-8 h-8 bg-primary/10 backdrop-blur-sm rounded-lg flex items-center justify-center border border-primary/20 shadow-lg"
           >
-            <i className="fas fa-code text-primary text-sm"></i>
+            <i className="fas fa-code text-primary text-xs"></i>
           </div>
 
           <div
             ref={(el) => (floatingIconsRef.current[1] = el)}
-            className="absolute bottom-6 left-6 w-10 h-10 bg-secondary/10 backdrop-blur-sm rounded-xl flex items-center justify-center border border-secondary/20 shadow-lg"
+            className="absolute bottom-4 left-4 w-8 h-8 bg-secondary/10 backdrop-blur-sm rounded-lg flex items-center justify-center border border-secondary/20 shadow-lg"
           >
-            <i className="fas fa-laptop-code text-secondary text-sm"></i>
+            <i className="fas fa-laptop-code text-secondary text-xs"></i>
           </div>
 
           <div
             ref={(el) => (floatingIconsRef.current[2] = el)}
-            className="absolute top-1/2 -right-6 w-10 h-10 bg-primary/10 backdrop-blur-sm rounded-xl flex items-center justify-center border border-primary/20 shadow-lg"
+            className="absolute top-1/2 -right-4 w-8 h-8 bg-primary/10 backdrop-blur-sm rounded-lg flex items-center justify-center border border-primary/20 shadow-lg"
           >
-            <i className="fas fa-rocket text-primary text-sm"></i>
+            <i className="fas fa-rocket text-primary text-xs"></i>
           </div>
         </div>
 
-        <div ref={contentRef} className="space-y-6 order-1 md:order-2">
-          <h3
-            ref={nameRef}
-            className="font-display font-bold text-2xl md:text-3xl text-secondary"
-          >
-            I'm Biswanath Sarker
-          </h3>
-          <div className="space-y-4 text-gray-300 leading-relaxed">
-            <p ref={(el) => (paragraphsRef.current[0] = el)}>
-              Hi! I'm Biswanath Sarker, a passionate Full Stack Web Developer
-              with a unique journey from Bengali Literature to modern web
-              development. My educational background in literature has given me
-              strong analytical thinking and excellent communication skills.
+        <div ref={contentRef} className="space-y-8 order-1 md:order-2">
+          {/* Name with gradient background */}
+          <div ref={nameRef} className="relative inline-block">
+            <div className="absolute inset-0 bg-gradient-to-r from-primary/10 to-secondary/10 blur-xl rounded-2xl" />
+            <h3 className="relative font-display font-bold text-3xl md:text-4xl bg-gradient-to-r from-white via-gray-100 to-white bg-clip-text text-transparent">
+              I'm{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-secondary to-primary bg-[length:200%_100%] animate-gradient">
+                Biswanath Sarker
+              </span>
+            </h3>
+            {/* Decorative line under name */}
+            <div className="mt-2 h-1 w-32 bg-gradient-to-r from-primary to-secondary rounded-full" />
+          </div>
+
+          {/* About paragraphs - simplified */}
+          <div className="space-y-6">
+            <p
+              ref={(el) => (paragraphsRef.current[0] = el)}
+              className="text-gray-300 leading-relaxed text-base"
+            >
+              I am a passionate{" "}
+              <span className="text-primary font-semibold">
+                MERN Stack web developer
+              </span>{" "}
+              and a fresher who genuinely enjoys building modern web
+              applications. My interest in web development comes from my love
+              for{" "}
+              <span className="text-secondary font-semibold">
+                art and painting
+              </span>
+              , as it allows me to express creativity through UI design and
+              visual layouts while solving real-world problems.
             </p>
-            <p ref={(el) => (paragraphsRef.current[1] = el)}>
-              I specialize in building modern, scalable web applications using
-              the MERN stack (MongoDB, Express.js, React, Node.js). I enjoy
-              working on full-stack projects that challenge me to think both
-              creatively and analytically, from designing intuitive user
-              interfaces to architecting robust backend systems.
-            </p>
-            <p ref={(el) => (paragraphsRef.current[2] = el)}>
-              When I'm not coding, I love reading Bengali literature, exploring
-              new technologies, playing cricket, and spending time with family
-              and friends. I believe in continuous learning and am always
-              excited to take on new challenges.
+
+            <p
+              ref={(el) => (paragraphsRef.current[1] = el)}
+              className="text-gray-300 leading-relaxed text-base"
+            >
+              I focus on writing{" "}
+              <span className="text-primary font-semibold">
+                clean, functional code
+              </span>{" "}
+              while maintaining strong attention to user experience and design
+              aesthetics. I am a{" "}
+              <span className="text-secondary font-semibold">
+                quick learner
+              </span>
+              , patient problem solver, and continuously motivated to improve my
+              skills by working on real projects and exploring both{" "}
+              <span className="text-primary font-semibold">
+                frontend and backend
+              </span>{" "}
+              development to grow into a strong full-stack developer.
             </p>
           </div>
 
-          <div className="flex flex-col gap-4 mt-8">
+          {/* Enhanced skill items */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
             {[
               {
-                icon: "laptop_mac",
-                text: "Full Stack Web Development",
+                icon: "code",
+                text: "MERN Stack Development",
                 color: "primary",
+                gradient: "from-primary/20 to-primary/5",
               },
               {
-                icon: "smartphone",
-                text: "Responsive Design & Mobile-First",
+                icon: "palette",
+                text: "Frontend & UI Design Thinking",
                 color: "secondary",
+                gradient: "from-secondary/20 to-secondary/5",
               },
               {
                 icon: "psychology",
-                text: "Problem Solving & Innovation",
+                text: "Problem Solving & Logic Building",
+                color: "primary",
+                gradient: "from-primary/20 to-secondary/5",
+              },
+              {
+                icon: "storage",
+                text: "Backend & API Fundamentals",
                 color: "secondary",
+                gradient: "from-secondary/20 to-primary/5",
               },
             ].map((item, index) => (
               <div
                 key={index}
                 ref={(el) => (skillItemsRef.current[index] = el)}
-                className={`group relative flex items-center p-4 rounded-xl border border-gray-800 bg-surface-dark hover:border-${item.color}/50 transition-all cursor-default shadow-sm overflow-hidden`}
+                className="group relative"
               >
-                {/* Animated Background Gradient */}
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl" />
+                {/* Glowing background on hover */}
+                <div
+                  className={`absolute -inset-0.5 bg-gradient-to-r ${item.gradient} rounded-xl blur-md opacity-0 group-hover:opacity-100 transition-all duration-500`}
+                />
 
-                {/* Glowing Border Effect */}
-                <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-primary/20 to-secondary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm -z-10" />
+                <div className="relative flex items-center gap-3 p-3 rounded-lg border border-white/10 bg-gradient-to-br from-white/5 to-white/[0.02] hover:border-white/20 transition-all duration-500 backdrop-blur-sm overflow-hidden">
+                  {/* Animated shine effect */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
 
-                <div className="relative z-10 flex items-center w-full">
+                  {/* Icon container */}
                   <div
-                    className={`p-2 rounded-lg bg-${item.color}/10 text-${item.color} group-hover:bg-${item.color} group-hover:text-white transition-colors`}
+                    className={`relative flex-shrink-0 w-9 h-9 rounded-lg bg-gradient-to-br ${item.gradient} flex items-center justify-center border border-${item.color}/20 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500`}
                   >
-                    <span className="material-icons">{item.icon}</span>
+                    <span
+                      className={`material-icons text-${item.color} text-base`}
+                    >
+                      {item.icon}
+                    </span>
+                    {/* Pulse effect */}
+                    <div
+                      className={`absolute inset-0 rounded-lg bg-${item.color}/20 animate-ping opacity-0 group-hover:opacity-75`}
+                    />
                   </div>
-                  <span className="ml-4 font-medium text-gray-200">
+
+                  {/* Text */}
+                  <span className="relative font-medium text-sm text-gray-200 group-hover:text-white transition-colors flex-1">
                     {item.text}
                   </span>
-                </div>
 
-                {/* Decorative Elements */}
-                <div className="absolute bottom-0 right-0 w-12 h-12 bg-gradient-to-tl from-secondary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-tl-full" />
+                  {/* Arrow indicator */}
+                  <motion.div
+                    className={`text-${item.color} opacity-0 group-hover:opacity-100 transition-opacity`}
+                    animate={{ x: [0, 4, 0] }}
+                    transition={{ duration: 1.5, repeat: Infinity }}
+                  >
+                    <i className="fas fa-arrow-right text-xs" />
+                  </motion.div>
+                </div>
               </div>
             ))}
           </div>
