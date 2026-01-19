@@ -11,8 +11,6 @@ const About = () => {
   const aboutRef = useRef();
   const titleRef = useRef();
   const titleTextRef = useRef();
-  const titleAccentRef = useRef();
-  const titleLineRef = useRef();
   const imageContainerRef = useRef();
   const contentRef = useRef();
   const nameRef = useRef();
@@ -23,7 +21,7 @@ const About = () => {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Title container animation
+      // Title animations
       gsap.fromTo(
         titleRef.current,
         { y: 50, opacity: 0 },
@@ -40,7 +38,6 @@ const About = () => {
         },
       );
 
-      // Title text animation
       gsap.fromTo(
         titleTextRef.current,
         { scale: 0.8, opacity: 0 },
@@ -57,57 +54,7 @@ const About = () => {
         },
       );
 
-      // Title accent line animation
-      gsap.fromTo(
-        titleAccentRef.current,
-        { scaleX: 0, opacity: 0 },
-        {
-          scaleX: 1,
-          opacity: 1,
-          ease: "none",
-          scrollTrigger: {
-            trigger: titleAccentRef.current,
-            start: "top 75%",
-            end: "top 55%",
-            scrub: 1,
-          },
-        },
-      );
-
-      // Decorative line animation
-      gsap.fromTo(
-        titleLineRef.current,
-        { width: 0 },
-        {
-          width: "100%",
-          ease: "none",
-          scrollTrigger: {
-            trigger: titleLineRef.current,
-            start: "top 75%",
-            end: "top 60%",
-            scrub: 1.5,
-          },
-        },
-      );
-
-      // Image container scale and fade
-      gsap.fromTo(
-        imageContainerRef.current,
-        { scale: 0.8, opacity: 0 },
-        {
-          scale: 1,
-          opacity: 1,
-          ease: "none",
-          scrollTrigger: {
-            trigger: imageContainerRef.current,
-            start: "top 80%",
-            end: "top 60%",
-            scrub: 2,
-          },
-        },
-      );
-
-      // Profile image slide in from left
+      // Image and content animations
       gsap.fromTo(
         imageContainerRef.current,
         { x: -100, opacity: 0 },
@@ -124,7 +71,6 @@ const About = () => {
         },
       );
 
-      // Content slide in from right
       gsap.fromTo(
         contentRef.current,
         { x: 100, opacity: 0 },
@@ -141,7 +87,6 @@ const About = () => {
         },
       );
 
-      // Name animation
       gsap.fromTo(
         nameRef.current,
         { y: 30, opacity: 0 },
@@ -158,7 +103,7 @@ const About = () => {
         },
       );
 
-      // Paragraphs stagger animation
+      // Paragraphs animation
       paragraphsRef.current.forEach((paragraph, index) => {
         if (paragraph) {
           gsap.fromTo(
@@ -179,7 +124,7 @@ const About = () => {
         }
       });
 
-      // Skill items stagger animation
+      // Skill items animation
       skillItemsRef.current.forEach((item, index) => {
         if (item) {
           gsap.fromTo(
@@ -314,9 +259,7 @@ const About = () => {
           className="relative flex justify-center group order-2 md:order-1"
         >
           {/* Main Image Container */}
-          <div
-            className="relative w-2/3 hover:scale-105 transition-all duration-1000 shadow-[0_0_100px_rgba(167,85,246,0.2)] hover:shadow-[0_0_140px_rgba(167,85,246,0.4)] rounded-2xl"
-          >
+          <div className="relative w-2/3 hover:scale-105 transition-all duration-1000 shadow-[0_0_100px_rgba(167,85,246,0.2)] hover:shadow-[0_0_140px_rgba(167,85,246,0.3)] rounded-2xl">
             {/* Image Container */}
             <div className="relative w-full border border-primary/50 p-1 bg-transparent rounded-2xl overflow-hidden">
               {/* Profile Image */}
@@ -418,8 +361,6 @@ const About = () => {
                 Biswanath Sarker
               </span>
             </h3>
-            {/* Decorative line under name */}
-            <div className="mt-2 h-1 w-32 bg-gradient-to-r from-primary to-secondary rounded-full" />
           </div>
 
           {/* About paragraphs - simplified */}
@@ -515,10 +456,6 @@ const About = () => {
                     >
                       {item.icon}
                     </span>
-                    {/* Pulse effect */}
-                    <div
-                      className={`absolute inset-0 rounded-lg bg-${item.color}/20 animate-ping opacity-0 group-hover:opacity-75`}
-                    />
                   </div>
 
                   {/* Text */}

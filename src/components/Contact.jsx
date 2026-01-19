@@ -225,9 +225,9 @@ const Contact = () => {
           className="group relative bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-2xl flex flex-col"
         >
           {/* Title with divider */}
-            <h3 className="text-2xl font-bold text-white mb-4">
-              Contact Information
-            </h3>
+          <h3 className="text-2xl font-bold text-white mb-4">
+            Contact Information
+          </h3>
 
           <div className="space-y-4 flex-1">
             {contactInfo.map((info, i) => (
@@ -259,12 +259,6 @@ const Contact = () => {
                     } group-hover/item:scale-110 group-hover/item:rotate-6 transition-all duration-500`}
                   >
                     <i className={`${info.icon} ${info.color} text-xl`} />
-                    {/* Pulse effect */}
-                    <div
-                      className={`absolute inset-0 rounded-xl ${
-                        i % 2 === 0 ? "bg-primary/20" : "bg-secondary/20"
-                      } animate-ping opacity-0 group-hover/item:opacity-75`}
-                    />
                   </div>
 
                   {/* Text */}
