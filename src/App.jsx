@@ -41,7 +41,7 @@ function App() {
     const loaderTimer = setTimeout(() => {
       setShowLoader(false);
       localStorage.setItem("hasVisitedPortfolio", "true");
-    }, 3000);
+    }, 2200); // Reduced from 3000ms to 2200ms
 
     return () => clearTimeout(loaderTimer);
   }, []);
