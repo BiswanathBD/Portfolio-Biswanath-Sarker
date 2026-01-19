@@ -449,7 +449,7 @@ const About = () => {
 
                   {/* Icon container */}
                   <div
-                    className={`relative flex-shrink-0 w-9 h-9 rounded-lg bg-gradient-to-br ${item.gradient} flex items-center justify-center border border-${item.color}/20 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500`}
+                    className={`relative flex-shrink-0 w-9 h-9 rounded-lg bg-gradient-to-br ${item.gradient} flex items-center justify-center border border-${item.color}/20 group-hover:scale-110 transition-all duration-500`}
                   >
                     <span
                       className={`material-icons text-${item.color} text-base`}
@@ -462,15 +462,6 @@ const About = () => {
                   <span className="relative font-medium text-sm text-gray-200 group-hover:text-white transition-colors flex-1">
                     {item.text}
                   </span>
-
-                  {/* Arrow indicator */}
-                  <motion.div
-                    className={`text-${item.color} opacity-0 group-hover:opacity-100 transition-opacity`}
-                    animate={{ x: [0, 4, 0] }}
-                    transition={{ duration: 1.5, repeat: Infinity }}
-                  >
-                    <i className="fas fa-arrow-right text-xs" />
-                  </motion.div>
                 </div>
               </div>
             ))}

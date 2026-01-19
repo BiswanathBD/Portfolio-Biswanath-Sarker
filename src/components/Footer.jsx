@@ -30,30 +30,45 @@ const Footer = () => {
       icon: "fab fa-github",
       url: "https://github.com/BiswanathBD",
       color: "hover:text-white",
+      glow: "from-white/20 to-white/20",
+      borderColor: "group-hover:border-white/50",
+      shadowColor: "group-hover:shadow-white/20",
     },
     {
       name: "LinkedIn",
       icon: "fab fa-linkedin-in",
       url: "https://www.linkedin.com/in/biswanath-sarker-bd/",
       color: "hover:text-blue-400",
+      glow: "from-blue-400/20 to-blue-500/20",
+      borderColor: "group-hover:border-blue-400/50",
+      shadowColor: "group-hover:shadow-blue-400/20",
     },
     {
       name: "Facebook",
       icon: "fab fa-facebook-f",
       url: "https://web.facebook.com/Biswanath.Sarker.BD",
       color: "hover:text-blue-500",
+      glow: "from-blue-500/20 to-blue-600/20",
+      borderColor: "group-hover:border-blue-500/50",
+      shadowColor: "group-hover:shadow-blue-500/20",
     },
     {
       name: "Twitter",
       icon: "fab fa-twitter",
       url: "https://x.com/Biswanath08BD",
-      color: "hover:text-blue-300",
+      color: "hover:text-sky-400",
+      glow: "from-sky-400/20 to-sky-500/20",
+      borderColor: "group-hover:border-sky-400/50",
+      shadowColor: "group-hover:shadow-sky-400/20",
     },
     {
       name: "Instagram",
       icon: "fab fa-instagram",
       url: "https://www.instagram.com/biswanath.sarker.bd/",
       color: "hover:text-pink-400",
+      glow: "from-pink-400/20 to-purple-500/20",
+      borderColor: "group-hover:border-pink-400/50",
+      shadowColor: "group-hover:shadow-pink-400/20",
     },
   ];
 
@@ -101,7 +116,7 @@ const Footer = () => {
         }}
       />
 
-      <div className="container mx-auto px-4 md:px-8 lg:px-16 xl:px-24 py-8">
+      <div className="container mx-auto px-4 md:px-8 lg:px-16 xl:px-24 pt-12 pb-8">
         <motion.div
           className="grid grid-cols-1 md:grid-cols-3 gap-8"
           variants={containerVariants}
@@ -213,13 +228,13 @@ const Footer = () => {
                 >
                   {/* Glow effect on hover */}
                   <motion.div
-                    className="absolute inset-0 rounded-lg bg-gradient-to-r from-primary/20 to-secondary/20 blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                    className={`absolute inset-0 rounded-lg bg-gradient-to-r ${social.glow} blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300`}
                     initial={false}
                   />
 
                   {/* Icon container */}
                   <div
-                    className={`relative w-8 h-8 rounded-lg bg-gradient-to-br from-white/5 to-white/10 border border-white/10 flex items-center justify-center text-gray-400 ${social.color} transition-all duration-300 group-hover:border-primary/50 group-hover:shadow-lg group-hover:shadow-primary/20`}
+                    className={`relative w-8 h-8 rounded-lg bg-gradient-to-br from-white/5 to-white/10 border border-white/10 flex items-center justify-center text-gray-400 ${social.color} transition-all duration-300 ${social.borderColor} group-hover:shadow-lg ${social.shadowColor}`}
                   >
                     <i className={`${social.icon} text-base`}></i>
                   </div>

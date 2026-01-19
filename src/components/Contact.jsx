@@ -141,19 +141,45 @@ const Contact = () => {
   ];
 
   const socials = [
-    { href: "https://github.com/BiswanathBD", icon: "fab fa-github" },
+    {
+      href: "https://github.com/BiswanathBD",
+      icon: "fab fa-github",
+      color: "hover:text-white",
+      glow: "from-white/20 to-white/20",
+      borderColor: "group-hover:border-white/50",
+      shadowColor: "group-hover:shadow-white/20",
+    },
     {
       href: "https://www.linkedin.com/in/biswanath-sarker-bd/",
       icon: "fab fa-linkedin-in",
+      color: "hover:text-blue-400",
+      glow: "from-blue-400/20 to-blue-500/20",
+      borderColor: "group-hover:border-blue-400/50",
+      shadowColor: "group-hover:shadow-blue-400/20",
     },
     {
       href: "https://web.facebook.com/Biswanath.Sarker.BD",
       icon: "fab fa-facebook-f",
+      color: "hover:text-blue-500",
+      glow: "from-blue-500/20 to-blue-600/20",
+      borderColor: "group-hover:border-blue-500/50",
+      shadowColor: "group-hover:shadow-blue-500/20",
     },
-    { href: "https://x.com/Biswanath08BD", icon: "fab fa-twitter" },
+    {
+      href: "https://x.com/Biswanath08BD",
+      icon: "fab fa-twitter",
+      color: "hover:text-sky-400",
+      glow: "from-sky-400/20 to-sky-500/20",
+      borderColor: "group-hover:border-sky-400/50",
+      shadowColor: "group-hover:shadow-sky-400/20",
+    },
     {
       href: "https://www.instagram.com/biswanath.sarker.bd/",
       icon: "fab fa-instagram",
+      color: "hover:text-pink-400",
+      glow: "from-pink-400/20 to-purple-500/20",
+      borderColor: "group-hover:border-pink-400/50",
+      shadowColor: "group-hover:shadow-pink-400/20",
     },
   ];
 
@@ -256,14 +282,14 @@ const Contact = () => {
                         : "from-secondary/20 to-secondary/5"
                     } flex items-center justify-center border ${
                       i % 2 === 0 ? "border-primary/20" : "border-secondary/20"
-                    } group-hover/item:scale-110 group-hover/item:rotate-6 transition-all duration-500`}
+                    } group-hover/item:scale-110 transition-all duration-500`}
                   >
                     <i className={`${info.icon} ${info.color} text-xl`} />
                   </div>
 
                   {/* Text */}
                   <div className="relative flex-1">
-                    <p className="text-gray-400 text-xs font-medium mb-0.5">
+                    <p className="text-gray-400 text-wrap text-xs font-medium mb-0.5">
                       {info.label}
                     </p>
                     <p className="text-white font-semibold text-sm group-hover/item:text-gray-100 transition-colors">
@@ -288,16 +314,30 @@ const Contact = () => {
         {/* Social Links - Vertical */}
         <div className="flex lg:flex-col items-center justify-center gap-6 px-2">
           {socials.map((s, i) => (
-            <a
+            <motion.a
               key={i}
               ref={(el) => (socialIconsRef.current[i] = el)}
               href={s.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-8 h-8 bg-gradient-to-r from-primary/10 to-secondary/10 rounded-full border border-primary/20 flex items-center justify-center text-white hover:from-primary/20 hover:to-secondary/20 transition-all hover:scale-110"
+              className="group relative"
+              whileHover={{ y: -5 }}
+              whileTap={{ scale: 0.95 }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
             >
-              <i className={`${s.icon}`} />
-            </a>
+              {/* Glow effect on hover with platform-specific color */}
+              <motion.div
+                className={`absolute inset-0 rounded-xl bg-gradient-to-r ${s.glow} blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300`}
+                initial={false}
+              />
+
+              {/* Icon container */}
+              <div
+                className={`relative w-10 h-10 rounded-xl bg-gradient-to-br from-white/5 to-white/10 border border-white/10 flex items-center justify-center text-gray-400 ${s.color} transition-all duration-300 ${s.borderColor} group-hover:shadow-lg ${s.shadowColor}`}
+              >
+                <i className={`${s.icon} text-base`} />
+              </div>
+            </motion.a>
           ))}
         </div>
 
