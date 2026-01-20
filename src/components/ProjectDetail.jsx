@@ -168,7 +168,7 @@ const ProjectDetail = ({ project, isOpen, onClose }) => {
 
               {/* Main Technology Stack */}
               <motion.div className="mb-8" variants={itemVariants}>
-                <h3 className="text-white font-bold text-xl mb-4 flex items-center">
+                <h3 className="text-white font-bold mb-4 flex items-center">
                   <i className="fas fa-code text-primary mr-3"></i>
                   Main Technology Stack
                 </h3>
@@ -176,7 +176,7 @@ const ProjectDetail = ({ project, isOpen, onClose }) => {
                   {project.technologies.map((tech, index) => (
                     <motion.span
                       key={index}
-                      className="px-4 py-2 bg-gradient-to-r from-primary/20 to-secondary/20 text-white text-sm font-medium rounded-full border border-primary/30 backdrop-blur-sm"
+                      className="px-3 py-1 bg-gradient-to-r from-primary/20 to-secondary/20 text-white text-sm font-medium rounded-lg border border-primary/30 backdrop-blur-sm"
                       whileHover={{ scale: 1.05, y: -2 }}
                       transition={{ duration: 0.2 }}
                     >
@@ -227,7 +227,7 @@ const ProjectDetail = ({ project, isOpen, onClose }) => {
                     <i className="fas fa-mountain text-secondary mr-3"></i>
                     Challenges Faced
                   </h3>
-                  <div className="space-y-3">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                     {project.challenges.map((challenge, index) => (
                       <motion.div
                         key={index}
@@ -251,7 +251,7 @@ const ProjectDetail = ({ project, isOpen, onClose }) => {
                     <i className="fas fa-lightbulb text-secondary mr-3"></i>
                     Future Improvements
                   </h3>
-                  <div className="space-y-3">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                     {project.improvements.map((improvement, index) => (
                       <motion.div
                         key={index}
@@ -277,7 +277,7 @@ const ProjectDetail = ({ project, isOpen, onClose }) => {
                   href={project.liveUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex-1 bg-gradient-to-r from-primary to-secondary text-white text-center py-3 px-6 rounded-lg font-semibold shadow-lg transition-all duration-300"
+                  className="flex-1 px-6 py-3 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-lg border border-primary/30 transition-all overflow-hidden text-primary flex items-center justify-center font-semibold"
                   whileHover={{ y: -2, scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
@@ -300,7 +300,7 @@ const ProjectDetail = ({ project, isOpen, onClose }) => {
                     href={project.serverUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex-1 bg-white/10 text-gray-300 text-center py-3 px-6 rounded-lg font-semibold border border-white/20 backdrop-blur-sm hover:bg-secondary/20 hover:text-white hover:border-secondary/40 transition-all duration-300"
+                    className="flex-1 bg-black/10 text-gray-300 text-center py-3 px-6 rounded-lg font-semibold border border-white/20 backdrop-blur-sm hover:bg-secondary/20 hover:text-white hover:border-secondary/40 transition-all duration-300"
                     whileHover={{ y: -2, scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                   >

@@ -41,9 +41,9 @@ const Header = () => {
   };
 
   const menuItemVariants = {
-    hidden: { y: 20, opacity: 0 },
+    hidden: { x: -20, opacity: 0 },
     visible: (i) => ({
-      y: 0,
+      x: 0,
       opacity: 1,
       transition: {
         duration: 0.2,
@@ -255,7 +255,7 @@ const Header = () => {
             exit="exit"
           >
             <motion.nav className="bg-background-dark/80 border border-white/10 rounded-2xl p-6 shadow-2xl">
-              <div className="flex flex-col space-y-4 font-medium text-sm">
+              <div className="flex flex-col space-y-4 font-medium">
                 {navItems.map((item, index) => (
                   <motion.a
                     key={item.name}
@@ -285,9 +285,9 @@ const Header = () => {
                       whileHover={{
                         backgroundColor:
                           activeSection === item.section
-                            ? "rgba(249, 115, 22, 0.2)"
-                            : "rgba(249, 115, 22, 0.1)",
-                        borderColor: "rgba(249, 115, 22, 0.3)",
+                            ? "rgba(167, 85, 246, 0.2)"
+                            : "rgba(167, 85, 246, 0.1)",
+                        borderColor: "rgba(167, 85, 246, 0.3)",
                       }}
                       transition={{ duration: 0.3 }}
                     >
