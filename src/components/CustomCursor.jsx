@@ -5,6 +5,7 @@ const CustomCursor = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
   const [isSmallScreen, setIsSmallScreen] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
   const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
@@ -29,12 +30,18 @@ const CustomCursor = () => {
     const handleMouseEnter = () => setIsHovering(true);
     const handleMouseLeave = () => setIsHovering(false);
 
+    // Hide cursor when mouse leaves the page
+    const handleMouseLeaveBody = () => setIsVisible(false);
+    const handleMouseEnterBody = () => setIsVisible(true);
+
     // Add event listeners for mouse movement
     window.addEventListener("mousemove", updateMousePosition);
+    document.body.addEventListener("mouseleave", handleMouseLeaveBody);
+    document.body.addEventListener("mouseenter", handleMouseEnterBody);
 
     // Add hover effects for interactive elements
     const interactiveElements = document.querySelectorAll(
-      'a, button, [role="button"]'
+      'a, button, [role="button"]',
     );
     interactiveElements.forEach((el) => {
       el.addEventListener("mouseenter", handleMouseEnter);
@@ -43,6 +50,8 @@ const CustomCursor = () => {
 
     return () => {
       window.removeEventListener("mousemove", updateMousePosition);
+      document.body.removeEventListener("mouseleave", handleMouseLeaveBody);
+      document.body.removeEventListener("mouseenter", handleMouseEnterBody);
       interactiveElements.forEach((el) => {
         el.removeEventListener("mouseenter", handleMouseEnter);
         el.removeEventListener("mouseleave", handleMouseLeave);
@@ -62,6 +71,7 @@ const CustomCursor = () => {
           x: mousePosition.x - 8,
           y: mousePosition.y - 8,
           scale: isHovering ? 1.5 : 1,
+          opacity: isVisible ? 1 : 0,
         }}
         transition={{
           type: "spring",
@@ -78,6 +88,7 @@ const CustomCursor = () => {
           x: mousePosition.x - 16,
           y: mousePosition.y - 16,
           scale: isHovering ? 2 : 1,
+          opacity: isVisible ? 1 : 0,
         }}
         transition={{
           type: "spring",

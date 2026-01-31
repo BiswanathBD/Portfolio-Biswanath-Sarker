@@ -86,11 +86,12 @@ const ProjectCard = ({ project, isActive, openProjectDetail }) => {
 
           <div className="flex gap-3 md:gap-4">
             <button
-              onClick={() => openProjectDetail(project)}
+              onClick={isActive ? () => openProjectDetail(project) : undefined}
+              disabled={!isActive}
               className={`w-full relative overflow-hidden px-3 py-2 md:px-4 md:py-2.5 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-lg border border-primary/30 text-primary transition-all duration-300 ${
                 isActive
-                  ? "hover:from-primary/30 hover:to-secondary/30 hover:border-primary/40 hover:-translate-y-1"
-                  : ""
+                  ? "hover:from-primary/30 hover:to-secondary/30 hover:border-primary/40 hover:-translate-y-1 cursor-pointer"
+                  : "cursor-not-allowed opacity-50"
               }`}
             >
               <span className="flex items-center justify-center gap-2 text-xs md:text-sm font-medium">
@@ -99,11 +100,14 @@ const ProjectCard = ({ project, isActive, openProjectDetail }) => {
             </button>
 
             <a
-              href={project.liveUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`w-full relative overflow-hidden bg-gradient-to-r from-primary to-secondary text-white text-center py-2 px-3 md:py-2.5 md:px-4 rounded-lg text-xs md:text-sm shadow-lg transition-all duration-300 ${
-                isActive ? "hover:-translate-y-1 hover:scale-105" : ""
+              href={isActive ? project.liveUrl : undefined}
+              target={isActive ? "_blank" : undefined}
+              rel={isActive ? "noopener noreferrer" : undefined}
+              onClick={(e) => !isActive && e.preventDefault()}
+              className={`w-full relative overflow-hidden bg-gradient-to-r from-primary to-secondary text-white text-center py-2 px-3 md:py-2.5 md:px-4 rounded-lg text-xs md:text-sm shadow-lg transition-all duration-300 z-50 ${
+                isActive
+                  ? "hover:-translate-y-1 hover:scale-105 cursor-pointer"
+                  : "cursor-not-allowed opacity-50"
               }`}
             >
               Live Demo

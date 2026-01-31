@@ -22,6 +22,21 @@ body {
   font-style: normal;
 }
 
+/* Hide default cursor on large screens and show custom cursor */
+@media (min-width: 768px) {
+  * {
+    cursor: none !important;
+  }
+
+  a,
+  button,
+  input,
+  textarea,
+  select {
+    cursor: none !important;
+  }
+}
+
 /* Hardware acceleration for animations */
 .motion-element {
   will-change: transform, opacity;
@@ -120,11 +135,8 @@ body {
 
 .bg-grid-pattern {
   background-size: 50px 50px;
-  background-image: linear-gradient(
-      to right,
-      rgba(128, 128, 128, 0.05) 1px,
-      transparent 1px
-    ),
+  background-image:
+    linear-gradient(to right, rgba(128, 128, 128, 0.05) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(128, 128, 128, 0.05) 1px, transparent 1px);
 }
 
