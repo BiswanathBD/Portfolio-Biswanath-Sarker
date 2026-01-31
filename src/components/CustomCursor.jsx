@@ -5,7 +5,7 @@ const CustomCursor = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
   const [isSmallScreen, setIsSmallScreen] = useState(false);
-  const [isVisible, setIsVisible] = useState(true);
+  const [isVisible, setIsVisible] = useState(false);
   const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
@@ -27,7 +27,13 @@ const CustomCursor = () => {
       setMousePosition({ x: e.clientX, y: e.clientY });
     };
 
-    const handleMouseEnter = () => setIsHovering(true);
+    const handleMouseEnter = (e) => {
+      // Check if element is disabled via data attribute
+      if (e.target.dataset.cursorDisabled === "true") {
+        return;
+      }
+      setIsHovering(true);
+    };
     const handleMouseLeave = () => setIsHovering(false);
 
     // Hide cursor when mouse leaves the page
@@ -39,13 +45,36 @@ const CustomCursor = () => {
     document.body.addEventListener("mouseleave", handleMouseLeaveBody);
     document.body.addEventListener("mouseenter", handleMouseEnterBody);
 
-    // Add hover effects for interactive elements
-    const interactiveElements = document.querySelectorAll(
-      'a, button, [role="button"]',
-    );
-    interactiveElements.forEach((el) => {
-      el.addEventListener("mouseenter", handleMouseEnter);
-      el.addEventListener("mouseleave", handleMouseLeave);
+    // Function to add hover listeners to interactive elements
+    const addHoverListeners = () => {
+      const interactiveElements = document.querySelectorAll(
+        'a, button, [role="button"], input, textarea, select',
+      );
+      interactiveElements.forEach((el) => {
+        el.addEventListener("mouseenter", handleMouseEnter);
+        el.addEventListener("mouseleave", handleMouseLeave);
+      });
+      return interactiveElements;
+    };
+
+    // Initial setup
+    let interactiveElements = addHoverListeners();
+
+    // Use MutationObserver to detect DOM changes and re-attach listeners
+    const observer = new MutationObserver(() => {
+      // Remove old listeners
+      interactiveElements.forEach((el) => {
+        el.removeEventListener("mouseenter", handleMouseEnter);
+        el.removeEventListener("mouseleave", handleMouseLeave);
+      });
+      // Add new listeners
+      interactiveElements = addHoverListeners();
+    });
+
+    // Observe the entire document for changes
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true,
     });
 
     return () => {
@@ -56,6 +85,7 @@ const CustomCursor = () => {
         el.removeEventListener("mouseenter", handleMouseEnter);
         el.removeEventListener("mouseleave", handleMouseLeave);
       });
+      observer.disconnect();
     };
   }, [shouldReduceMotion, isSmallScreen]);
 
