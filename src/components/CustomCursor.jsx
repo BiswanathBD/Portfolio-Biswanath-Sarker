@@ -1,132 +1,108 @@
-import { useState, useEffect } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { useEffect, useRef } from "react";
+import { gsap } from "gsap";
 
 const CustomCursor = () => {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [isHovering, setIsHovering] = useState(false);
-  const [isSmallScreen, setIsSmallScreen] = useState(false);
-  const [isVisible, setIsVisible] = useState(false);
-  const shouldReduceMotion = useReducedMotion();
+  const cursorDotRef = useRef(null);
+  const cursorCircleRef = useRef(null);
 
   useEffect(() => {
-    // Check screen size and hide cursor on small screens
-    const checkScreenSize = () => {
-      setIsSmallScreen(window.innerWidth < 768); // Hide on screens smaller than md (768px)
-    };
+    if (window.innerWidth < 768) return;
 
-    checkScreenSize();
-    window.addEventListener("resize", checkScreenSize);
+    const cursorDot = cursorDotRef.current;
+    const cursorCircle = cursorCircleRef.current;
 
-    return () => window.removeEventListener("resize", checkScreenSize);
-  }, []);
+    const moveCursor = (e) => {
+      gsap.to(cursorDot, {
+        x: e.clientX - 8,
+        y: e.clientY - 8,
+        duration: 0.15,
+        ease: "power2.out",
+      });
 
-  useEffect(() => {
-    if (shouldReduceMotion || isSmallScreen) return;
-
-    const updateMousePosition = (e) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
+      gsap.to(cursorCircle, {
+        x: e.clientX - 16,
+        y: e.clientY - 16,
+        duration: 0.3,
+        ease: "power2.out",
+      });
     };
 
     const handleMouseEnter = (e) => {
-      // Check if element is disabled via data attribute
-      if (e.target.dataset.cursorDisabled === "true") {
-        return;
-      }
-      setIsHovering(true);
+      if (e.target.dataset.cursorDisabled === "true") return;
+
+      gsap.to(cursorDot, { scale: 1.5, duration: 0.3, ease: "back.out(1.7)" });
+      gsap.to(cursorCircle, { scale: 2, duration: 0.3, ease: "back.out(1.7)" });
     };
-    const handleMouseLeave = () => setIsHovering(false);
 
-    // Hide cursor when mouse leaves the page
-    const handleMouseLeaveBody = () => setIsVisible(false);
-    const handleMouseEnterBody = () => setIsVisible(true);
+    const handleMouseLeave = () => {
+      gsap.to([cursorDot, cursorCircle], {
+        scale: 1,
+        duration: 0.3,
+        ease: "power2.out",
+      });
+    };
 
-    // Add event listeners for mouse movement
-    window.addEventListener("mousemove", updateMousePosition);
-    document.body.addEventListener("mouseleave", handleMouseLeaveBody);
-    document.body.addEventListener("mouseenter", handleMouseEnterBody);
+    const handleBodyLeave = () => {
+      gsap.to([cursorDot, cursorCircle], { opacity: 0, duration: 0.2 });
+    };
 
-    // Function to add hover listeners to interactive elements
+    const handleBodyEnter = () => {
+      gsap.to([cursorDot, cursorCircle], { opacity: 1, duration: 0.2 });
+    };
+
+    window.addEventListener("mousemove", moveCursor);
+    document.body.addEventListener("mouseleave", handleBodyLeave);
+    document.body.addEventListener("mouseenter", handleBodyEnter);
+
     const addHoverListeners = () => {
-      const interactiveElements = document.querySelectorAll(
+      const elements = document.querySelectorAll(
         'a, button, [role="button"], input, textarea, select',
       );
-      interactiveElements.forEach((el) => {
+      elements.forEach((el) => {
         el.addEventListener("mouseenter", handleMouseEnter);
         el.addEventListener("mouseleave", handleMouseLeave);
       });
-      return interactiveElements;
+      return elements;
     };
 
-    // Initial setup
-    let interactiveElements = addHoverListeners();
+    let elements = addHoverListeners();
 
-    // Use MutationObserver to detect DOM changes and re-attach listeners
     const observer = new MutationObserver(() => {
-      // Remove old listeners
-      interactiveElements.forEach((el) => {
+      elements.forEach((el) => {
         el.removeEventListener("mouseenter", handleMouseEnter);
         el.removeEventListener("mouseleave", handleMouseLeave);
       });
-      // Add new listeners
-      interactiveElements = addHoverListeners();
+      elements = addHoverListeners();
     });
 
-    // Observe the entire document for changes
-    observer.observe(document.body, {
-      childList: true,
-      subtree: true,
-    });
+    observer.observe(document.body, { childList: true, subtree: true });
 
     return () => {
-      window.removeEventListener("mousemove", updateMousePosition);
-      document.body.removeEventListener("mouseleave", handleMouseLeaveBody);
-      document.body.removeEventListener("mouseenter", handleMouseEnterBody);
-      interactiveElements.forEach((el) => {
+      window.removeEventListener("mousemove", moveCursor);
+      document.body.removeEventListener("mouseleave", handleBodyLeave);
+      document.body.removeEventListener("mouseenter", handleBodyEnter);
+      elements.forEach((el) => {
         el.removeEventListener("mouseenter", handleMouseEnter);
         el.removeEventListener("mouseleave", handleMouseLeave);
       });
       observer.disconnect();
     };
-  }, [shouldReduceMotion, isSmallScreen]);
+  }, []);
 
-  // Hide cursor on small screens or when motion is reduced
-  if (shouldReduceMotion || isSmallScreen) return null;
+  if (window.innerWidth < 768) return null;
 
   return (
     <>
-      {/* Main cursor dot */}
-      <motion.div
+      <div
+        ref={cursorDotRef}
         className="fixed top-0 left-0 w-4 h-4 bg-gradient-to-r from-primary to-secondary rounded-full pointer-events-none z-[9999] mix-blend-difference"
-        animate={{
-          x: mousePosition.x - 8,
-          y: mousePosition.y - 8,
-          scale: isHovering ? 1.5 : 1,
-          opacity: isVisible ? 1 : 0,
-        }}
-        transition={{
-          type: "spring",
-          stiffness: 800,
-          damping: 35,
-          mass: 0.3,
-        }}
+        style={{ opacity: 0 }}
       />
-
-      {/* Glowing background circle */}
-      <motion.div
+      <div
+        ref={cursorCircleRef}
         className="fixed top-0 left-0 w-8 h-8 border border-primary/30 rounded-full pointer-events-none z-[9998]"
-        animate={{
-          x: mousePosition.x - 16,
-          y: mousePosition.y - 16,
-          scale: isHovering ? 2 : 1,
-          opacity: isVisible ? 1 : 0,
-        }}
-        transition={{
-          type: "spring",
-          stiffness: 200,
-          damping: 20,
-          mass: 0.1,
-        }}
         style={{
+          opacity: 0,
           background:
             "radial-gradient(circle, rgba(168, 85, 247, 0.1) 0%, transparent 70%)",
         }}

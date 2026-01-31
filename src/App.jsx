@@ -12,6 +12,7 @@ import CustomCursor from "./components/CustomCursor";
 import SmoothScroll from "./components/SmoothScroll";
 import ScrollToTop from "./components/ScrollToTop";
 import WelcomeLoader from "./components/WelcomeLoader";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   const [showLoader, setShowLoader] = useState(true);
@@ -79,6 +80,7 @@ function App() {
             </main>
             <Footer />
             <ScrollToTop />
+            <Toaster/>
           </motion.div>
         )}
       </AnimatePresence>

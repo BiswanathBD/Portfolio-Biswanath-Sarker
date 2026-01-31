@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import toast from "react-hot-toast";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -106,6 +107,9 @@ const Contact = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     // Add your emailjs logic here
+    toast("Email sending feature not complete yet", {
+      icon: "⚠️",
+    });
     console.log("Form submitted:", formData);
   };
 
@@ -348,29 +352,59 @@ const Contact = () => {
         >
           <form
             onSubmit={handleSubmit}
-            className="space-y-5 flex-1 flex flex-col"
+            className="space-y-6 flex-1 flex flex-col"
           >
-            <input
-              type="text"
-              name="name"
-              placeholder="Your Name"
-              className="w-full p-4 rounded-xl bg-white/5 border border-white/20 text-white focus:border-primary focus:outline-none transition-all"
-              required
-            />
-            <input
-              type="email"
-              name="email"
-              placeholder="Email Address"
-              className="w-full p-4 rounded-xl bg-white/5 border border-white/20 text-white focus:border-primary focus:outline-none transition-all"
-              required
-            />
-            <textarea
-              name="message"
-              placeholder="Your Message"
-              rows="3"
-              className="w-full p-4 rounded-xl bg-white/5 border border-white/20 text-white focus:border-primary focus:outline-none transition-all resize-none flex-1"
-              required
-            />
+            {/* Name Input */}
+            <div className="relative">
+              <input
+                type="text"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                className="w-full p-4 rounded-xl bg-white/5 border border-white/20 text-white focus:border-primary focus:outline-none transition-all peer"
+                required
+              />
+              <label
+                className={`absolute left-4 text-gray-400 pointer-events-none transition-all duration-300 ${formData.name ? "-top-3 translate-y-0 text-xs bg-primary text-white px-2 py-1 rounded-md font-semibold" : "top-1/2 -translate-y-1/2 text-base"} peer-focus:-top-3 peer-focus:translate-y-0 peer-focus:text-xs peer-focus:bg-primary peer-focus:text-white peer-focus:px-2 peer-focus:py-1 peer-focus:rounded-md peer-focus:font-semibold`}
+              >
+                Your Name
+              </label>
+            </div>
+
+            {/* Email Input */}
+            <div className="relative">
+              <input
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                className="w-full p-4 rounded-xl bg-white/5 border border-white/20 text-white focus:border-primary focus:outline-none transition-all peer"
+                required
+              />
+              <label
+                className={`absolute left-4 text-gray-400 pointer-events-none transition-all duration-300 ${formData.email ? "-top-3 translate-y-0 text-xs bg-primary text-white px-2 py-1 rounded-md font-semibold" : "top-1/2 -translate-y-1/2 text-base"} peer-focus:-top-3 peer-focus:translate-y-0 peer-focus:text-xs peer-focus:bg-primary peer-focus:text-white peer-focus:px-2 peer-focus:py-1 peer-focus:rounded-md peer-focus:font-semibold`}
+              >
+                Email Address
+              </label>
+            </div>
+
+            {/* Message Textarea */}
+            <div className="relative flex-1">
+              <textarea
+                name="message"
+                value={formData.message}
+                onChange={handleChange}
+                rows="3"
+                className="w-full h-full p-4 rounded-xl bg-white/5 border border-white/20 text-white focus:border-primary focus:outline-none transition-all resize-none peer"
+                required
+              />
+              <label
+                className={`absolute left-4 pointer-events-none transition-all duration-300 ${formData.message ? "-top-3 text-xs bg-primary text-white px-2 py-1 rounded-md font-semibold" : "top-6 text-base text-gray-400"} peer-focus:-top-3 peer-focus:text-xs peer-focus:bg-primary peer-focus:text-white peer-focus:px-2 peer-focus:py-1 peer-focus:rounded-md peer-focus:font-semibold`}
+              >
+                Your Message
+              </label>
+            </div>
+
             <button
               type="submit"
               className="w-full bg-gradient-to-r from-primary/20 to-secondary/20 border border-primary/30 text-primary font-bold py-4 rounded-xl hover:from-primary/30 hover:to-secondary/30 hover:border-primary/40 transition-all hover:-translate-y-0.5"
