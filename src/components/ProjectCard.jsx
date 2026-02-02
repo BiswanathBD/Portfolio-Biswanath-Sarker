@@ -19,7 +19,7 @@ const ProjectCard = ({ project, isActive, openProjectDetail }) => {
         </>
       )}
 
-      <div className="flex flex-col md:grid md:grid-cols-2 md:aspect-[4/3] relative z-10">
+      <div className="flex flex-col justify-between md:grid md:grid-cols-2 md:aspect-[4/3] relative z-10 h-full">
         {/* Image Section */}
         <div className="relative">
           <img
@@ -84,7 +84,7 @@ const ProjectCard = ({ project, isActive, openProjectDetail }) => {
             </div>
           </div>
 
-          <div className="flex gap-3 md:gap-4">
+          <div className="flex gap-3 md:gap-4 mt-4">
             <button
               onClick={isActive ? () => openProjectDetail(project) : undefined}
               disabled={!isActive}
@@ -104,9 +104,14 @@ const ProjectCard = ({ project, isActive, openProjectDetail }) => {
               href={isActive ? project.liveUrl : undefined}
               target={isActive ? "_blank" : undefined}
               rel={isActive ? "noopener noreferrer" : undefined}
-              onClick={(e) => !isActive && e.preventDefault()}
+              onClick={(e) => {
+                if (!isActive) {
+                  e.preventDefault();
+                  e.stopPropagation();
+                }
+              }}
               data-cursor-disabled={!isActive}
-              className={`w-full relative overflow-hidden bg-gradient-to-r from-primary to-secondary text-white text-center py-2 px-3 md:py-2.5 md:px-4 rounded-lg text-xs md:text-sm shadow-lg transition-all duration-300 z-50 ${
+              className={`w-full relative bg-gradient-to-r from-primary to-secondary text-white text-center py-2 px-3 md:py-2.5 md:px-4 rounded-lg text-xs md:text-sm shadow-lg transition-all duration-300 z-10 ${
                 isActive
                   ? "hover:-translate-y-1 hover:scale-105 cursor-pointer"
                   : "cursor-not-allowed opacity-50"

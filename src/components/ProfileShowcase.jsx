@@ -49,7 +49,7 @@ const ProfileShowcase = () => {
       />
 
       {/* 1. Inner Circle */}
-      <div className="absolute w-60 md:w-80 aspect-square rounded-full border border-primary opacity-20 z-5 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
+      <div className="absolute w-64 md:w-80 aspect-square rounded-full border border-primary opacity-20 z-5 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
       {/* 2. Middle Circle */}
       <div className="absolute w-80 md:w-[24rem] aspect-square rounded-full border border-secondary opacity-20 z-5 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
       {/* 3. Outer Circle */}
@@ -72,7 +72,7 @@ const ProfileShowcase = () => {
 
       {/* --- ICONS: INNER CIRCLE (Frontend) --- */}
       <motion.div
-        className="absolute w-60 h-60 md:w-80 md:h-80 rounded-full z-20 pointer-events-none"
+        className="absolute w-64 h-64 md:w-80 md:h-80 rounded-full z-20 pointer-events-none"
         style={{ top: "50%", left: "50%", x: "-50%", y: "-50%" }}
         animate={{ rotate: 360 }}
         transition={{ duration: 40, repeat: Infinity, ease: "linear" }}

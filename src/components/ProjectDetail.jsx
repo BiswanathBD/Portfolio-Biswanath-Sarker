@@ -7,33 +7,19 @@ const ProjectDetail = ({ project, isOpen, onClose }) => {
   // Prevent background scrolling when modal is open
   useEffect(() => {
     if (isOpen) {
-      // Disable body scroll
       document.body.style.overflow = "hidden";
-      document.documentElement.style.overflow = "hidden";
 
-      // Add escape key listener
       const handleEscape = (e) => {
-        if (e.key === "Escape") {
-          onClose();
-        }
+        if (e.key === "Escape") onClose();
       };
 
       document.addEventListener("keydown", handleEscape);
 
       return () => {
         document.removeEventListener("keydown", handleEscape);
+        document.body.style.overflow = "";
       };
-    } else {
-      // Re-enable body scroll
-      document.body.style.overflow = "unset";
-      document.documentElement.style.overflow = "unset";
     }
-
-    // Cleanup on unmount
-    return () => {
-      document.body.style.overflow = "unset";
-      document.documentElement.style.overflow = "unset";
-    };
   }, [isOpen, onClose]);
 
   const modalVariants = {

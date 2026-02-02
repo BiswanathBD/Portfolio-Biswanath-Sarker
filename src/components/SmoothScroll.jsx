@@ -10,7 +10,7 @@ const SmoothScroll = () => {
 
   useEffect(() => {
     const lenis = new Lenis({
-      lerp: 0.08,          // ✅ better than duration
+      lerp: 0.08, // ✅ better than duration
       smooth: true,
       smoothTouch: false,
     });
@@ -46,7 +46,7 @@ const SmoothScroll = () => {
 
     return () => {
       document.removeEventListener("click", handleSmoothScroll);
-      ScrollTrigger.getAll().forEach(t => t.kill());
+      ScrollTrigger.getAll().forEach((t) => t.kill());
       lenis.destroy();
     };
   }, []);

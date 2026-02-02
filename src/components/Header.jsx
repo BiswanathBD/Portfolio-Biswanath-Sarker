@@ -248,7 +248,7 @@ const Header = () => {
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div
-            className={`absolute top-full left-0 right-0 md:hidden transition-all mx-4 backdrop-blur-lg`}
+            className={`absolute top-full left-0 right-0 md:hidden transition-all mx-4 backdrop-blur-lg z-50`}
             variants={mobileMenuVariants}
             initial="hidden"
             animate="visible"

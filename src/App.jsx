@@ -54,6 +54,7 @@ function App() {
 
   return (
     <>
+      <CustomCursor />
       <SmoothScroll />
 
       <AnimatePresence mode="wait">
@@ -67,8 +68,6 @@ function App() {
             initial="initial"
             animate="animate"
           >
-            <CustomCursor />
-
             <Header />
             <main>
               <Hero />
@@ -80,7 +79,7 @@ function App() {
             </main>
             <Footer />
             <ScrollToTop />
-            <Toaster/>
+            <Toaster />
           </motion.div>
         )}
       </AnimatePresence>
