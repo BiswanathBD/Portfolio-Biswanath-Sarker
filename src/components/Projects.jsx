@@ -11,7 +11,7 @@ gsap.registerPlugin(ScrollTrigger);
 const Projects = () => {
   const sectionRef = useRef();
   const titleRef = useRef();
-  const carouselContainerRef = useRef();
+  const projectContainerRef = useRef();
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -34,7 +34,7 @@ const Projects = () => {
     fetchProjects();
   }, []);
 
-  // GSAP Scroll-Controlled Animation for Title
+  // GSAP Scroll-Controlled Animation for Title and Project Container
   useEffect(() => {
     if (loading) return;
 
@@ -57,25 +57,22 @@ const Projects = () => {
         },
       );
 
-      // Carousel Animation
-      if (carouselContainerRef.current) {
-        gsap.fromTo(
-          carouselContainerRef.current,
-          { y: 60, opacity: 0 },
-          {
-            y: 0,
-            opacity: 1,
-            ease: "none",
-            scrollTrigger: {
-              trigger: carouselContainerRef.current,
-              start: "top 85%",
-              end: "top 55%",
-              scrub: 1.5,
-              id: "projects-carousel",
-            },
+      // Project Container Fade Animation
+      gsap.fromTo(
+        projectContainerRef.current,
+        { opacity: 0 },
+        {
+          opacity: 1,
+          ease: "none",
+          scrollTrigger: {
+            trigger: projectContainerRef.current,
+            start: "top 85%",
+            end: "top 60%",
+            scrub: 1,
+            id: "projects-container",
           },
-        );
-      }
+        },
+      );
     }, sectionRef);
 
     return () => ctx.revert();
@@ -183,7 +180,7 @@ const Projects = () => {
       </div>
 
       <div className="relative" ref={emblaRef}>
-        <div className="flex gap-4" ref={carouselContainerRef}>
+        <div className="flex gap-4" ref={projectContainerRef}>
           {projects.map((project, index) => {
             const isActive = index === activeIndex;
 
