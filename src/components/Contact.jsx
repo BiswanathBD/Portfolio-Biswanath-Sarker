@@ -49,8 +49,8 @@ const Contact = () => {
           ease: "none",
           scrollTrigger: {
             trigger: infoCardRef.current,
-            start: "top 75%",
-            end: "top 50%",
+            start: "top 90%",
+            end: "top 60%",
             scrub: 1.2,
             id: "contact-info-card",
           },
@@ -67,8 +67,8 @@ const Contact = () => {
           ease: "none",
           scrollTrigger: {
             trigger: formRef.current,
-            start: "top 75%",
-            end: "top 50%",
+            start: "top 90%",
+            end: "top 60%",
             scrub: 1.2,
             id: "contact-form-card",
           },
@@ -87,8 +87,8 @@ const Contact = () => {
               ease: "none",
               scrollTrigger: {
                 trigger: icon,
-                start: "top 75%",
-                end: "top 60%",
+                start: "top 90%",
+                end: "top 80%",
                 scrub: 1 + index * 0.15,
                 id: `contact-social-${index}`,
               },

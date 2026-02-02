@@ -38,45 +38,77 @@ const Projects = () => {
   useEffect(() => {
     if (loading) return;
 
-    const ctx = gsap.context(() => {
-      // Title Animation
-      gsap.fromTo(
-        titleRef.current,
-        { y: 50, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          ease: "none",
-          scrollTrigger: {
-            trigger: titleRef.current,
-            start: "top 80%",
-            end: "top 50%",
-            scrub: 1,
-            id: "projects-title",
+    // Small delay to ensure DOM is fully rendered
+    const timer = setTimeout(() => {
+      const ctx = gsap.context(() => {
+        // Title Animation
+        gsap.fromTo(
+          titleRef.current,
+          { y: 50, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            ease: "none",
+            scrollTrigger: {
+              trigger: titleRef.current,
+              start: "top 80%",
+              end: "top 50%",
+              scrub: 1,
+              id: "projects-title",
+              refreshPriority: -1,
+            },
           },
-        },
-      );
+        );
 
-      // Project Container Fade Animation
-      gsap.fromTo(
-        projectContainerRef.current,
-        { opacity: 0 },
-        {
-          opacity: 1,
-          ease: "none",
-          scrollTrigger: {
-            trigger: projectContainerRef.current,
-            start: "top 85%",
-            end: "top 60%",
-            scrub: 1,
-            id: "projects-container",
+        // Project Container Fade Animation
+        gsap.fromTo(
+          projectContainerRef.current,
+          { opacity: 0 },
+          {
+            opacity: 1,
+            ease: "none",
+            scrollTrigger: {
+              trigger: projectContainerRef.current,
+              start: "top 85%",
+              end: "top 60%",
+              scrub: 1,
+              id: "projects-container",
+              refreshPriority: -1,
+            },
           },
-        },
-      );
-    }, sectionRef);
+        );
 
-    return () => ctx.revert();
+        // Refresh ScrollTrigger after setup
+        ScrollTrigger.refresh();
+      }, sectionRef);
+
+      return () => {
+        ctx.revert();
+        clearTimeout(timer);
+      };
+    }, 100);
+
+    return () => clearTimeout(timer);
   }, [loading]);
+
+  // Additional effect to handle window load and resize
+  useEffect(() => {
+    const handleLoad = () => {
+      ScrollTrigger.refresh();
+    };
+
+    const handleResize = () => {
+      ScrollTrigger.refresh();
+    };
+
+    window.addEventListener("load", handleLoad);
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("load", handleLoad);
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   const [emblaRef, emblaApi] = useEmblaCarousel({
     align: "center",
