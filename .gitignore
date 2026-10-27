@@ -29,3 +29,13 @@ lerna-debug.log*
 # OS generated files
 Thumbs.db
 config.bat
+
+# Environment variables & secrets (added by GitHub Guardian)
+.env
+.env.*
+*.env
+!.env.example
+!.env.sample
+.envrc
+.venv/
+venv/
